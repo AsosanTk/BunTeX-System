@@ -1,192 +1,379 @@
-\documentclass[b5j, 9pt, nomag, dvipdfmx, papersize, twocolumn, uplatex]{jsarticle}
-
-%usepackage
-\usepackage{tikz}
-\usepackage{amsthm}
-\usepackage{amsmath}
-\usepackage{amssymb}
+% LuaLaTeX, jlreqの新規格で行う
+% B5, 書籍, フォントサイズ, ページレイアウト設定
+\documentclass[book, twoside, paper=b5j, fleqn, jafontsize=9pt, jafontscale=1, head_space=22mm, foot_space=9mm, fore-edge=16mm, gutter=25mm, hanging_punctuation]{jlreq}
+\usepackage{graphicx, xcolor, tikz} % グラフィック関係
+\usepackage[math-style=TeX, bold-style=ISO]{unicode-math} % 数式関係（ほぼ関係ない）
+\usepackage{tcolorbox}
+\usepackage{makeidx} % 索引用
+\usepackage{ascmac} % 表紙のボックスとか
+\usepackage[usetype1]{myuline--} % https://doratex.hatenablog.jp/entry/20171219/1513609345
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{fancybox}
+\usepackage{tabularx}
+\usepackage{lipsum}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{multicol}
 \usepackage{url}
-\usepackage[hypertex]{hyperref}
 \usepackage{wrapfig}
-\usepackage{pxjahyper}
-\usepackage[utf8]{inputenc}
-\usepackage[dvipdfmx]{color}
 \usepackage{here}
-\usepackage{amsfonts}
 \usepackage{bm}
 \usepackage{ulem}
-\usepackage{layout}
-\usepackage{ascolorbox}
-\usepackage{lipsum}
-\usepackage{tabularx}
-\usepackage{scsnowman}
-\usepackage[T1]{fontenc}
-\usepackage{hiraprop}
+%\usepackage{scsnowman}
 \usepackage{lastpage}
-%\usepackage[usetype1]{uline--} %https://doratex.hatenablog.jp/entry/20171219/1513609345
-%\usepackage{tgheros}
-%\usepackage{lmodern}
-\usepackage[deluxe, jis2004]{otf}
-\usepackage[noalphabet]{pxchfon}
-%\usepackage{redeffont}
-\usepackage{fancyhdr}
+%\input{luascolorbox}
+\usetikzlibrary{intersections, calc}
+\tcbuselibrary{breakable} % tcolorbox改ページ設定
+%\usepackage{jumoline} % 日本語複数行下線 P.301
+%\usepackage{udline}
+
+\parindent1\zw
+\renewcommand{\jlreqkanjiskip}{0pt plus .1\zw minus .01\zw}
+
+% トンボの設定
+\usepackage[show={trimmarks,digital}, bleed_margin={top=3truemm,bottom=3truemm,gutter=3truemm,fore-edge=3truemm}, lualatex]{jlreq-trimmarks}
+\setlength{\topskip}{5truemm}
+
+% 欧文フォントの設定（メインはPalatino, SansはHiragino-Sans,）
+\usepackage{fontspec}
+\usepackage{luatexja}
+\usepackage[deluxe]{luatexja-fontspec}
+\setmainfont[
+    OpticalSize = 0,
+    SmallCapsFont = lmromancaps10-regular,
+    SlantedFont = lmromanslant10-regular,
+    FontFace = {sb}{n}{lmromandemi10-regular}
+]{Latin Modern Roman}
+\newfontface{\Palatino}{Palatino}
+\newfontface{\Helvetica}{Helvetica}
+\setsansfont[FontFace = {l}{n}{HiraginoSans-W3}]{HiraginoSans}
+\newfontface{\HiraKakusixE}{HiraginoSans-W6}
+% ノンブルフォント（GenEiNombre）
+\newfontface{\GenEiNombre}[
+    ItalicFont         = GenEiNombre-Roman.ttf,
+    ItalicFeatures     = {FakeSlant=0.33},
+]{GenEiNombre-Roman.ttf}
+% 和文フォント（Hiragino Mincyo/Sans/Maru）
+\setmainjfont[
+    YokoFeatures       = {JFM=jlreq},
+    TateFeatures       = {JFM=jlreqv},
+    BoldFont           = HiraMinProN-W3,
+    BoldFeatures       = {FakeBold=2},
+    ItalicFont         = HiraMinProN-W3,
+    ItalicFeatures     = {FakeSlant=0.33},
+    BoldItalicFont     = HiraMinProN-W3,
+    BoldItalicFeatures = {FakeBold=2, FakeSlant=0.33}
+]{HiraMinProN-W3}
+\setsansjfont[
+    YokoFeatures       = {JFM=jlreq},
+    TateFeatures       = {JFM=jlreqv},
+    BoldFont           = HiraginoSans-W4,
+    BoldFeatures       = {FakeBold=2},
+    ItalicFont         = HiraginoSans-W3,
+    ItalicFeatures     = {FakeSlant=0.33},
+    BoldItalicFont     = HiraginoSans-W4,
+    BoldItalicFeatures = {FakeBold=2, FakeSlant=0.33}
+]{HiraginoSans-W3}
+\newjfontface{\HiraMaru}{HiraMaruProN-W4}
+\newjfontface{\HiraKakusix}{HiraginoSans-W6}
 
 
-%fonts
-%\setlightminchofont[3]{HiraMinProN.ttc}% \mcfamily\ltseries
-%\setmediumminchofont[6]{HiraMinProN.ttc} % \mcfamily\mdseries
-%\setboldminchofont[8]{HiraMinProN.ttc}   % \mcfamily\bfseries
-\setminchofont{HiraMinProN.ttc}
-\setmediumgothicfont{HiraKakuGothic-W3.ttc} % \gtfamily\mdseries
-\setboldgothicfont{HiraKakuGothic-W5.ttc}       % \gtfamily\bfseries
-\setxboldgothicfont{HiraKakuGothic-W6.ttc}      % \gtfamily\ebseries
-\setmarugothicfont{HiraMaruProN-W4.ttc}        % \mgfamily
-%renewcommand{\kanjifamilydefault}{\gtdefault}
-\renewcommand{\familydefault}{\sfdefault}
-\renewcommand{\sfdefault}{cmr}
 
 
-%margin
-\setlength{\oddsidemargin}{-19.4truemm}
-\setlength{\topmargin}{-19.4truemm}
-\setlength{\headheight}{7.5truemm} %4truemm
-\setlength{\headsep}{4truemm}%3truemm
-\setlength{\textwidth}{170truemm}
-\setlength{\textheight}{226truemm} %232truemm
-\setlength{\marginparsep}{0truemm}
-\setlength{\marginparwidth}{0truemm}
-\setlength{\footskip}{7truemm}%4truemm
 
 
-%twocolumn
-\setlength{\columnsep}{7.5truemm}
-\setlength{\columnseprule}{0.3truept}
-\renewcommand{\headrulewidth}{0.5truept} %ヘッダの罫線
-\renewcommand{\footrulewidth}{0.3truept} %フッタの罫線
-%\renewcommand{\headrule}{\dotfill} %ヘッダの罫線
-\renewcommand{\footrule}{\dotfill}
+
+% 表紙
+\newcommand{\covera}[5]{
+    \vbox to 151truemm{\vskip-6.71truemm
+        \hbox to 227truemm{\hskip-10.52truemm
+        \begin{tikzpicture}
+            \draw[line width=0.4pt] (0,0) rectangle (150mm,-226mm);
+            \fill[black] (150mm,-1mm) rectangle (151mm,-227mm);
+            \fill[black] (1mm,-226mm) rectangle (151mm,-227mm);
+            \draw[text=black] node (A) at (0mm,-21mm) [anchor=north west] {\hbox{\textgt{\fontsize{15truept}{15truept}\selectfont\hspace{5truemm}#1}}};
+            \draw[text=black] node (B) at (0mm,-33mm) [anchor=north west] {\hbox{\hspace{5truemm}\textgt{\bfseries\fontsize{20truept}{20truept}\selectfont #2}\hspace{5truemm}}};
+            \draw[line width=1mm, black] (0mm,-30mm) -- ($(B.north east) + (0mm,3mm)$);
+            \draw[text=black] node (C) at (130mm,-211mm) [anchor=south east] {\hbox{\textgt{\fontsize{12truept}{12truept}\selectfont {\bfseries #3}#4}}};
+            \draw[text=black] node (D) at (151mm,-233mm) [anchor=south east] {\hbox{\textsf{\fontsize{12truept}{12truept}\selectfont #5}}};
+        \end{tikzpicture}
+        \hss}\vss}
+    \newpage
+}
 
 
-%pagestyle
-\pagestyle{fancy}
-    \lhead{\fontsize{10truept}{10truept}\selectfont \gtfamily\mdseries \lefttitle} %ヘッダ左
-    \chead{} %ヘッダ中央
-    \rhead{\fontsize{10truept}{10truept}\selectfont \gtfamily\mdseries \righttitle 　{\hsffamily \thepage} 枚目{\hsffamily / \pageref{LastPage}}枚中} %ヘッダ右．コンパイルした日付を表示
-    \lfoot{} %フッタ左
-    \cfoot{-\thepage{}-} %フッタ中央．ページ番号を表示
-    \rfoot{} %フッタ右
+
+
+
+
+
+
+
+%Tikzで遊んでみる
+%From 付録D:Tikz
+\newcommand{\ruler}{
+    \begin{tikzpicture}[x=1mm, y=1mm]
+        \draw (0,0)--(100,0);
+        \foreach \x in {0,...,100} \draw (\x,0)--(\x,3);
+        \foreach \x in {0,5,...,100} \draw (\x,0)--(\x,5);
+        \foreach \x in {0,10,...,100} \draw (\x,0)--(\x,7);
+    \end{tikzpicture}
+}
+\newcommand{\egg}[1]{\raisebox{-3pt}{%
+    \begin{tikzpicture}[x=1pt,y=1pt,line width=1pt]
+        \draw (0,0) ellipse (4.5 and 6);
+        \draw (0,0) node {%
+          {\Helvetica \fontsize{9pt}{0}\selectfont #1\/};
+        }
+    \end{tikzpicture}}}
+
+\newcommand{\eggg}[1]{\raisebox{-3pt}{%
+    \begin{tikzpicture}[x=1pt,y=1pt,line width=1pt]
+        \draw[fill=black!30] (0,0) ellipse (4.5 and 6);
+        \draw (0,0) node {%
+          {\Helvetica \fontsize{9pt}{0}\selectfont #1\/};
+        }
+    \end{tikzpicture}}}
+
+\newcommand{\Keytop}[2][12]{% ascmacとブッキング
+    \begin{tikzpicture}[x=0.1em,y=0.1em]{
+        \useasboundingbox (0,0) rectangle (#1,9);
+        \draw[rounded corners=0.2em] (0,-3) rectangle (#1,9);
+        \draw[anchor=base] (#1/2,0) node {\sffamily #2}
+    \end{tikzpicture}}}
+
+%均等割
+\newcommand{\kintou}[2]{%
+\leavevmode
+\hbox to #1{%
+\ltjsetparameter{kanjiskip=0pt plus 1fill minus 1fill}%
+\ltjsetparameter{xkanjiskip=\ltjgetparameter{kanjiskip}}%
+#2}}
 
 
 %tabularx
 \newcolumntype{C}{>{\centering\arraybackslash}X} %%セル内で中央揃えをする。
-\newcolumntype{R}{>{\raggedright\arraybackslash}X} %%セル内で右揃え。
-\newcolumntype{L}{>{\raggedleft\arraybackslash}X} %%セル内で左揃え。
-\newcommand{\lefttitle}{}
-\newcommand{\righttitle}{}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X} %%セル内で右揃え。
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X} %%セル内で左揃え。
 
 
-%list
-\renewcommand{\labelitemi}{-}
-\renewcommand{\labelitemii}{・}
-\renewcommand{\labelenumi}{(\theenumi)}
-\renewcommand{\labelenumii}{(\theenumii)}
-\renewcommand{\labelenumiii}{\textcircled{\scriptsize \theenumi}}
-\newenvironment{enumwithcircle}{\begin{enumerate} \renewcommand{\labelenumi}{\textcircled{\scriptsize \theenumi}} }{\end{enumerate}}
-\newenvironment{enumwithbox}{\begin{enumerate} \renewcommand{\labelenumi}{\(\Box \)(\theenumi)}}{\end{enumerate}}
 
 
-%font-decoration
-\renewcommand{\textbf}[1]{{\gtfamily\bfseries #1}}
-\renewcommand{\emph}[1]{\underline{\textbf{#1}}}
-\newcommand{\captionsize}[1]{{\fontsize{7truept}{7truept}\selectfont #1}}
-%\newenvironment{indenter}{\hspace{6truemm}}{}
+%PageStyle
+\NewPageStyle{normal}{
+    yoko,
+    running_head_position=top-right,
+    nombre_position=top-right,
+    nombre=,
+    odd_running_head=\headerodd,
+    even_running_head=\headereven,
+}
+
+%%%% テキストをTikzで置き換え
+
+\newcommand{\headerodd}{%
+    \vbox to 17truemm{\vskip-15.53truemm
+        \hbox to 127truemm{
+            \hfill
+            {\raise2truemm\hbox{{\fontsize{10truept}{10truept}\selectfont\textgt{第１回\hspace{1\zw}原子とイオン}}}
+            \hspace{5truemm}
+            \begin{tikzpicture}
+                \fill[black] (0,0) rectangle (3mm,20mm);
+            \end{tikzpicture}}
+            \hspace{0truemm}
+            \raise2truemm\hbox{{\fontsize{12truept}{12truept}\selectfont\GenEiNombre{\textit{105}}}}
+            \hspace{-12.61truemm}
+        }\vss}
+}
+
+\newcommand{\headereven}{%
+    \vbox to 17truemm{\vskip-15.53truemm
+        \hbox to 127truemm{\hskip-16.08truemm
+            \hbox to 11.5truemm{\hfill\raise2truemm\hbox{{\fontsize{12truept}{12truept}\selectfont\GenEiNombre{\textit{105}}}}}
+            \hspace{0.46truemm}
+            \begin{tikzpicture}
+                \fill[black] (0,0) rectangle (3mm,20mm);
+            \end{tikzpicture}
+            \hspace{5truemm}
+            {\raise2truemm\hbox{{\fontsize{10truept}{10truept}\selectfont\textgt{第１回\hspace{1\zw}原子とイオン}}}
+            }
+        \hss}\vss}
+}
 
 
-%title&section&text
-\newcommand{\resumetitle}[2]{\begin{tcolorbox}[colframe=black!10!white, colback=black!10!white]
-    \begin{center} {\vspace{0truemm} \fontsize{12truept}{14truept}\selectfont \gtfamily\ebseries #1}\\ #2 \end{center}
-    %\vspace{-4truemm}
-\end{tcolorbox}}
 
-\renewcommand{\section}[1]{\vspace{3truemm} \ascboxD[D]{\fontsize{11truept}{12truept}\selectfont #1}}
-\newcommand{\subsectiona}[2]{\noindent \fbox{\fontsize{8truept}{9truept}\selectfont \textbf{#1}}　{\fontsize{8truept}{8truept}\selectfont #2} \\}
-\newcommand{\subsectionb}[1]{\noindent {\fontsize{8truept}{9truept}\selectfont 【#1】} \\}
-\newcommand{\subsectionc}[1]{\noindent {\fontsize{8truept}{9truept}\selectfont ★#1★} \\}
+\newcommand{\aboutsection}[1]{\noindent 【#1】\\}
+% 二段組
+\setlength{\columnseprule}{.4truept}
+\setlength{\columnsep}{6truemm}
 
-\newcommand{\point}[1]{\vspace{0truemm} \noindent \hspace{-6truept}  ▶︎ \hspace{-4truept}\underline{\textbf{#1}}\\}
-\newcommand{\checking}[1]{\vspace{0truemm} \noindent \hspace{-6truept}  ▷　#1}
-\newcommand{\spacer}{\vspace{-3truemm}　\\}
+% BunTeXロゴデザイン
+\newcommand{\BunTeX}{B\kern-.12em\lower.2ex\hbox{u}\kern-.14em\raise.3ex\hbox{n}\kern-.16em\TeX}
+\newcommand{\BunTeXJ}{文\kern-.05em\TeX}
 
+
+% セクション系統
+
+\renewcommand{\section}[1]{%
+\vspace{10truemm}
+\vbox to 13.5truemm{\vskip-0truemm
+    \hbox to 144truemm{\hskip-3truemm
+    \begin{tikzpicture}
+        \fill[black!70] (6.5mm,4.75mm) ellipse (6.5mm and 4.75mm);
+        \draw[white] (6.5mm,4.75mm) node {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusixE \S {\fontsize{12pt}{12pt}\selectfont 1}}};
+        \draw[text=black!90] node (A) at (22mm,4.75mm) [anchor=west] {\hbox{\fontsize{12pt}{12pt}\selectfont\HiraKakusix #1}};
+        \draw[line width=1pt, black!70] (19mm,8.75mm) -- (140mm,8.75mm);
+        \draw[line width=1pt, black!70] (13mm,0.75mm) -- (140mm,0.75mm);
+        \fill[black!90] (13mm,0.75mm) circle (0.5mm);
+        \fill[black!90] (19mm,8.75mm) circle (0.5mm);
+        \draw[line width=1pt, black!70] (140mm,0.75mm) arc (-90:90:4mm);
+    \end{tikzpicture}
+    \hss}\vss}
+    \vskip-10truemm
+}
+
+\newcommand{\nosubsection}{\vspace{7.7truemm}}
+
+\renewcommand{\subsection}[1]{%
+\vspace{10truemm}
+\vbox to 6.6truemm{\vskip-0truemm
+    \hbox to 142truemm{\hskip-0truemm
+        \begin{tikzpicture}
+            \fill[black!90, rounded corners=1mm] (0mm,0mm) [anchor=north west] rectangle (9mm,6mm);
+            \draw[white] (4.5mm,3mm) node {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusixE 1.3}};
+            \draw[line width=1pt, black!90] (9mm,3mm) -- (14mm,3mm);
+            \fill[black!90] (141.25mm,3mm) circle (0.75mm);
+            \draw[text=black!90] node (A) at (14mm,3mm) [anchor=west] {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusix #1}};
+            \draw[line width=1pt, black!90] (A.east) --  (141.25mm,3mm);
+        \end{tikzpicture}
+    \hss}\vss}
+}
+% フォントデコレーション
+\newcommand{\boldtext}[1]{\textbf{\gtfamily\sffamily #1}}
+% テキスト
 \newcommand{\snowman}{\UTF{2603}}
 \newcommand{\responsibility}[2]{\begin{flushright} 文責：#1（#2） \end{flushright}}
 
-\newenvironment{margintowrite}[1][30truemm]{\begin{tcolorbox}[empty, left skip=12truept, before skip=8pt,after skip=6pt, borderline west={1pt}{0pt}{black}] \vspace{30truemm}}{\end{tcolorbox} \vspace{-5truemm}}
 
 
-%figure
-\renewcommand{\figurename}{}
-\newcommand{\singleimage}[2][50truemm]{\begin{figure}[htbp] \begin{center} \includegraphics[width=#1]{#2} \end{center} \end{figure}}
-\newcommand{\doubleimage}[3][30truemm]{
-    \begin{figure}[H]
-        \centering
-        \begin{minipage}{#1}
-            \centering
-            \includegraphics[width=#1]{#2}
-        \end{minipage}
-        \hspace{10truemm}
-        \begin{minipage}{#1}
-            \centering
-            \includegraphics[width=#1]{#3}
-        \end{minipage}
-    \end{figure}
-}
-\newcommand{\singleqr}[2]{
-    \begin{wrapfigure}{r}{25truemm}
-        \vspace*{-\intextsep}
-        \includegraphics[width=25truemm]{#1}
-        \centering \captionsize{#2}
-    \end{wrapfigure}
-}
-\newcommand{\doubleqr}[4]{
-    \begin{figure}[H]
-        \centering
-        \begin{minipage}{25truemm}
-            \centering
-            \includegraphics[width=20truemm]{#1}
-            \begin{center}{\fontsize{7truept}{7truept}\selectfont #2}\end{center}
-        \end{minipage}
-        \hspace{10truemm}
-        \begin{minipage}{25truemm}
-            \centering
-            \includegraphics[width=20truemm]{#3}
-            \begin{center}{\fontsize{7truept}{7truept}\selectfont #4}\end{center}
-        \end{minipage}
-    \end{figure}
-}
-\newcommand{\tripleqr}[6]{\begin{figure}[H]
-    \centering
-    \begin{minipage}{20truemm}
-        \centering
-        \includegraphics[width=15truemm]{#1}
-        \begin{center}{\fontsize{7truept}{7truept}\selectfont #2}\end{center}
-    \end{minipage}
-    \hspace{6truemm}
-    \begin{minipage}{20truemm}
-        \centering
-        \includegraphics[width=15truemm]{#3}
-        \begin{center}{\fontsize{7truept}{7truept}\selectfont #4}\end{center}
-    \end{minipage}
-    \hspace{6truemm}
-    \begin{minipage}{20truemm}
-        \centering
-        \includegraphics[width=15truemm]{#5}
-        \begin{center}{\fontsize{7truept}{7truept}\selectfont #6}\end{center}
-    \end{minipage}
-\end{figure}
-}
+
+% 表
+
+
+% リスト
+
+
+% 画像・図
+
+
+
+% 作るもの
+%% 図入れ　p4ミニページ, p5全体, p13, p32二つ並べ, p414255 wrapfig, p61キャプションなし画像, p91, p98
+%% 枠囲み導入 key・指針・例題・補足・参考・注意・p68問題例
+%% 表p5, p38, p86
+%% p49 footnote
+%% アンダーラインp16 2種類（ボールド有無）
+%% p19リスト ・, (1), p2976①, p31四角1, p39・, p135 サブ(a)
+%% p21 description?
+%% p53 四角空欄
+%% p56 点線下線
+%% p72 (2)の強調
+%% p79 読み仮名
+%% p45-46 キーポイント
+%% p63 二重▷
+%% p62 3mmまでならギリギリ配置→美文書
+%% p103 修正
+%% p96,109 chapter
+%% 寸法調整
+%% p135 下線に文字
+%% した波線
+%% 索引
+%% カリキュラム表
+%% 表4
+%% p2p3授業概要
+
+
+
 
 
 
 \begin{document}
-    
+\pagestyle{empty}
+\covera{高１数学　後期}{数学発展講座~\textsf{I}~／~\textsf{II}　第２部}{鉄緑会}{数学科}{21B4-1003}
+
+
+
+
+
+\newpage
+\pagestyle{normal}
+\begin{center}
+    \setlength{\tabcolsep}{5truemm}
+    \renewcommand{\extrarowheight}{2truemm}
+    \begin{tabular}[H]{c} \toprule
+        高１化学\\
+        {\fontsize{14truept}{14truept}\selectfont\kintou{44truemm}{化学基礎講座}}\\
+        \rule[0truemm]{0truemm}{8truemm}\\
+        \kintou{12truemm}{編者}\hspace{8truemm} \kintou{24truemm}{鉄緑会化学科}\\
+        \kintou{12truemm}{発行者}\hspace{8truemm} \kintou{24truemm}{鉄緑会}\\
+        2021~年~1~月~1~日　　　　初版第１刷発行\\\bottomrule
+        \multicolumn{1}{l}{非売品}\\
+        \multicolumn{1}{l}{許可なしに転載、複製、転売、譲渡することを禁じます。}\\
+        \rule[0truemm]{84.5truemm}{0truemm}\\
+    \end{tabular}
+\end{center}
+\newpage
+\section{こんにちは}
+\nosubsection
+\boldtext{自然界(2)}には、さまざまな物質が存在するが、その成分を分解してゆくと、どのような成分にたどり着くのか。
+この問題は、古代からさまざまな哲学者・科学者によって議論されてきた。
+\section{展示を行う場合}
+\subsection{調べ物とは}
+展示には色々な形態があります。調べたことを模造紙に書いてパネルに貼っていく（場合によってはパネルに直接書く）、模型を作って展示する、来場者に体験をしてもらう、といったものが挙げられるでしょう。これらの複数を組み合わせても良いでしょう。しかし、いずれの方法をとるにしても、何らかの形でものを調べる・調査するということが必要になります。
+調査をする方法にも色々あり、図書館や本屋で文献を探す、新聞や雑誌の記事を探す、インターネットから情報を集めるといった方法のほか、専門家にアポを取って直接お話をいただくという手もあります。\\これらの中でどの調査方法をとるかによって、展示のクオリティーや、そのデコが得るものが大きく違ってきます。
+本章では、調査の中でも特に重要と思われる文献調査のコツを紹介していきます。ここに書かれたことを参考にして、各デコで実りある調査・研究をし、その成果を文化祭で多くの来場者に発表していただければと思います。ただし、本章の記述には主観も多分に含まれていますので、鵜呑みにはせず、各デコの判断で活用してください。なお、本章は、小冊子「調査のための文献探索案内」（本校国語科編、2006.09）を基に書き起こされたものです。
+\subsection{文献調査の意義}
+某高校の文化祭でとある展示に足を運んだ時、展示されていた文章にふと違和感を覚え、携帯電話でWikipediaの当該ページを覗いてみました。するとどうでしょう、展示されていた文章はWikipediaのまる写しだったのです。
+これは流石に極端ですが、インターネットの内容を貼り合わせてきただけのものを展示するだけでは、来場者の関心を惹きつけるどころかその目をごまかすことすらままなりませんし、デコが得るものも少ないことでしょう。
+また、よく言われることですが、ウェブサイトの内容は必ずしも正しくありません。インターネットの場合は誰が書いているかも分からず、従って書き手は自分の書いたものに対して無責任であると言って良いでしょう（例えば、一般の人が専門家を騙り、デタラメなことを書くことも可能なのです）。
+一方、文献の場合は著者が明示されており、書き手はその文献の内容に対する責任を認識しているはずです。確かに文献にも誤りはあるかもしれませんが、その数はインターネットよりも大幅に少ないは
+\subsection{調べ物とは}
+展示にはいろいろな形態がありますね〜！
+
+\section{原子}
+\subsection{物質の構成成分をめぐる歴史}
+全ての原子の中で最も簡単なのは水素原子であり、１個の用紙からなる原子核と１個の原子
+から構成されている。また、ヘリウム原子は、２個
+\lipsum[1]
+\ruler
+
+
+\newpage
+
+{\HiraKakusix\fontsize{15truept}{15truept}\selectfont 高１化学　授業概要（{\HiraKakusixE 2021}年度）}
+
+\begin{multicols*}{2}
+    \aboutsection{学習目標}
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+\end{multicols*}
+
 \end{document}
