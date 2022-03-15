@@ -1,3 +1,5 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{luascolorbox}[2019/4/30, Version 1.0.3]
 \RequirePackage{tikz,tcolorbox,varwidth,multicol}
 
 \usetikzlibrary{calc}
@@ -938,3 +940,6 @@ IfBooleanTF={#2}%
 \coordinate (P3) at ($ (P2) + (-#3*2mm,0mm) $);
 \coordinate (P4) at ($ (P2) + (0mm,-#3*2.6mm) $);
 }
+
+
+\endinput

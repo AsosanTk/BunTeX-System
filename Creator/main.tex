@@ -21,7 +21,8 @@
 \usepackage{ulem}
 %\usepackage{scsnowman}
 \usepackage{lastpage}
-%\input{luascolorbox}
+\usepackage{luascolorbox}
+
 \usetikzlibrary{intersections, calc}
 \tcbuselibrary{breakable} % tcolorbox改ページ設定
 %\usepackage{jumoline} % 日本語複数行下線 P.301
@@ -203,7 +204,8 @@
 
 
 \newcommand{\aboutsection}[1]{\noindent 【#1】\\}
-% 二段組
+
+% 二段組（授業概要時）
 \setlength{\columnseprule}{.4truept}
 \setlength{\columnsep}{6truemm}
 
@@ -265,15 +267,13 @@
 
 % 画像・図
 
-
-
 % 作るもの
 %% 図入れ　p4ミニページ, p5全体, p13, p32二つ並べ, p414255 wrapfig, p61キャプションなし画像, p91, p98
 %% 枠囲み導入 key・指針・例題・補足・参考・注意・p68問題例
 %% 表p5, p38, p86
 %% p49 footnote
 %% アンダーラインp16 2種類（ボールド有無）
-%% p19リスト ・, (1), p2976①, p31四角1, p39・, p135 サブ(a)
+%% p19リスト ・, (1), p29,76①, p31四角1, p39・, p135 サブ(a)
 %% p21 description?
 %% p53 四角空欄
 %% p56 点線下線
@@ -291,7 +291,8 @@
 %% カリキュラム表
 %% 表4
 %% p2p3授業概要
-
+%% p119 大きい文字（強調）
+%% 背表紙
 
 
 
@@ -344,11 +345,22 @@
 \subsection{物質の構成成分をめぐる歴史}
 全ての原子の中で最も簡単なのは水素原子であり、１個の用紙からなる原子核と１個の原子
 から構成されている。また、ヘリウム原子は、２個
-\lipsum[1]
-\ruler
 
-
+\begin{simplesquarebox}{サンプル枠囲み}
+    \lipsum[1]
+    \end{simplesquarebox}
+\begin{ascolorbox4}[こんにちはサブタイトル]{メインタイトルだよ★}
+    なんとなくのわくわく
+\end{ascolorbox4}
+さてさてこんなことしてる場合じゃないんですよ先生。明日はそうふくですよ？まだ勉強してないんだけど。困ったね全く。
+\begin{ascolorbox5}{参~考}
+    えっへっへ、これが参考だよ★
+    \end{ascolorbox5}
+\begin{ascolorbox19}[subtitle]{My titele}
+    \lipsum[2]
+    \end{ascolorbox19}
 \newpage
+
 
 {\HiraKakusix\fontsize{15truept}{15truept}\selectfont 高１化学　授業概要（{\HiraKakusixE 2021}年度）}
 
