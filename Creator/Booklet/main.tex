@@ -1,5 +1,6 @@
 % LuaLaTeX, jlreqの新規格で行う
 % B5, 書籍, フォントサイズ, ページレイアウト設定
+% https://github.com/abenori/jlreq/blob/master/README-ja.md を参照のこと
 \documentclass[book, twoside, paper=b5j, fleqn, jafontsize=9pt, jafontscale=1, head_space=22mm, foot_space=9mm, fore-edge=16mm, gutter=25mm, hanging_punctuation]{jlreq}
 \usepackage{graphicx, xcolor, tikz} % グラフィック関係
 \usepackage[math-style=TeX, bold-style=ISO]{unicode-math} % 数式関係（ほぼ関係ない）
@@ -32,6 +33,7 @@
 \renewcommand{\jlreqkanjiskip}{0pt plus .1\zw minus .01\zw}
 
 % トンボの設定
+% https://github.com/abenori/jlreq/blob/master/jlreq-trimmarks-ja.md を参照のこと
 \usepackage[show={trimmarks,digital}, bleed_margin={top=3truemm,bottom=3truemm,gutter=3truemm,fore-edge=3truemm}, lualatex]{jlreq-trimmarks}
 \setlength{\topskip}{5truemm}
 
@@ -109,7 +111,6 @@
 
 
 
-
 %Tikzで遊んでみる
 %From 付録D:Tikz
 \newcommand{\ruler}{
@@ -153,9 +154,9 @@
 
 
 %tabularx
-\newcolumntype{C}{>{\centering\arraybackslash}X} %%セル内で中央揃えをする。
-\newcolumntype{L}{>{\raggedright\arraybackslash}X} %%セル内で右揃え。
-\newcolumntype{R}{>{\raggedleft\arraybackslash}X} %%セル内で左揃え。
+\newcolumntype{C}{>{\centering\arraybackslash}X} %　セル内で中央揃えをする。
+\newcolumntype{L}{>{\raggedright\arraybackslash}X} %　セル内で右揃え。
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X} %　セル内で左揃え。
 
 
 
@@ -203,7 +204,7 @@
 
 
 
-\newcommand{\aboutsection}[1]{\noindent 【#1】\\}
+
 
 % 二段組（授業概要時）
 \setlength{\columnseprule}{.4truept}
@@ -250,17 +251,31 @@
         \end{tikzpicture}
     \hss}\vss}
 }
+
+
+\newcommand{\subsubsubsection}[1]{\(\traiangleright\traiangleright\)~\gothic{#1}}
+
+\subsubsub
 % フォントデコレーション
 \newcommand{\boldtext}[1]{\textbf{\gtfamily\sffamily #1}}
 % テキスト
+\usepackage{luatexja-ruby} % 使い方はhttp://mirrors.ibiblio.org/CTAN/macros/luatex/generic/luatexja/doc/luatexja-ruby.pdfを参照
+% 圏点は\kenten{}
+% ルビは\ltjruby{九|去|法}{きゅう|きょ|ほう}、一文字ずつ囲うことを強く推奨
 \newcommand{\snowman}{\UTF{2603}}
 \newcommand{\responsibility}[2]{\begin{flushright} 文責：#1（#2） \end{flushright}}
+\newcommand{\gothic}[1]{\textgt{\textsf{#1}}}
+\newcommand{\selectsize}[2]{\fontsize{#1}{#2}\selectfont}
+\newcommand{\aboutsection}[1]{\noindent\gothic{【#1】}\\}
+\newcommand{\aboutsubsection}[1]{\noindent\gothic{#1}\\}
 
-
+%ページ
+\newcommand{\extendpage}{\enlargethispage{3truemm}}
 
 
 % 表
-
+\usepackage{colortbl}
+\newcolumntype{I}{!{\vrule width 1pt}}
 
 % リスト
 
@@ -268,65 +283,70 @@
 % 画像・図
 
 % 作るもの
-%% 図入れ　p4ミニページ, p5全体, p13, p32二つ並べ, p414255 wrapfig, p61キャプションなし画像, p91, p98
-%% 枠囲み導入 key・指針・例題・補足・参考・注意・p68問題例
-%% 表p5, p38, p86
-%% p49 footnote
-%% アンダーラインp16 2種類（ボールド有無）
-%% p19リスト ・, (1), p29,76①, p31四角1, p39・, p135 サブ(a)
-%% p21 description?
-%% p53 四角空欄
-%% p56 点線下線
-%% p72 (2)の強調
-%% p79 読み仮名
-%% p45-46 キーポイント
-%% p63 二重▷
-%% p62 3mmまでならギリギリ配置→美文書
-%% p103 修正
-%% p96,109 chapter
-%% 寸法調整
-%% p135 下線に文字
-%% した波線
-%% 索引
-%% カリキュラム表
-%% 表4
-%% p2p3授業概要
-%% p119 大きい文字（強調）
-%% 背表紙
-
+%1% 図入れ　p4ミニページ, p5全体, p13, p32二つ並べ, p414255 wrapfig, p61キャプションなし画像, p91, p98
+%2% 枠囲み導入 key・指針・例題・補足・参考・注意・p68問題例
+%3% 表p5, p38, p86
+%✅4% p49 footnote
+%5% アンダーラインp16 2種類（ボールド有無）
+%6% p19リスト ・, (1), p29,76①, p31四角1, p39・, p135 サブ(a)
+%7% p21 description?
+%8% p53 四角空欄
+%9% p56 点線下線
+%✅10% p72 (2)の強調　▶︎　環境依存文字を使用
+%✅11% p79 読み仮名
+%12% p45-46 キーポイント
+%13% p63 二重▷
+%✅14% p62 3mmまでならギリギリ配置→美文書
+%15% p103 修正
+%16% p96,109 chapter
+%17% 寸法調整
+%18% p135 下線に文字
+%19% した波線
+%20% 索引
+%✅21% カリキュラム表
+%✅22% 表4
+%23% p2p3授業概要
+%24% p119 大きい文字（強調）
+%25% 背表紙
 
 
 
 
 \begin{document}
+% 表紙1
 \pagestyle{empty}
 \covera{高１数学　後期}{数学発展講座~\textsf{I}~／~\textsf{II}　第２部}{鉄緑会}{数学科}{21B4-1003}
 
-
+\newpage
+\vbox to 15truemm{\vskip0truemm
+    \hbox to 144truemm{\hskip0truemm
+        \hfill\gothic{\selectsize{15truept}{15truept}クラス~}\underline{\hspace{23truemm}}\hspace{5truemm}\gothic{\selectsize{15truept}{15truept}氏名~}\underline{\hspace{70truemm}}\\
+        \hfill\gothic{21G4-0101}
+    \hss}\vss}
 
 
 
 \newpage
 \pagestyle{normal}
+\vspace*{9truemm}
+\gothic{\hspace*{-1.5\zw}【高１化学　週別カリキュラム表】\hfill 《2021年度　月曜日》}
+\vspace{2truemm}
 \begin{center}
-    \setlength{\tabcolsep}{5truemm}
-    \renewcommand{\extrarowheight}{2truemm}
-    \begin{tabular}[H]{c} \toprule
-        高１化学\\
-        {\fontsize{14truept}{14truept}\selectfont\kintou{44truemm}{化学基礎講座}}\\
-        \rule[0truemm]{0truemm}{8truemm}\\
-        \kintou{12truemm}{編者}\hspace{8truemm} \kintou{24truemm}{鉄緑会化学科}\\
-        \kintou{12truemm}{発行者}\hspace{8truemm} \kintou{24truemm}{鉄緑会}\\
-        2021~年~1~月~1~日　　　　初版第１刷発行\\\bottomrule
-        \multicolumn{1}{l}{非売品}\\
-        \multicolumn{1}{l}{許可なしに転載、複製、転売、譲渡することを禁じます。}\\
-        \rule[0truemm]{84.5truemm}{0truemm}\\
-    \end{tabular}
+    \begin{tabularx}{140truemm}{Ic|c|c|C|cI} \noalign{\global\arrayrulewidth1pt} \hline \noalign{\global\arrayrulewidth.3pt}
+        \gothic{日付} & \gothic{曜日} & \gothic{週} & \gothic{授業内容} & \gothic{総復習テスト} \\ \noalign{\global\arrayrulewidth1pt} \hline \noalign{\global\arrayrulewidth.3pt}
+        \gothic{１月10日} & \gothic{(月)} & \gothic{第01週} & \gothic{原子とイオン} & \gothic{-} \\ \noalign{\global\arrayrulewidth.3pt} \hline 
+        \gothic{１月10日} & \gothic{(月)} & \gothic{第01週} & \gothic{原子とイオン} & \gothic{-} \\ \hline
+        \gothic{１月10日} & \gothic{(月)} & \gothic{第01週} & \gothic{原子とイオン} & \gothic{-} \\ \hline
+        \rowcolor[gray]{0.8} \gothic{１月10日} & \gothic{(月)} & \multicolumn{3}{cI}{\gothic{第４期休講期間}} \\ \noalign{\global\arrayrulewidth1pt} \hline
+    \end{tabularx}
 \end{center}
+\vspace{2truemm}
+\gothic{※W1・W2とはダブル授業の１回目・２回目を指します。}
+
 \newpage
 \section{こんにちは}
 \nosubsection
-\boldtext{自然界(2)}には、さまざまな物質が存在するが、その成分を分解してゆくと、どのような成分にたどり着くのか。
+\boldtext{自然界⑵}には、さまざまな物質が存在するが、その成分を分解してゆくと、どのような成分にたどり着くのか。
 この問題は、古代からさまざまな哲学者・科学者によって議論されてきた。
 \section{展示を行う場合}
 \subsection{調べ物とは}
@@ -350,7 +370,9 @@
     \lipsum[1]
     \end{simplesquarebox}
 \begin{ascolorbox4}[こんにちはサブタイトル]{メインタイトルだよ★}
-    なんとなくのわくわく
+    なんとなくの\kenten{わくわく}\\
+    \ltjruby{九|去|法}{きゅう|きょ|ほう}\\
+    \textgt{\ltjruby{九}{きゅう}\ltjruby{去}{きょ}\ltjruby{法}{ほう}}こんなかんじかな
 \end{ascolorbox4}
 さてさてこんなことしてる場合じゃないんですよ先生。明日はそうふくですよ？まだ勉強してないんだけど。困ったね全く。
 \begin{ascolorbox5}{参~考}
@@ -362,30 +384,55 @@
 \newpage
 
 
-{\HiraKakusix\fontsize{15truept}{15truept}\selectfont 高１化学　授業概要（{\HiraKakusixE 2021}年度）}
+{\HiraKakusix\fontsize{15truept}{15truept}\selectfont\noindent 高１化学　授業概要（{\HiraKakusixE 2021}年度）}
 
 \begin{multicols*}{2}
     \aboutsection{学習目標}
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
-    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。\\
+    \vspace{5truemm}
+    \aboutsubsection{⑴化学基礎講座}
 \end{multicols*}
 
+
+上演の許可が下りた場合、次は改変の許可を取ってください。\\
+文化祭で上演する場合、長い脚本を短くしたり、台詞を言いやすいように変えたり、ということが行われると思いますが、それが著作者人格権の侵害になる可能性があります。
+演じやすいように自由に変えてかまわない、といわれた場合には問題はありませんが、改変をするなと言われることもあります。その場合、上演時間が長くなる等の問題が起こりますので、こちらもデコの中で意見統一をしておきましょう。
+上演、改変の許可が取れたら書面で正式に申請してください。テンプレートは最後に載せてあります。
+\\
+(5)改変終了後に許可を取る\\
+改変の許可において最も多いのは「見せてもらわないと分からない」という返答でしょう。\\
+その場合、脚本を上演用に書き直し、著作者に見せる必要があります。本番までに時間がありますから暫定的なものになるでしょうが、それを郵送する形になると思います。郵送を7月の終わりまでに行えればあとの流れがスムーズです。
+脚本の書き換えが終わったら、著作者に電話を入れてこれから郵送する旨を伝えてください。電話の際、以降本番までに細かい変更が多くありそうだ、ということも伝えておきましょう。
+また「文化祭に向けて、非常に短い期間で制作を行う」ということを説明するとよいでしょう。プロの世界は余裕のあるスケジュールで動いていることも多く、誤解を防ぐためにも事情をよく知っておいてもらう必要があります。
+具体的な案が先方から出ない場合、8・9月末に\footnotemark[1] 変更箇所の一覧を送るという提案をして話し合ってください。そして看過できない変更のあった場合には連絡をお願いします、といってください。
+言うまでも無いことですが、文化祭本番の日付も伝え忘れないように。
+\footnotetext[1]{tomはギリシャ語で「切る」を意味し、それを接頭辞a-で否定することで、atomで「着ることができない」という意味になる。tomが「着る」を意味している英単語としては、anatomy（解剖学）などがある。}
+作者も忙しいのであまり頻繁に連絡をして邪魔をしないようにしましょう。\\
+10月中旬には上演用の脚本が確定すると思います。その際は確定版であることを伝えて著作者に送り、本番に臨みましょう。
+\\
+(6)お礼をする\\
+文化祭が終了したら著作者・著作権者にお礼の挨拶をしましょう。お礼の仕方には手紙を送るほかビデオに撮って郵送するなど様々な方法があると思いますが、最善の方法は各デコで判断してください。何より大切なのは相手方との信頼関係を築くことで
+
+\subsubsubsection{「0」の有効数字}
+
+\newpage
+\pagestyle{empty}
+\vfill
+\begin{center}
+    \setlength{\tabcolsep}{5truemm}
+    \renewcommand{\extrarowheight}{2truemm}
+    \begin{tabular}[H]{c} \toprule
+        高１化学\\
+        {\fontsize{14truept}{14truept}\selectfont\kintou{44truemm}{化学基礎講座}}\\
+        \rule[0truemm]{0truemm}{8truemm}\\
+        \kintou{12truemm}{編者}\hspace{8truemm} \kintou{24truemm}{鉄緑会化学科}\\
+        \kintou{12truemm}{発行者}\hspace{8truemm} \kintou{24truemm}{鉄緑会}\\
+        2021~年~1~月~1~日　　　　初版第１刷発行\\\bottomrule
+        \multicolumn{1}{l}{非売品}\\
+        \multicolumn{1}{l}{許可なしに転載、複製、転売、譲渡することを禁じます。}\\
+        \rule[0truemm]{84.5truemm}{0truemm}\\
+    \end{tabular}
+\end{center}
+\vspace{10truemm}%??
+\newpage
 \end{document}
