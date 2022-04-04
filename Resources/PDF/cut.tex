@@ -1,0 +1,37 @@
+\def\target{***.pdf}%% 対象PDFファイル名
+\def\ratio{0}%% 中央を何パーセント切り落とすか。負の数の場合は中央を両側に含める。-99〜99の百分率値を指定。
+
+\documentclass{minimal}
+\usepackage{graphicx}
+
+%%% 総ページ数の取得
+\pdfximage{\target}
+\newcount\pagecount
+\pagecount=\pdflastximagepages
+
+%%% 先頭ページを読んで生成PDFのページサイズを決定（/Rotate も反映）
+\setbox0\hbox{\includegraphics{\target}}
+\newdimen\originalwidth
+\originalwidth=\wd0
+
+%%% 生成PDFのページサイズを決定
+\usepackage[papersize={\dimexpr\originalwidth*(100-\ratio)/200\relax,\ht0},margin=0pt]{geometry}
+\usepackage{pdfpages}
+
+\begin{document}
+\parindent=0pt
+
+%%% 画像配置を実行
+\newcount\thispage
+\loop
+\advance\thispage1
+%%% 左ページの配置
+\ifnum\thispage>1
+  \setbox0\hbox{\includegraphics[page=\thispage]{\target}}
+\fi
+\copy0\newpage
+%%% 右ページの配置
+\leavevmode\kern\pdfpagewidth\kern-\originalwidth\box0\newpage
+\ifnum\thispage<\pagecount\repeat
+
+\end{document}
