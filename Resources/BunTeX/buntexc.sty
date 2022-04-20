@@ -1,0 +1,182 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{buntexc}[2022/04/17]
+% LuaLaTeX, jlreqの新規格で行う
+% B5, 書籍, フォントサイズ, ページレイアウト設定
+% https://github.com/abenori/jlreq/blob/master/README-ja.md を参照のこと
+
+% 0. Common: usepackage
+\usepackage{graphicx, xcolor, tikz} % グラフィック関係
+\usepackage[math-style=TeX, bold-style=ISO]{unicode-math} % 数式関係（ほぼ関係ない）
+\usepackage{tcolorbox}
+\usepackage{makeidx} % 索引用
+\usepackage{ascmac} % 表紙のボックスとか
+\usepackage[usetype1]{myuline--} % https://doratex.hatenablog.jp/entry/20171219/1513609345
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{fancybox}
+\usepackage{tabularx}
+%\usepackage{amsthm}
+%\usepackage{amsmath}
+\usepackage{lipsum}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{luacolor}
+\usepackage{here}
+\usepackage[utf8]{inputenc}
+\usepackage{bm}
+\usepackage{luatexja-otf}
+\usepackage{changecolumnseprule}
+%\usepackage{scsnowman}
+\usepackage{luascolorbox}
+\usepackage{emoji}
+\usepackage{luacode}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[edges]{forest}
+
+\usetikzlibrary{intersections, calc, trees}
+\tcbuselibrary{breakable} % tcolorbox改ページ設定
+%\usepackage{jumoline} % 日本語複数行下線 P.301
+%\usepackage{udline}
+
+
+\parindent1\zw
+\renewcommand{\jlreqkanjiskip}{0pt plus .1\zw minus .01\zw}
+
+
+
+% 欧文フォントの設定（メインはLatin Modern Roman, SansはHiragino-Sans,）
+\usepackage{fontspec}
+\usepackage{luatexja}
+\usepackage[deluxe]{luatexja-fontspec}
+\setmainfont{Palatino}
+\newfontface{\LatinModern}[
+    OpticalSize = 0,
+    SmallCapsFont = lmromancaps10-regular,
+    SlantedFont = lmromanslant10-regular,
+    FontFace = {sb}{n}{lmromandemi10-regular}
+]{Latin Modern Roman}
+\newfontface{\Helvetica}[
+    Ligatures=TeX,
+    BoldFont=Helvetica Neue Medium,
+    ItalicFont=Helvetica Neue Light Italic,
+    BoldItalicFont=Helvetica Neue Bold Italic
+]{Helvetica Neue}
+\newfontface{\Hiramin}{HiraMinProN-W3}
+\newfontface{\HiraMaru}{HiraMaruProN-W4}
+\setsansfont[FontFace = {l}{n}{HiraginoSans-W3}]{HiraginoSans}
+\newfontface{\HiraKakusixE}{HiraginoSans-W6}
+% ノンブルフォント（GenEiNombre）
+\newfontface{\GenEiNombre}[
+    FontFace = {l}{n}{GenEiNombre-Roman},
+    ItalicFont         = GenEiNombre-Roman,
+    ItalicFeatures     = {FakeSlant=0.33},
+]{GenEiNombre-Roman}
+% 和文フォント（Hiragino Mincyo/Sans/Maru）
+\setmainjfont[
+    YokoFeatures       = {JFM=jlreq},
+    TateFeatures       = {JFM=jlreqv},
+    BoldFont           = HiraMinProN-W3,
+    BoldFeatures       = {FakeBold=2},
+    ItalicFont         = HiraMinProN-W3,
+    ItalicFeatures     = {FakeSlant=0.33},
+    BoldItalicFont     = HiraMinProN-W3,
+    BoldItalicFeatures = {FakeBold=2, FakeSlant=0.33}
+]{HiraMinProN-W3}
+\setsansjfont[
+    YokoFeatures       = {JFM=jlreq},
+    TateFeatures       = {JFM=jlreqv},
+    BoldFont           = HiraginoSans-W4,
+    BoldFeatures       = {FakeBold=2},
+    ItalicFont         = HiraginoSans-W3,
+    ItalicFeatures     = {FakeSlant=0.33},
+    BoldItalicFont     = HiraginoSans-W4,
+    BoldItalicFeatures = {FakeBold=2, FakeSlant=0.33}
+]{HiraginoSans-W3}
+\newjfontface{\HiraMaruJ}{HiraMaruProN-W4}
+\newjfontface{\HiraKakusix}{HiraginoSans-W6}
+\newjfontface{\HuiFont}{HuiFont}
+\newjfontface{\Kyokasyo}{YuKyo-Medium}
+
+
+%Tikzで遊んでみる
+%From 付録D:Tikz
+\newcommand{\ruler}{
+    \begin{tikzpicture}[x=1mm, y=1mm]
+        \draw (0,0)--(100,0);
+        \foreach \x in {0,...,100} \draw (\x,0)--(\x,3);
+        \foreach \x in {0,5,...,100} \draw (\x,0)--(\x,5);
+        \foreach \x in {0,10,...,100} \draw (\x,0)--(\x,7);
+    \end{tikzpicture}
+}
+\newcommand{\egg}[1]{\raisebox{-3pt}{%
+    \begin{tikzpicture}[x=1pt,y=1pt,line width=1pt]
+        \draw (0,0) ellipse (4.5 and 6);
+        \draw (0,0) node {%
+          {\Helvetica \fontsize{9pt}{0}\selectfont #1\/}
+        };
+    \end{tikzpicture}}}
+
+\newcommand{\eggg}[1]{\raisebox{-3pt}{%
+    \begin{tikzpicture}[x=1pt,y=1pt,line width=1pt]
+        \draw[fill=black!30] (0,0) ellipse (4.5 and 6);
+        \draw (0,0) node {%
+          {\Helvetica \fontsize{9pt}{0}\selectfont #1\/};
+        }
+    \end{tikzpicture}}}
+
+\newcommand{\Keytop}[2][12]{% ascmacとブッキング
+    \begin{tikzpicture}[x=0.1em,y=0.1em]{
+        \useasboundingbox (0,0) rectangle (#1,9);
+        \draw[rounded corners=0.2em] (0,-3) rectangle (#1,9);
+        \draw[anchor=base] (#1/2,0) node {\sffamily #2}
+    \end{tikzpicture}}}
+
+%均等割
+\newcommand{\kintou}[2]{%
+\leavevmode
+\hbox to #1{%
+\ltjsetparameter{kanjiskip=0pt plus 1fill minus 1fill}%
+\ltjsetparameter{xkanjiskip=\ltjgetparameter{kanjiskip}}%
+#2}}
+
+
+%tabularx
+\newcolumntype{C}{>{\centering\arraybackslash}X} %　セル内で中央揃えをする。
+\newcolumntype{L}{>{\raggedright\arraybackslash}X} %　セル内で右揃え。
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X} %　セル内で左揃え。
+
+
+
+% 作るもの
+%✅1. 文字%  ✅p79 読み仮名・✅アンダーラインp16 2種類（ボールド有無）, ✅した波線, ✅p56 点線下線, ❌p135 下線に文字, ✅p119 大きい文字（強調）
+\usepackage{luatexja-ruby} % 使い方はhttp://mirrors.ibiblio.org/CTAN/macros/luatex/generic/luatexja/doc/luatexja-ruby.pdfを参照
+% 圏点は\kenten{}
+% ルビは\ltjruby{九|去|法}{きゅう|きょ|ほう}、一文字ずつ囲うことを強く推奨
+% 下線に関してはhttps://doratex.hatenablog.jp/entry/20171219/1513609345
+\newcommand{\gothic}[1]{{\gtfamily\sffamily #1}}
+\newcommand{\boldtext}[1]{\textbf{\gtfamily\sffamily #1}}
+\newcommand{\selectsize}[2]{\fontsize{#1}{#2}\selectfont}
+\newcommand{\keywordtext}[1]{\begin{center}{\fontsize{12truept}{12truept}\selectfont #1\end{center}}}
+\newcommand{\highlighter}[1]{\uline[background,color={[rgb]{1,1,0.4}},width=5pt,position=1pt]{#1}}
+
+
+%✅7. 注釈% p49 footnote
+%特に必要なし：\footnotemark[], \footnotetext[]{}で対応
+\renewcommand{\thefootnote}{*\arabic{footnote}}
+
+%8. 空欄% p53 四角空欄
+
+%✅10. その他% ✅p62 3mmまでならギリギリ配置→美文書
+\newcommand{\extendpage}{\enlargethispage{3mm}}
+\newcommand{\snowman}{\UTF{2603}}
+\newcommand{\BunTeX}{B\kern-.12em\lower.2ex\hbox{u}\kern-.14em\raise.3ex\hbox{n}\kern-.16em\TeX}
+\newcommand{\BunTeXC}{B\kern-.12em\lower.2ex\hbox{u}\kern-.14em\raise.3ex\hbox{n}\kern-.16em\TeX C}
+\newcommand{\BunTeXB}{B\kern-.12em\lower.2ex\hbox{u}\kern-.14em\raise.3ex\hbox{n}\kern-.16em\TeX B}
+\newcommand{\BunTeXD}{B\kern-.12em\lower.2ex\hbox{u}\kern-.14em\raise.3ex\hbox{n}\kern-.16em\TeX D}
+\newcommand{\BunTeXJ}{文\kern-.05em\TeX}
+
+
+\endinput

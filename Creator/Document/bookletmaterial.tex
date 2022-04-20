@@ -1,0 +1,96 @@
+% 申請書の上側を作る
+% 高3用には班長・副班長・デコ責2名の署名欄を用意
+\documentclass[report, twoside, paper=b5j, fleqn, jafontsize=8pt, jafontscale=1, head_space=15mm, foot_space=15mm, fore-edge=13mm, gutter=13mm, hanging_punctuation]{jlreq}
+
+\usepackage{../../Resources/BunTeX/buntexc}
+\usepackage{../../Resources/BunTeX/buntexd}
+
+\renewcommand{\booklettitle}{デコ責会議}
+\renewcommand{\bookletnum}{第~1~回}
+\begin{document}
+\pagestyle{empty}
+\vbox to 174mm{\vskip-10.4mm
+    \hbox to 249mm{\hskip-6.1mm
+        \begin{tikzpicture}
+            \fill[white] (7mm,0mm) rectangle (174mm,-249mm);
+            \fill[black!70] (7mm,0mm) rectangle (38mm,-249mm);
+            \fill[black!60] (38mm,0mm) rectangle (43mm,-249mm);
+            \fill[black!50] (43mm,0mm) rectangle (48mm,-249mm);
+            \fill[black!40] (48mm,0mm) rectangle (53mm,-249mm);
+            \fill[black!30] (53mm,0mm) rectangle (58mm,-249mm);
+            %爪
+            \fill[black] (0mm,-10mm) rectangle (3mm,-19mm);
+            \fill[black!30] (0mm,-20mm) rectangle (3mm,-29mm);
+            \fill[black!30] (0mm,-30mm) rectangle (3mm,-39mm);
+            \fill[black!30] (0mm,-40mm) rectangle (3mm,-49mm);
+            \fill[black!30] (0mm,-50mm) rectangle (3mm,-59mm);
+            \fill[black!30] (0mm,-60mm) rectangle (3mm,-69mm);
+            \fill[black!30] (0mm,-70mm) rectangle (3mm,-79mm);
+            \fill[black!30] (0mm,-80mm) rectangle (3mm,-89mm);
+            \fill[black!30] (0mm,-90mm) rectangle (3mm,-99mm);
+            \fill[black!30] (0mm,-100mm) rectangle (3mm,-109mm);
+            \fill[black!30] (0mm,-110mm) rectangle (3mm,-119mm);
+            \fill[black!30] (0mm,-120mm) rectangle (3mm,-129mm);
+            \fill[black!30] (0mm,-130mm) rectangle (3mm,-139mm);
+            \fill[black!30] (0mm,-140mm) rectangle (3mm,-149mm);
+            \fill[black!30] (0mm,-150mm) rectangle (3mm,-159mm);
+            \draw[text=black!20] node (A) at (26mm,-9mm) [anchor=north] {\hspace{-7mm}\rotatebox[origin=cl]{270}{\Kyokasyo{\selectsize{20mm}{20mm}デコ責会議資料}}};
+            \draw[text=black] node (B) at (164mm,-94mm) [anchor=east] {\Kyokasyo{{\selectsize{20pt}{20pt}第}}\hspace{4mm}\GenEiNombre{\selectsize{30mm}{30mm}\textit{1}}\hspace{4mm}\Kyokasyo{{\selectsize{20pt}{20pt}~回}}};
+            \draw[text=black] node (C) at (164mm,-121mm) [anchor=east] {\Kyokasyo{{\selectsize{28pt}{28pt}4月21日(木)}}};
+            \draw[text=black] node (D) at (164mm,-229mm) [anchor=north east] {2022~年~04~月~20~日発行};
+            \draw[text=black] node (D) at (164mm,-233mm) [anchor=north east] {第~1~回デコ責会議};
+            \draw[text=black] node (D) at (164mm,-237mm) [anchor=north east] {第~71~回文化祭実行委員会　総務部門};
+        \end{tikzpicture}
+    \hss}\vss}
+\newpage
+\begin{bookletmaterial}
+% 書類比較表 %
+\input{sampletex/contactleaf1}
+% ここから資料を入れていくよ %
+\input{sampletex/D01-0101}
+\input{sampletex/D01-0102}
+\input{sampletex/D01-0103}
+\input{sampletex/D01-0104}
+\input{sampletex/D01-0105}
+\end{bookletmaterial}
+
+\newpage
+\pagestyle{empty}
+\vbox to 15mm{\vskip-0.4mm
+    \hbox to 249mm{\hskip76mm
+        \begin{tikzpicture}
+            %爪
+            \fill[black] (0mm,-0mm) rectangle (15mm,-9mm);
+            \draw[text=white] node (D) at (11mm,-4.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{1}};
+            \fill[black!30] (0mm,-10mm) rectangle (15mm,-19mm);
+            \draw[text=white] node (D) at (11mm,-14.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{2}};
+            \fill[black!30] (0mm,-20mm) rectangle (15mm,-29mm);
+            \draw[text=white] node (D) at (11mm,-24.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{3}};
+            \fill[black!30] (0mm,-30mm) rectangle (15mm,-39mm);
+            \draw[text=white] node (D) at (11mm,-34.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{4}};
+            \fill[black!30] (0mm,-40mm) rectangle (15mm,-49mm);
+            \draw[text=white] node (D) at (11mm,-44.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{5}};
+            \fill[black!30] (0mm,-50mm) rectangle (15mm,-59mm);
+            \draw[text=white] node (D) at (11mm,-54.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{6}};
+            \fill[black!30] (0mm,-60mm) rectangle (15mm,-69mm);
+            \draw[text=white] node (D) at (11mm,-64.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{7}};
+            \fill[black!30] (0mm,-70mm) rectangle (15mm,-79mm);
+            \draw[text=white] node (D) at (11mm,-74.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{8}};
+            \fill[black!30] (0mm,-80mm) rectangle (15mm,-89mm);
+            \draw[text=white] node (D) at (11mm,-84.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{9}};
+            \fill[black!30] (0mm,-90mm) rectangle (15mm,-99mm);
+            \draw[text=white] node (D) at (11mm,-94.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{10}};
+            \fill[black!30] (0mm,-100mm) rectangle (15mm,-109mm);
+            \draw[text=white] node (D) at (11mm,-104.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{11}};
+            \fill[black!30] (0mm,-110mm) rectangle (15mm,-119mm);
+            \draw[text=white] node (D) at (11mm,-114.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{12}};
+            \fill[black!30] (0mm,-120mm) rectangle (15mm,-129mm);
+            \draw[text=white] node (D) at (11mm,-124.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{13}};
+            \fill[black!30] (0mm,-130mm) rectangle (15mm,-139mm);
+            \draw[text=white] node (D) at (11mm,-134.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{14}};
+            \fill[black!30] (0mm,-140mm) rectangle (15mm,-149mm);
+            \draw[text=white] node (D) at (11mm,-144.5mm) [anchor=east] {\selectsize{10pt}{10pt}\boldtext{15}};
+            \draw[text=black] node (E) at (-2mm,-223mm) [anchor=south east] {\uline{氏名：\hspace{60mm}}};
+        \end{tikzpicture}
+    \hss}\vss}
+\end{document}

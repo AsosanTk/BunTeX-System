@@ -1,0 +1,322 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{buntexd}[2022/04/17]
+\usepackage{lastpage}
+%renewcommand{\kanjifamilydefault}{\gtdefault}
+%\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\sfdefault}{cmr}
+
+
+%twocolumn
+%\changecolumnseprule{\cleaders\hbox{\rule{0pt}{4pt}.}\vfil}% 点線
+\renewcommand{\baselinestretch}{1.2}
+
+\newcommand{\lastpage}{\pageref{LastPage}}
+
+\newcommand{\boldwave}[1]{\textbf{\gtfamily\sffamily\uwave{#1}}}
+
+
+
+
+\newenvironment{bookletmaterial}{
+    \setlength{\columnsep}{7.2mm}
+    \setlength{\columnseprule}{0.4pt}
+}{
+}
+
+\newenvironment{normalmaterial}{
+    \setlength{\columnsep}{7.5mm}
+    \setlength{\columnseprule}{0mm}
+    \pagestyle{normal}
+    \begin{multicols*}{4}
+}{
+    \end{multicols*}
+}
+
+\newenvironment{answersheet}{
+    \setlength{\columnsep}{25mm}
+    \setlength{\columnseprule}{0mm}
+    \pagestyle{normal}
+    \begin{multicols*}{2}
+}{
+    \end{multicols*}
+}
+
+
+% 冊子の側, 提出物書類, 解答用紙, 生徒部提出書類
+\jlreqsetup{
+    itemization_beforeafter_space={0pt,i=0pt,ii=0pt},
+}
+
+% 表紙・裏表紙（冊子用）
+
+% ページスタイル（冊子用・資料用）
+\NewPageStyle{booklet}{
+    running_head_position=top-left,
+    odd_running_head={\uline[background,width=0.4pt,position=-1.5mm]{\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}\hfill\GenEiNombre{\textit{\thepage}}}},
+    even_running_head={\uline[background,width=0.4pt,position=-1.5mm]{\GenEiNombre{\textit{\thepage}}\hfill\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}}},
+    running_head_ii_position=bottom-center,
+    odd_running_head_ii={\oline[background,width=0.4pt,position=5mm]{\hfill}},
+    even_running_head_ii={\oline[background,width=0.4pt,position=5mm]{\hfill}},
+    nombre={}
+}
+\NewPageStyle{normal}{
+    running_head_position=top-center,
+    odd_running_head={\vbox to 15mm{\vskip-5mm\hbox to 334mm{\Helvetica{\uline[background,width=.75pt,position=-2mm]{\selectsize{10pt}{10pt}\textgt{\lefttitle}\hfill \textgt{\righttitle 　}{\selectsize{10pt}{10pt}\thepage}~\gothic{枚目}{\selectsize{10pt}{10pt}~/~\lastpage}~\gothic{枚中}}}}}},
+    nombre={}
+}
+\NewPageStyle{normals}{
+    running_head_position=top-center,
+    odd_running_head={\vbox to 15mm{\vskip-5mm\hbox to 163mm{\Helvetica{\uline[background,width=.75pt,position=-2mm]{\selectsize{10pt}{10pt}\textgt{\lefttitle}\hfill \textgt{\righttitle 　}{\selectsize{10pt}{10pt}\thepage}~\gothic{枚目}{\selectsize{10pt}{10pt}~/~\lastpage}~\gothic{枚中}}}}}},
+    nombre={}
+}
+\newcommand{\booklettitle}{}
+\newcommand{\bookletnum}{}
+
+\newcommand{\lefttitle}{}
+\newcommand{\righttitle}{}
+% チャプター（冊子用→挿入書類のタイトル・資料用）
+\NewBlockHeading{contactleaf}{0}{%
+    format={
+        \HiraKakusix{\HiraKakusixE{\selectsize{15pt}{15pt}#2}}
+    },
+    before_space=0mm,
+    after_space=0mm,
+    align=center
+}
+
+\NewBlockHeading{materialtitleb}{0}{
+    format={
+        \begin{tcolorbox}[colframe=black!10!white, colback=black!10!white]
+            \begin{center} {\selectsize{12pt}{14pt}\textgt{#2}}\\#3\end{center}
+        \end{tcolorbox}
+    },
+    before_space=0mm,
+    after_space=2mm,
+    align=center
+}
+\NewBlockHeading{materialtitlea}{0}{%
+    format={
+        \begin{center}{\selectsize{14pt}{10mm}#2}\end{center}
+    },
+    before_space=0mm,
+    after_space=1mm,
+    align=center
+}
+
+\NewBlockHeading{materialpart}{0}{%
+    format={
+        \begin{center}{\selectsize{14pt}{10mm}#2}\end{center}
+    },
+    before_space=0mm,
+    after_space=3mm,
+    align=center
+}
+
+\NewBlockHeading{inserttitle}{0}{%
+    subtitle_format={#1},
+    format={
+        \setcounter{section}{0}
+        \begin{ascolorbox4}{\textgt{\textsf{#2}}}[3]
+            \vspace{2mm}
+            \begin{center}
+                \HiraKakusix{\HiraKakusixE{\selectsize{15pt}{15pt}#3}}
+            \end{center}
+            \vspace{2mm}
+        \end{ascolorbox4}
+    },
+    before_space=-5.5mm,
+    after_space=-4.2mm,
+    align=center
+}
+
+
+% セクション
+\NewBlockHeading{contactleafsection}{1}{%
+    format={
+        \hspace{-\zw}\boldtext{【#2】}
+    },
+    before_space=2.5\zh,
+    after_space=5pt,
+    align=left
+}
+\renewcommand{\thesection}{\arabic{section}}
+\ModifyHeading{section}{%
+    format={{\selectsize{13pt}{13pt}\textrm{\noindent \thesection ~}}{\selectsize{10pt}{10pt} ~\mcfamily #2\\}},
+    before_space=7mm,
+    after_space=-2.5mm,
+    align=left,
+    number=true
+}
+\NewBlockHeading{sectionb}{1}{%
+    format={ \ascboxB{\selectsize{10pt}{10pt}#2}},
+    before_space=1.5\zh,
+    after_space=0pt,
+    align=left
+}
+\NewBlockHeading{sectionc}{1}{%
+    format={ \ascboxC{\selectsize{10pt}{10pt}#2}},
+    before_space=1.5\zh,
+    after_space=0pt,
+    align=left
+}
+\NewBlockHeading{sectiond}{1}{%
+    format={ \ascboxD*[E]{\selectsize{10pt}{10pt}#2}},
+    before_space=1.5\zh,
+    after_space=0pt,
+    align=left
+}
+\NewBlockHeading{sectiont}{1}{%
+    format={\ascboxA{#2}},
+    before_space=1.5\zh,
+    after_space=0mm,
+    align=left
+}
+
+% サブセクション
+\NewBlockHeading{point}{2}{%
+    format={▶︎\hspace{.75\zw}\uline{\boldtext{#2}}},
+    before_space=2\zh,
+    after_space=5pt,
+    align=left
+}
+
+
+\SetBlockHeadingSpaces{
+  {7mm,_section,-1\zh,_point,5pt}
+  {7mm,_sectiona,-1\zh,_point,5pt}
+  {7mm,_sectionb,-1\zh,_point,5pt}
+  {7mm,_sectionc,-1\zh,_point,5pt}
+  {7mm,_sectiond,-1\zh,_point,5pt}
+  {7mm,_sectiont,-1\zh,_point,5pt}
+  {-2mm, _materialtitlea, 6mm, _materialpart, 7mm, _section, -1\zh , _point, 5pt}
+  {-2mm, _materialtitlea, 6mm, _materialpart, 7mm, _section, -2.5mm}
+  {-2mm, _materialtitlea, 7mm, _section, -2.5mm}
+}
+
+
+
+% ポイントなど
+\newcommand{\checking}[1]{\vskip1\zh\noindent ▷\hspace{1\zw}#1}
+
+
+\makeatletter
+\newcommand{\cdotsfill}[1][.25\zw]{\leavevmode\cleaders\hb@xt@#1{\hss$\cdot\m@th$\hss}\hfill\kern\z@\ignorespaces}
+\newcommand{\cdotsfillhf}[1][4pt]{\leavevmode\cleaders\hb@xt@#1{\hss$\cdot\m@th$\hss}\hfill\kern\z@\ignorespaces}  % ドット線
+\makeatother
+\newcommand{\sector}[1]{\noindent\cdotsfill ~✂~#1~✂~\cdotsfill\par} %区切り線
+
+
+% 2段組（冊子用）, 4段組（B4資料用）
+
+
+
+% 空白
+\newenvironment{writeborder}{\begin{tcolorbox}[empty, left skip=12pt, before skip=8pt,after skip=6pt, borderline west={1pt}{0pt}{black}]}{\end{tcolorbox}}
+
+
+% リスト
+\renewcommand{\labelitemi}{・~}
+\renewcommand{\labelitemii}{-~}
+\newenvironment{reitemize}{\begin{itemize}\setlength{\leftskip}{-0.7\zw}}{\end{itemize}}
+\newenvironment{enumbrackets}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajKakko{\arabic{enumi}}　}}{\end{enumerate}}
+\newenvironment{enumsquarebrackets}{\begin{enumerate}\setlength{\leftskip}{1.3\zw}\renewcommand{\labelenumi}{□~\ajKakko{\arabic{enumi}}　}}{\end{enumerate}}
+\newenvironment{enumcircle}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajMaru{\arabic{enumi}}~}}{\end{enumerate}}
+\newenvironment{enumsquare}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajKaku{\arabic{enumi}}~}}{\end{enumerate}}
+
+
+% 枠
+\newenvironment{framebox-simple}[1]{\begin{simplesquarebox}{#1}}{\end{simplesquarebox}}
+\newenvironment{framebox-simpled}[2]{\begin{simplesquarebox}[#2]{#1}}{\end{simplesquarebox}}
+\newenvironment{framebox-key}{\begin{simplesquarebox}{\textsf{KEY}}}{\end{simplesquarebox}}
+\newenvironment{framebox-ref}[1]{\begin{ascolorbox5}[#1]{参~考}}{\end{ascolorbox5}}
+\newenvironment{framebox-practice}[1]{\begin{practicebox}{#1}}{\end{practicebox}}
+\newenvironment{framebox-brackets}[2]{\begin{ascolorbox17}[#2]{#1}}{\end{ascolorbox17}}
+
+%その他
+\newcommand{\responsibility}[2]{\vskip2mm\begin{flushright}文責：#1（#2）\end{flushright}}
+\newcommand{\distribution}[1]{\begin{flushright}#1 配布\end{flushright}}
+
+
+
+
+
+
+
+%figure
+\renewcommand{\figurename}{}
+\newcommand{\singleimage}[2][50mm]{\begin{figure}[htbp] \begin{center} \includegraphics[width=#1]{#2} \end{center} \end{figure}}
+\newcommand{\doubleimage}[3][30mm]{
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{#1}
+            \centering
+            \includegraphics[width=#1]{#2}
+        \end{minipage}
+        \hspace{10mm}
+        \begin{minipage}{#1}
+            \centering
+            \includegraphics[width=#1]{#3}
+        \end{minipage}
+    \end{figure}
+}
+\newcommand{\singleqr}[2]{
+    \begin{wrapfigure}{r}{25mm}
+        \vspace*{-\intextsep}
+        \includegraphics[width=25mm]{#1}
+        \centering \captionsize{#2}
+    \end{wrapfigure}
+}
+\newcommand{\doubleqr}[4]{
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{25mm}
+            \centering
+            \includegraphics[width=20mm]{#1}
+            \begin{center}{\fontsize{7pt}{7pt}\selectfont #2}\end{center}
+        \end{minipage}
+        \hspace{10mm}
+        \begin{minipage}{25mm}
+            \centering
+            \includegraphics[width=20mm]{#3}
+            \begin{center}{\fontsize{7pt}{7pt}\selectfont #4}\end{center}
+        \end{minipage}
+    \end{figure}
+}
+\newcommand{\tripleqr}[6]{\begin{figure}[H]
+    \centering
+    \begin{minipage}{20mm}
+        \centering
+        \includegraphics[width=15mm]{#1}
+        \begin{center}{\fontsize{7pt}{7pt}\selectfont #2}\end{center}
+    \end{minipage}
+    \hspace{6mm}
+    \begin{minipage}{20mm}
+        \centering
+        \includegraphics[width=15mm]{#3}
+        \begin{center}{\fontsize{7pt}{7pt}\selectfont #4}\end{center}
+    \end{minipage}
+    \hspace{6mm}
+    \begin{minipage}{20truemm}
+        \centering
+        \includegraphics[width=15mm]{#5}
+        \begin{center}{\fontsize{7pt}{7pt}\selectfont #6}\end{center}
+    \end{minipage}
+\end{figure}
+}
+
+
+
+% Answer Sheets
+\newcommand{\visible}{visible}
+\newcounter{mondai}
+%
+\newtcbox{\kasen}[1][]{boxrule=-1pt,bottomrule=.5pt,sharp corners,colback=white,\visible,nobeforeafter,tcbox width=forced left,box align=base,\visible,#1} %環境を定義。プリアンプルでも本文でも良い。
+
+\newenvironment{question}[1]{
+\addtocounter{mondai}{1}
+{\selectsize{15pt}{15pt}\bfseries\noindent\arabic{mondai}}\hspace{1\zw}{\selectsize{10pt}{10pt}#1}\\
+}{\vspace{3mm}}
+
+
+
+\endinput
