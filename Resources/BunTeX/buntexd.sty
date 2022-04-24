@@ -8,13 +8,13 @@
 
 %twocolumn
 %\changecolumnseprule{\cleaders\hbox{\rule{0pt}{4pt}.}\vfil}% 点線
-\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1}
 
 \newcommand{\lastpage}{\pageref{LastPage}}
 
 \newcommand{\boldwave}[1]{\textbf{\gtfamily\sffamily\uwave{#1}}}
 
-
+\renewcommand{\ttdefault}{pplx}  
 
 
 \newenvironment{bookletmaterial}{
@@ -125,7 +125,7 @@
         \end{ascolorbox4}
     },
     before_space=-5.5mm,
-    after_space=-4.2mm,
+    after_space=-3.5mm,
     align=center
 }
 
@@ -141,9 +141,9 @@
 }
 \renewcommand{\thesection}{\arabic{section}}
 \ModifyHeading{section}{%
-    format={{\selectsize{13pt}{13pt}\textrm{\noindent \thesection ~}}{\selectsize{10pt}{10pt} ~\mcfamily #2\\}},
+    format={{\selectsize{13pt}{13pt}\textrm{\noindent \thesection ~}}{\selectsize{10pt}{10pt} ~\mcfamily\rmfamily #2\\}},
     before_space=7mm,
-    after_space=-2.5mm,
+    after_space=-2mm,
     align=left,
     number=true
 }
@@ -174,7 +174,7 @@
 
 % サブセクション
 \NewBlockHeading{point}{2}{%
-    format={▶︎\hspace{.75\zw}\uline{\boldtext{#2}}},
+    format={\UTF{25B6}\hspace{.75\zw}\uline{\boldtext{#2}}},
     before_space=2\zh,
     after_space=5pt,
     align=left
@@ -188,7 +188,7 @@
   {7mm,_sectionc,-1\zh,_point,5pt}
   {7mm,_sectiond,-1\zh,_point,5pt}
   {7mm,_sectiont,-1\zh,_point,5pt}
-  {-2mm, _materialtitlea, 6mm, _materialpart, 7mm, _section, -1\zh , _point, 5pt}
+  {-2mm, _materialtitlea, 6mm, _materialpart, 7mm, _section, -0.8\zh , _point, 5pt}
   {-2mm, _materialtitlea, 6mm, _materialpart, 7mm, _section, -2.5mm}
   {-2mm, _materialtitlea, 7mm, _section, -2.5mm}
 }
@@ -196,14 +196,14 @@
 
 
 % ポイントなど
-\newcommand{\checking}[1]{\vskip1\zh\noindent ▷\hspace{1\zw}#1}
+\newcommand{\checking}[1]{\vskip1\zh\noindent \UTF{25B7}\hspace{1\zw}#1}
 
 
 \makeatletter
 \newcommand{\cdotsfill}[1][.25\zw]{\leavevmode\cleaders\hb@xt@#1{\hss$\cdot\m@th$\hss}\hfill\kern\z@\ignorespaces}
 \newcommand{\cdotsfillhf}[1][4pt]{\leavevmode\cleaders\hb@xt@#1{\hss$\cdot\m@th$\hss}\hfill\kern\z@\ignorespaces}  % ドット線
 \makeatother
-\newcommand{\sector}[1]{\noindent\cdotsfill ~✂~#1~✂~\cdotsfill\par} %区切り線
+\newcommand{\sector}[1]{\noindent\cdotsfill ~\UTF{2702}~#1~\UTF{2702}~\cdotsfill\par} %区切り線
 
 
 % 2段組（冊子用）, 4段組（B4資料用）
@@ -211,7 +211,7 @@
 
 
 % 空白
-\newenvironment{writeborder}{\begin{tcolorbox}[empty, left skip=12pt, before skip=8pt,after skip=6pt, borderline west={1pt}{0pt}{black}]}{\end{tcolorbox}}
+\newenvironment{writeborder}{\begin{tcolorbox}[empty, left skip=6pt, before skip=10pt,after skip=10pt, borderline west={.75pt}{0pt}{black}]}{\end{tcolorbox}}
 
 
 % リスト
@@ -225,8 +225,8 @@
 
 
 % 枠
-\newenvironment{framebox-simple}[1]{\begin{simplesquarebox}{#1}}{\end{simplesquarebox}}
-\newenvironment{framebox-simpled}[2]{\begin{simplesquarebox}[#2]{#1}}{\end{simplesquarebox}}
+\newenvironment{framebox-simple}[1]{\begin{simplesquarebox}{#1}[.75]}{\end{simplesquarebox}}
+\newenvironment{framebox-simpled}[2]{\begin{simplesquarebox}[#2]{#1}[.75]}{\end{simplesquarebox}}
 \newenvironment{framebox-key}{\begin{simplesquarebox}{\textsf{KEY}}}{\end{simplesquarebox}}
 \newenvironment{framebox-ref}[1]{\begin{ascolorbox5}[#1]{参~考}}{\end{ascolorbox5}}
 \newenvironment{framebox-practice}[1]{\begin{practicebox}{#1}}{\end{practicebox}}
@@ -235,7 +235,6 @@
 %その他
 \newcommand{\responsibility}[2]{\vskip2mm\begin{flushright}文責：#1（#2）\end{flushright}}
 \newcommand{\distribution}[1]{\begin{flushright}#1 配布\end{flushright}}
-
 
 
 
