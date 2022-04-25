@@ -1,0 +1,34 @@
+\pagestyle{empty}
+\vbox to 174mm{\vskip-10.4mm
+    \hbox to 248.6mm{\hskip-9.0mm
+        \begin{tikzpicture}
+            \fill[white] (7mm,0mm) rectangle (174mm,-249mm);
+            \fill[black!70] (7mm,0mm) rectangle (45mm,-249mm);
+            \fill[black!60] (45mm,0mm) rectangle (50mm,-249mm);
+            \fill[black!50] (50mm,0mm) rectangle (55mm,-249mm);
+            \fill[black!40] (55mm,0mm) rectangle (60mm,-249mm);
+            \fill[black!30] (60mm,0mm) rectangle (65mm,-249mm);
+            %爪
+            \fill[black] (0mm,-10mm) rectangle (3mm,-19mm);
+            \fill[black!30] (0mm,-20mm) rectangle (3mm,-29mm);
+            \fill[black!30] (0mm,-30mm) rectangle (3mm,-39mm);
+            \fill[black!30] (0mm,-40mm) rectangle (3mm,-49mm);
+            \fill[black!30] (0mm,-50mm) rectangle (3mm,-59mm);
+            \fill[black!30] (0mm,-60mm) rectangle (3mm,-69mm);
+            \fill[black!30] (0mm,-70mm) rectangle (3mm,-79mm);
+            \fill[black!30] (0mm,-80mm) rectangle (3mm,-89mm);
+            \fill[black!30] (0mm,-90mm) rectangle (3mm,-99mm);
+            \fill[black!30] (0mm,-100mm) rectangle (3mm,-109mm);
+            \fill[black!30] (0mm,-110mm) rectangle (3mm,-119mm);
+            \fill[black!30] (0mm,-120mm) rectangle (3mm,-129mm);
+            \fill[black!30] (0mm,-130mm) rectangle (3mm,-139mm);
+            \fill[black!30] (0mm,-140mm) rectangle (3mm,-149mm);
+            \fill[black!30] (0mm,-150mm) rectangle (3mm,-159mm);
+            \draw[text=black!20] node (A) at (26mm,-9mm) [anchor=north] {\rotatebox[origin=cl]{270}{\Kyokasyo{\selectsize{25mm}{25mm}デコ責会議資料}}};
+            \draw[text=black] node (B) at (164mm,-94mm) [anchor=east] {\Kyokasyo{{\selectsize{20pt}{20pt}第}}\hspace{4mm}\GenEiNombre{\selectsize{30mm}{30mm}\textit{<n>}}\hspace{4mm}\Kyokasyo{{\selectsize{20pt}{20pt}~回}}};
+            \draw[text=black] node (C) at (164mm,-121mm) [anchor=east] {\Kyokasyo{{\selectsize{28pt}{28pt}4月21日(木)}}};
+            \draw[text=black] node (D) at (164mm,-229mm) [anchor=north east] {2022~年~<月>~月~<日>~日発行};
+            \draw[text=black] node (D) at (164mm,-233mm) [anchor=north east] {第~<n>~回デコ責会議};
+            \draw[text=black] node (D) at (164mm,-237mm) [anchor=north east] {第~71~回文化祭実行委員会　総務部門};
+        \end{tikzpicture}
+    \hss}\vss}
