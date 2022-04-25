@@ -46,14 +46,15 @@
 \jlreqsetup{
     itemization_beforeafter_space={0pt,i=0pt,ii=0pt},
 }
+\renewcommand{\thefigure}{\rmfamily Fig \arabic{section}.\arabic{figure}}
 
 % 表紙・裏表紙（冊子用）
 
 % ページスタイル（冊子用・資料用）
 \NewPageStyle{booklet}{
     running_head_position=top-left,
-    odd_running_head={\uline[background,width=0.4pt,position=-1.5mm]{\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}\hfill\GenEiNombre{\textit{\thepage}}}},
-    even_running_head={\uline[background,width=0.4pt,position=-1.5mm]{\GenEiNombre{\textit{\thepage}}\hfill\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}}},
+    odd_running_head={\uline[background,width=0.4pt,position=-1.5mm]{\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}\hfill{\selectsize{9pt}{9pt}\GenEiNombre{\textit{\thepage}}}}},
+    even_running_head={\uline[background,width=0.4pt,position=-1.5mm]{{\selectsize{9pt}{9pt}\GenEiNombre{\textit{\thepage}}}\hfill\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}}},
     running_head_ii_position=bottom-center,
     odd_running_head_ii={\oline[background,width=0.4pt,position=5mm]{\hfill}},
     even_running_head_ii={\oline[background,width=0.4pt,position=5mm]{\hfill}},
@@ -227,7 +228,7 @@
 % 枠
 \newenvironment{framebox-simple}[1]{\begin{simplesquarebox}{#1}[.75]}{\end{simplesquarebox}}
 \newenvironment{framebox-simpled}[2]{\begin{simplesquarebox}[#2]{#1}[.75]}{\end{simplesquarebox}}
-\newenvironment{framebox-key}{\begin{simplesquarebox}{\textsf{KEY}}}{\end{simplesquarebox}}
+\newenvironment{framebox-key}{\begin{simplesquarebox}{\textsf{KEY}}[.75]}{\end{simplesquarebox}}
 \newenvironment{framebox-ref}[1]{\begin{ascolorbox5}[#1]{参~考}}{\end{ascolorbox5}}
 \newenvironment{framebox-practice}[1]{\begin{practicebox}{#1}}{\end{practicebox}}
 \newenvironment{framebox-brackets}[2]{\begin{ascolorbox17}[#2]{#1}}{\end{ascolorbox17}}
@@ -235,7 +236,7 @@
 %その他
 \newcommand{\responsibility}[2]{\vskip2mm\begin{flushright}文責：#1（#2）\end{flushright}}
 \newcommand{\distribution}[1]{\begin{flushright}#1 配布\end{flushright}}
-
+\newcommand{\allresponsibility}[2]{\vskip2mm\begin{flushright}統括文責：#1（#2）\end{flushright}}
 
 
 
@@ -243,7 +244,8 @@
 
 %figure
 \renewcommand{\figurename}{}
-\newcommand{\singleimage}[2][50mm]{\begin{figure}[htbp] \begin{center} \includegraphics[width=#1]{#2} \end{center} \end{figure}}
+\newcommand{\singleimage}[2]{\begin{figure}[H]\centering\includegraphics[width=#1]{#2}\end{figure}}
+\newcommand{\singleimagecap}[3]{\begin{figure}[H]\centering\includegraphics[width=#1]{#2}\caption{\mcfamily\rmfamily\textmd{#3}}\end{figure}}
 \newcommand{\doubleimage}[3][30mm]{
     \begin{figure}[H]
         \centering
@@ -295,7 +297,7 @@
         \begin{center}{\fontsize{7pt}{7pt}\selectfont #4}\end{center}
     \end{minipage}
     \hspace{6mm}
-    \begin{minipage}{20truemm}
+    \begin{minipage}{20mm}
         \centering
         \includegraphics[width=15mm]{#5}
         \begin{center}{\fontsize{7pt}{7pt}\selectfont #6}\end{center}
