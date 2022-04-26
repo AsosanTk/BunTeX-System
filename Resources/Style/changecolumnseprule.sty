@@ -1,0 +1,130 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{changecolumnseprule}[2021/04/05 v0.2]
+
+\newif\if@changecolumnsep@multicol@LR
+\@ifpackageloaded{multicol}{%
+  \ifx\mc@align@columns\LR@column@boxes
+    \@changecolumnsep@multicol@LRtrue
+  \else
+    \@changecolumnsep@multicol@LRtrue
+  \fi
+}
+
+%%% 原本を保存
+\let\original@outputdblcol\@outputdblcol
+\@ifpackageloaded{multicol}{%
+  \let\original@LR@column@boxes\LR@column@boxes
+  \let\original@RL@column@boxes\RL@column@boxes
+}
+
+%%% 仕切り線を元に戻す
+\def\restorecolumnseprule@multicol{}%
+\@ifpackageloaded{multicol}{%
+  \def\restorecolumnseprule@multicol{%
+    \let\LR@column@boxes\original@LR@column@boxes
+    \let\RL@column@boxes\original@RL@column@boxes
+    \if@changecolumnsep@multicol@LR
+      \LRmulticolcolumns
+    \else
+      \RLmulticolcolumns
+    \fi
+  }%
+}
+
+\def\restorecolumnseprule{%
+  \let\@outputdblcol\original@outputdblcol
+  \restorecolumnseprule@multicol
+}
+
+%%% 仕切り線を変更する
+\def\changecolumnseprule@multicol#1{}
+\@ifpackageloaded{multicol}{% multicol.sty [2017/04/11 v1.8q] をもとに改変
+  \def\changecolumnseprule@multicol#1{%
+    \def\LR@column@boxes{%
+       \process@cols\mult@gfirstbox{%
+         \ifdim\dp\count@>\dimen\tw@
+           \global\dimen\tw@\dp\count@ \fi
+         \mc@col@status@write
+         \box\count@
+         \hss{\makebox[\z@][c]{\vbox to\ht\mult@rightbox{#1}}\hss}%
+       }%
+       \ifdim\dp\mult@rightbox>\dimen\tw@
+         \global\dimen\tw@\dp\mult@rightbox \fi
+       \mc@lastcol@status@write
+       \box\mult@rightbox
+    }%
+    \def\RL@column@boxes{%
+      \process@cols\mult@gfirstbox{%
+        \hskip\hsize
+        \hss{\makebox[\z@][c]{\vbox to\ht\mult@rightbox{#1}}\hss}%
+      }%
+      \hskip\hsize
+      \process@cols\mult@gfirstbox{%
+        \ifdim\dp\count@>\dimen\tw@
+          \global\dimen\tw@\dp\count@ \fi
+        \hskip-\hsize
+        \mc@col@status@write
+        \box\count@
+        \hskip-\hsize
+        \hskip-\columnsep
+      }%
+      \ifdim\dp\mult@rightbox>\dimen\tw@
+        \global\dimen\tw@\dp\mult@rightbox \fi
+      \hskip-\hsize
+      \mc@lastcol@status@write
+      \box\mult@rightbox
+      \hskip-\hsize
+      \hskip\full@width
+    }%
+    \if@changecolumnsep@multicol@LR
+      \LRmulticolcolumns
+    \else
+      \RLmulticolcolumns
+    \fi
+  }%
+}
+
+\def\changecolumnseprule#1{%
+  \def\@outputdblcol{%% latex.ltx をもとに改変
+    \if@firstcolumn
+      \global\@firstcolumnfalse
+      \global\setbox\@leftcolumn\copy\@outputbox
+      \splitmaxdepth\maxdimen
+      \vbadness\maxdimen
+       \setbox\@outputbox\vbox{\unvbox\@outputbox\unskip}%
+       \setbox\@outputbox\vsplit\@outputbox to\maxdimen
+      \toks@\expandafter{\topmark}%
+      \xdef\@firstcoltopmark{\the\toks@}%
+      \toks@\expandafter{\splitfirstmark}%
+      \xdef\@firstcolfirstmark{\the\toks@}%
+      \ifx\@firstcolfirstmark\@empty
+        \global\let\@setmarks\relax
+      \else
+        \gdef\@setmarks{%
+          \let\firstmark\@firstcolfirstmark
+          \let\topmark\@firstcoltopmark}%
+      \fi
+    \else
+      \global\@firstcolumntrue
+      \setbox\@outputbox\vbox{%
+       \hb@xt@\textwidth{%
+          \hb@xt@\columnwidth{\box\@leftcolumn \hss}%
+          \hfil
+          \makebox[\z@][c]{\vbox to\@colht{#1}}%
+          \hfil
+         \hb@xt@\columnwidth{\box\@outputbox \hss}}}%
+    \@combinedblfloats
+      \@setmarks
+      \@outputpage
+      \begingroup
+        \@dblfloatplacement
+        \@startdblcolumn
+        \@whilesw\if@fcolmade \fi{\@outputpage
+       \@startdblcolumn}%
+      \endgroup
+    \fi
+  }%
+  \changecolumnseprule@multicol{#1}%
+}
+
+\endinput
