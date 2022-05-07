@@ -1,0 +1,31 @@
+%%% 改変禁止 %%%
+\documentclass[report, twoside, paper=b5j, fleqn, jafontsize=8pt, jafontscale=1, head_space=15mm, foot_space=15mm, fore-edge=13mm, gutter=13mm, hanging_punctuation]{jlreq}
+
+\usepackage{buntexc}
+\usepackage{buntexd}
+%%% ここまで %%%
+
+\renewcommand{\booklettitle}{<会議名>}
+\renewcommand{\bookletnum}{第~<N>~回}
+\begin{document}
+% 表表紙 %
+\input{<表表紙のパス>}
+
+\newpage
+\begin{bookletmaterial}
+% 書類比較表 %
+\input{<連絡用リーフのパス>}
+
+% ここから資料を入れていくよ %
+\input{<各書類のパス>}
+\input{<各書類のパス>}
+\input{<各書類のパス>}
+...
+\end{bookletmaterial}
+
+% 裏表紙 %
+\input{<裏表紙のパス>}
+
+%%% 改変禁止 %%%
+\end{document}
+%%% ここまで %%%
