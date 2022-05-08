@@ -1,0 +1,80 @@
+\newpage
+\pagestyle{booklet}
+\inserttitle*[running head]{第1回：導入}[1-1 \TeX の基本]
+\begin{multicols*}{2}
+先ほど【概要】の部分で従来の文実Wordフォーマットを\TeX に変えると宣言しましたが、
+これを読んでいる皆さんの中には
+「\TeX ...？\TeX って何？（kRd）」状態になっている方もいるかと思います。
+
+まずこの章では、「\TeX とは一体何なのか」について解説していきます。
+
+\section{概要}
+TeX（テフ, テック, \mline{蝶}）は、スタンフォード大の数学者であるDonald Ervin Knuth氏
+が製作した\uwave{組版システム}です。「組版」とは印刷用語で、活字を組んで版（印刷用データ）を作ることを意味します。
+
+\TeX には次のような特徴があります。
+\begin{framebox-simple}{\TeX の特徴}
+    \begin{reitemize}
+        \item オープンソースソフトなので、無料で入手でき、自由に中身を調べたり改良したりできます。また商用利用等も自由にできます。
+        \item \TeX は、WindowsでもMacやLinuxなどのUnix系OSでも全く同じ動作をするので、入力が同じなら原理的には全く同じ出力が得られます。
+        \item \TeX への入力はテキスト形式なので、普通のテキストエディタで読み書きでき、再利用・データベース化が容易です。
+        \item 自動ハイフネーション・ペアカーニング（欧文文字幅を自動的に調整）・リガチャ（fiなどの合字処理）・孤立行処理等の高度な組版技術が組み込まれています。
+        \item 特に数式の表記に優れています。
+    \end{reitemize}
+\end{framebox-simple}
+
+\section{処理・出力方式}
+\TeX のテキストファイルを作成したら（これは次項で解説します）、このファイルを「出力」してPDFに変換します。
+出力する際に働くのが「エンジン」です。\LaTeX には次のような種類があります。
+\begin{reitemize}
+    \item p\LaTeX ：長年日本語文書に使用されていた標準
+    \item up\LaTeX ：上がUnicode文字に対応
+    \item Lua\LaTeX ：新しいタイプ①
+    \item pdf\LaTeX ：新しいタイプ②
+\end{reitemize}
+\vspace{1\zw}
+各エンジンは内部で次のような処理を行っています。
+\begin{reitemize}
+    \item p, up：\TeX ファイル → dviファイル → PDF等
+    \item Lua, pdf：\TeX ファイル → PDF（ダイレクト）
+\end{reitemize}
+\BunTeX で使用するエンジンは、\boldtext{Lua{\LaTeX}} です。
+
+\section{\TeX ファイルの基本}
+\point*[running head]{構造}
+\begin{verbatim}
+①\documentclass[<options>]{jlreq}
+
+②<プリアンブル>
+
+③\begin{document}
+    
+<本文>
+
+③\end{document}
+\end{verbatim}
+\vspace{1\zw}
+\TeX ファイルの構造は上のようになっています。
+\begin{enumcircle}
+    \item documentclass：その書類の基本設定を指定します（例えば本文の文字サイズや書類の大きさなど）。\verb|<options>|の部分にはそれぞれの作成物によって違ったものが入ります。\BunTeX ではjlreqというクラスファイルを使用しますが、他に日本語標準のものとしてjsarticle等があります。
+    \item プリアンブル：スタイルファイル（後述）の読み込み、自作命令（マクロという, 後述）の定義等を行う場所です。
+    \item 本文：begin document, end documentの2つで囲まれた領域に、書類の本文を記述していきます。
+\end{enumcircle}
+
+\point*[running head]{テキストを打つ}
+Googleドキュメント等
+\point*[running head]{命令}
+すたいるふぁいる
+\point*[running head]{余白・改行}
+\begin{framebox-simple}{改行}
+    \begin{reitemize}
+        \item \verb|\\|：強制改行
+        \item 一行空白行を挿入すると改行されます
+    \end{reitemize}
+\end{framebox-simple}
+
+\section{PDFにする}
+\point*[running head]{エラーが起きた時は}% 2.6
+
+参考書
+\end{multicols*}

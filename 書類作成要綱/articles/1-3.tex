@@ -1,0 +1,52 @@
+\newpage
+\pagestyle{booklet}
+\inserttitle{第1回：導入}[1-3 \BunTeX とは]
+\inserttitlespace
+\begin{multicols*}{2}
+\section{概要}
+\BunTeX （\BunTeXJ ）は「ブンテフ」と読みます。
+これは文実の資料・要綱のためのスタイルファイル（1-1-3）群です。
+
+旧文実Wordテンプレートや、\mline{鉄緑会のテキストやプリント}を参考に、新たに独自のデザインの
+書類テンプレートを作成しました。
+
+\section{経緯}
+みなさんが\LaTeX で文章を書く時、プリアンブル（1-1-3参照）に何も書かないと\LaTeX 標準の
+デザインで作成されますが、このままでは味気ない書類ができてしまいます。そこでプリアンブル
+に設定を変更したり、マクロ（1-1-3参照）を組むなどしたりして独自の施す必要が出てきます。
+ただしこれらの作業を1から自分でやろうとすると非常に手間がかかります。
+
+そこで登場するのが、これらの設定やマクロを一括にまとめたスタイルファイルです。
+これを作成者は「文実\TeX 」、略して「文\TeX 」と名づけて今に至ります。
+
+\section{構成}
+\BunTeX は3つのスタイルファイルで構成されています。
+\point*[running head]{BunTeXB}
+要綱等の製本を必要とするような分厚い冊子を作成する際に使用します（BはBookletの意味）。
+
+要綱にふさわしい表紙や見出し、リストや画像等のデザインを行います。
+
+\point*[running head]{BunTeXC}
+どの書類にも共通して必要なスタイルファイルです（CはCommonの意味）。
+
+パッケージ（"拡張機能"的な意味）の追加、欧文和文フォントの設定、テキスト装飾やロゴの定義等を内部で行います。
+
+\point*[running head]{BunTeXD}
+会議資料・配布書類・回答用紙・小冊子等を作成する際に使用します（DはDocumentsの意味）。
+
+それぞれのページスタイルや見出し、さらにはリストや書き込み用空欄等の定義も一括で行うものです。
+
+\point*[running head]{使用する際は}
+これらのスタイルファイルを目的によって以下のように使い分けます。
+\begin{framebox-key}
+\begin{reitemize}
+    \item 要綱・製本を必要とする冊子：\BunTeXB , \BunTeXC
+    \item 資料・小冊子：\BunTeXC , \BunTeXD
+\end{reitemize}
+\end{framebox-key}
+
+\section{疑問がある場合は}
+\BunTeX について何かわからないことがある場合は、作成者・72期麻生（Asosan）のGafeメール（72.asoo.kosei@tsukukoma-gafe.org）、または
+文実Discordの【\# 02a-tex-system】チャンネルにて質問してください。
+
+\end{multicols*}

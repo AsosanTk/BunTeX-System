@@ -1,0 +1,500 @@
+\newpage
+\pagestyle{booklet}
+\inserttitle*[running head]{第3回：冊子用{\BunTeX}}[要綱・本]
+\begin{multicols*}{2}
+要綱や長い本を作成する際にはこの「冊子用{\BunTeX}」を使用します。以下では各機能・マクロ、さらには本作成のTipsについて説明していきます。
+この中にはみなさんが使用する必要のないマクロも含まれていることと思います。
+この章の最後によく使用するマクロを一覧にしてまとめておきましたので、必要に応じて参照してください。
+
+\section{前提}
+要綱・本作成の際に使用するスタイルファイルは、「{\BunTeXC}」と「{\BunTeXB}」です。また、コンパイルには資料用同様「Lua{\LaTeX}」
+を使用します。\footnotemark[1]
+\footnotetext[1]{ちなみに鉄◯会のテキストはup\LaTeX を使っているみたいです。時代遅れですね。}
+
+\section{ディレクトリ構成}
+要綱・本は内容が非常に多いため、必要に応じてファイルを分割する必要があります（というかわけないと文章が煩雑になってきます）。
+2022年度はchapterごとにフォルダをわけ、そこにそれぞれのchapterのTeXファイルと画像等格納フォルダを作成していく形を取りました。
+以下にディレクトリ構成の例を挙げます。
+\begin{border}
+    \begin{forest}
+        for tree={grow'=0,folder,draw}
+        [作業要綱
+         [main.tex：編集の必要なし]
+         [はじめに
+          [chapter0.tex]
+          [assets
+           [\dots]
+          ]
+         ]
+         [第1章
+          [chapter1.tex]
+          [assets
+           [kaage.jpg]
+           [define.jpg]
+           [neko.png]
+           [\dots]
+          ]
+         ]
+         [第2章
+          [chapter2.tex]
+          [assets
+           [pdf1.pdf]
+           [sample2.png]
+           [\dots]
+          ]
+         ]
+         [第3章
+          [chapter3.tex]
+          [assets
+           [\dots]
+          ]
+         ]
+         [\dots]
+         [索引
+          [index.tex]
+         ]
+         [付録
+          [appendix.tex]
+         ]
+        ]
+       \end{forest}
+\end{border}
+
+\section{文字}
+\point*[running head]{欧文フォント}
+欧文フォントは以下の種類があります。デフォルトはLatin Modernです（\LaTeX の綺麗なフォント）。
+\begin{verbatim}
+    \Palatino{Tetsuryoku's English text font}
+    \Helvetica{This is the default font for Google Docs}
+    \Hiramin{Hiragino Mincyo}
+    \HiraKakusixE{Hiragino Sans Bold}
+\end{verbatim}
+
+\point*[running head]{和文フォント}
+ここで指定できる和文フォントには以下の種類があります。デフォルトはヒラギノ明朝、太字部分はヒラギノゴシックです。\uwave{どうしてもの場合のみ}以下のフォントを指定して下さい。
+\begin{verbatim}
+    \HiraMaru{ヒラギノ丸ゴシック}
+    \HiraKakusix{ヒラギノゴシックボールド（W6）}
+    \HuiFont{ふい字フォント（フリー）}
+    \Kyokasyo{游教科書体}
+\end{verbatim}
+
+\point*[running head]{フォントサイズ}
+フォントの大きさを変える場合は以下のようにします。デフォルトサイズは8pt、単位はptで指定してください。
+
+\begin{verbatim}
+    {\selectsize{<フォントサイズ>}{<行送り>} <サイズを変更したい部分>}
+    ex. {\selectsize{10pt}{10pt} Lorem ipsum}
+\end{verbatim}
+
+\point*[running head]{太字}
+テキストを太字にしたい場合は以下のようにします。フォントはヒラギノゴシックW6です。
+\begin{verbatim}
+    \boldtext{<テキスト>}
+\end{verbatim}
+
+\point*[running head]{下線}
+下線には以下の3種類があります。「強調度合い」は実線>波線>点線の順になります。
+\begin{verbatim}
+    \uline{アンダーライン}
+    \boldwave{太字のアンダーライン}
+    \mline{取り消し線}
+    \uwave{波線}
+    \udotline{点線下線}
+\end{verbatim}
+\begin{comment}
+\point*[running head]{圏点・ルビ}
+    \point{圏点とルビ}
+    \indent 以下のようにして文字の上に点を振って強調したり、ルビを振ったりすることができます。ルビを振る際は漢字ごとに|で区切って指定してください。
+    \begin{verbatim}
+        ...。\kenten{文字の上に点が！
+        ...\ltjruby{九|去|法}{きゅう|きょ|ほう}...
+    \end{verbatim}
+    
+    %
+    \point{URL}
+    \indent 以下のように囲ってください。ただしURLを貼るときは、基本的に後述の「Footnote」内に書くと共に、
+    QRコードの画像を回り込み等で挿入しておくのが良いでしょう。
+    \begin{verbatim}
+        \url{https://www.apple.com/}
+    \end{verbatim}
+    
+    %
+    \point{キーワードテキスト}
+    \indent キーワード等を大きく強調したい場合は、後述の「KEY枠囲み」の中にこれを指定します。
+    \begin{verbatim}
+        \begin{framebox-key}
+            \keywordtext{キーワード強調}
+            説明ごちゃごちゃ...
+        \end{framebox-key}
+    \end{verbatim}
+    
+    %
+    \point{マーカー}
+    \indent キーワードにマーカーを引きます。
+    \begin{verbatim}
+        \highlighter{マーカー引けます}
+    \end{verbatim}
+    
+    
+    %%
+    \subsection{2}{見出し}
+    %
+    \hspace{1zw}見出しは以下のような階層構造になっています。みなさんが編集するのは各chapterですので、
+    見出しを使用する際にはsectionからということになります。
+    \vskip2truemm
+    \begin{forest}
+        for tree={grow'=0,folder,draw}
+        [chapter
+         [section
+          [subsection]
+          [subsection
+           [keypoint]
+           [keypoint]
+           [keypoint
+            [subkeypoint]
+            [subkeypoint]
+           ]
+          ]
+          [subsection
+           [keypoint]
+           [keypoint]
+           [keypoint]
+          ]
+         ]
+         [section
+          [subsection]
+          [\dots]
+         ]
+         [section
+          [subsection]
+          [\dots]
+         ]
+         [\dots]
+        ]
+    \end{forest}
+    
+    %
+    \point{チャプター}
+    \indent 特にいじる必要はありません。\\
+    
+    %
+    \point{セクション}
+    \indent 各チャプターの最上位見出しがセクションです。
+    \begin{verbatim}
+        \section{見出し1}
+        本文
+    \end{verbatim}
+    
+    %
+    \point{サブセクション}
+    \indent セクションの次に大きい見出しがサブセクションです。前にセクションがないと使用できません。
+    \begin{verbatim}
+        \section{見出し1}
+        \subsection{見出し2}
+        本文
+        \subsection{見出し2}
+        本文
+        ...
+    \end{verbatim}
+    
+    %
+    \point{キーポイント}
+    \indent サブセクションの中に▶︎付きの小見出しを出力します。前にサブセクションがないと使用できません。
+    \begin{verbatim}
+        \subsection{見出し2}
+        本文...
+        \keypoint{小見出し}
+        ...
+        \keypoint{小見出し}
+        ...
+    \end{verbatim}
+    
+    %
+    \point{サブキーポイント}
+    \indent キーポイントの中にさらに小見出しを追加します。前にキーポイントがないと使用できません。
+    \begin{verbatim}
+        \subsection{見出し2}
+        本文...
+        \keypoint{小見出し}
+        \subkeypoint{小^2見出し}
+        ...
+        \subkeypoint{小^2見出し}
+        ...
+        \keypoint{小見出し}
+        ...
+        \subkeypoint{小^2見出し}
+        ...
+    \end{verbatim}
+    
+    
+    %%
+    \subsection{3}{枠囲み}
+    \hspace{1zw}枠囲みを使用する場合には、「\verb|\begin{***}|と\verb|\end{***}|」でコンテンツを囲います\footnotemark[3]。\\
+    \point{KEY}
+    \indent 鉄緑会でよくある「KEY」枠囲みです。前出の「キーワードテキスト」を使用することができます。
+    \begin{verbatim}
+        \begin{framebox-key}
+            ここにコンテンツを〜
+            \keywordtext{キーワード強調}
+        \end{framebox-key}
+    \end{verbatim}
+    \footnotetext[3]{\LaTeX 用語で「環境」といいます。}
+    
+    \point{例題}
+    \indent 鉄緑会でよくある「例題」の枠囲みです。用途不明。例題挟む？
+    \begin{verbatim}
+        \begin{framebox-ex}{タイトル}{サブタイトル}
+            ここにコンテンツを〜
+        \end{framebox-ex}
+    \end{verbatim}
+    
+    \point{参考}
+    \indent 「参考」コーナーを作る枠です。
+    \begin{verbatim}
+        \begin{framebox-ref}{タイトル}
+            ここに参考を〜
+        \end{framebox-ref}
+    \end{verbatim}
+    
+    \point{補足}
+    \indent 「補足」を挿入したいにはこれで囲います。
+    \begin{verbatim}
+        \begin{framebox-note}{タイトル}
+            ここに補足を〜
+        \end{framebox-note}
+    \end{verbatim}
+    
+    \point{シンプル}
+    \indent シンプルな枠囲みです。以下の２つはサブタイトルを入れるか否かで使い分けてください。前出の「キーワードテキスト」を使用することができます。
+    \begin{verbatim}
+        \begin{framebox-simple}{タイトル}
+            ここにコンテンツを〜
+            \keywordtext{キーワード強調}
+        \end{framebox-simple}
+    
+        \begin{framebox-simplen}{タイトル}{サブタイトル}
+            ここにコンテンツを〜
+        \end{framebox-simplen}
+    \end{verbatim}
+    
+    \point{注意}
+    \indent 「注意」させたい事項をこれで囲みます。
+    \begin{verbatim}
+        \begin{framebox-warning}{タイトル}
+            注意してデコ責をビビらせましょう。
+        \end{framebox-warning}
+    \end{verbatim}
+    
+    %%
+    \subsection{4}{画像挿入}
+    \hspace{1zw}画像を入れると冊子のクオリティがぐっと上がります。画像は各チャプターのフォルダ内にあるassetsフォルダに入れて管理します。
+    説明をわかりやすくする効果もありますので、積極的に図や画像を入れるようにしましょう。\\
+    %
+    \point{通常の画像}
+    \indent １枚画像を挿入する場合は、以下のように画像の横幅・パス（ファイル名）・キャプション（図の説明）を続けて指定します。
+    \begin{verbatim}
+        \singleimage{100truemm}{sample.png}{ワクワクな画像}
+    \end{verbatim}
+    
+    %
+    \point{通常の画像（キャプションなし）}
+    \indent キャプションが必要ない場合は以下のように指定してください。
+    \begin{verbatim}
+        \singleimagenocap{100truemm}{sample.png}
+    \end{verbatim}
+    
+    %
+    \point{２枚横並び}
+    \indent ２枚横並びに画像を挿入する場合は、以下のようにパス（ファイル名）・キャプション（図の説明）を２枚分続けて指定します。
+    アスペクト比が9:16かそれより横長のものかつ双方が同じ大きさの画像である場合にのみ使用してください。
+    \begin{verbatim}
+        \doubleimage{neko.png}{nekoの説明}{inu.jpg}{inuの説明}
+    \end{verbatim}
+    
+    %
+    \point{回り込み}
+    \indent 画像に対してテキストを回り込ませる場合にはwrapfigを使います。画像の横幅・パス（ファイル名）・キャプション（図の説明）を指定します。
+    \begin{verbatim}
+        \wrapfig{100truemm}{sample.jpg}{かのじょに回り込みたい}
+    \end{verbatim}
+    
+    
+    %%
+    \subsection{5}{表}
+    \point{一般的な表}
+    \indent まだ作ってませんごめんなさい。表を作りたい場合にはDiscordにて催促してください。\\
+    
+    \point{比較表}
+    \indent 上に同じ\\
+    
+    \subsection{6}{リスト}
+    \point{箇条書き}
+    \indent 箇条書きを使用したい場合は、以下のようにして\verb|\item|で項目を並べ、\verb|\begin{itemize}|と\verb|\end{itemize}|で囲うことにより実現できます。
+    \begin{verbatim}
+        本文...
+        \begin{itemize}
+            \item 文実役員名簿
+            \item neko
+            \item asosanta
+            \item ...
+        \end{itemize}
+        本文...
+    \end{verbatim}
+    
+    \point{番号付きリスト}
+    \indent 番号付きリストも基本的には箇条書きと同じです。番号部分のスタイルは⑴・①・\ajKaku{1}の3種類があり、それぞれ以下のようにして指定できます。
+    \begin{verbatim}
+        本文...
+        \begin{enumerate-brackets} % かっこタイプ
+            \item 文実役員名簿
+            \item neko
+            \item asosanta
+            \item ...
+        \end{enumerate-brackets}
+        \begin{enumerate-circle} % 丸囲みタイプ
+            \item 文実役員名簿
+            \item neko
+            \item asosanta
+            \item ...
+        \end{enumerate-circle}
+        \begin{enumerate-square} % 四角囲みタイプ
+            \item 文実役員名簿
+            \item neko
+            \item asosanta
+            \item ...
+        \end{enumerate-square}
+        本文...
+    \end{verbatim}
+    
+    \point{テキスト付きリスト}
+    \indent 試作段階。\\
+    
+    \subsection{7}{注釈}
+    \indent 注釈にはfootnoteを使用します。注釈の米印をつけたい場所に「footnotemark」を、説明を出力したい箇所に「footnotetext」を
+    以下のように記述します。また1ページ内に複数の米印がある可能性を考慮し、基本的に番号をつけて区別するようにしてください（ページが変わったらリセットです）。
+    \begin{verbatim}
+        ...。ここに注釈\footnotemark[1]をつけたいね☆...
+    
+        \footnotetext[1]{ここに注釈が出力されます。}
+    \end{verbatim}
+    
+    \subsection{8}{空欄}
+    \point{番号付き空欄}
+    \indent まだ作ってません。空欄を使いたい場合にはDiscordにて催促してください。\\
+    
+    \point{書きこみ余白}
+    \indent 同文。\\
+    
+    
+    \subsection{9}{索引}
+    必要に応じて単語に対して索引を付与することができます。
+    \point{索引の付け方}
+    \indent 以下のように指定したい単語の直後に記述するだけです。単語が半角アルファベット・ひらがな・カタカナのいずれかのみで構成される場合は\verb|\index{索引語}| 、
+    漢字等が含まれる場合は\verb|\index{よみかた@索引語}| の形で指定します。
+    \begin{verbatim}
+        筑駒文化祭は文化の日\index{ぶんかのひ@文化の日}に開催されます。
+    \end{verbatim}
+    \indent また、入れ子になった単語の場合は、\verb|\index{よみかた@索引語!いれこ@入れ子}|のように「！」で区切って指定します。
+    \begin{verbatim}
+        文化\index{ぶんか@文化}の継承が...
+        筑駒文化祭は文化の日\index{ぶんか@文化!のひ@の日}に開催されます。
+        健康で文化的\index{ぶんか@文化!てき@的}な最低限度の生活
+    \end{verbatim}
+    
+    
+    \subsection{10}{その他}
+    %
+    \point{雪だるま}
+    \indent\snowman です。かわいいね。
+    \begin{verbatim}
+        \snowman
+    \end{verbatim}
+    
+    %
+    \point{\BunTeXg ロゴ}
+    \indent 文テフのロゴは、「BunTeX」と「文TeX」の二つが存在します。
+    \begin{verbatim}
+        \BunTeX  % 英語版
+        \BunTeXJ % 日本語版
+    \end{verbatim}
+    
+    \point{均等割り}
+    \indent 「均等割り」はテキストを指定された長さの中に均等に配置するものです。
+    \begin{verbatim}
+        \kintou{30truemm}{サンプルテキスト}
+    \end{verbatim}
+    
+    %
+    \point{文責}
+    \indent みなさんお馴染みの文責です。特に使う必要はありませんが一応残してあります。
+    \begin{verbatim}
+        \responsibility{Asosan}{装飾}
+    \end{verbatim}
+    
+    %
+    \point{ページ拡張}
+    \indent 「ページ下の余白が数ミリ足りなくて、図や表が次のページに飛んでしまった」などの場合に使用します。
+    \begin{verbatim}
+        \singleimage{image1.png}
+        \extendpage % これでテキスト領域が3mm伸びる
+    \end{verbatim}
+    
+    %
+    \point{マークシート}
+    \indent マークシートの例のマークを出力できます（必要ない）。
+    \begin{verbatim}
+        \egg{1}, \eggg{1}
+    \end{verbatim}
+    
+    \point{定規}
+    \indent 定規の画像を出せます（本当に必要ない）。
+    \begin{verbatim}
+        \ruler
+    \end{verbatim}
+    
+    
+    \subsection{11}{表紙系}
+    \hspace{1zw}表紙は最後に作りまーす！ちょっと待っててね☆
+    
+    \begin{comment}
+    
+    \point{表1}
+    \indent 下線には以下の3種類があります。「強調度合い」は実線>波線>点線の順で、下線に番号をつけることもできます（この場合はその下線に対応する説明を後述してください）。適宜使い分けてください。
+    \begin{verbatim}
+        ...。だみー...
+    \end{verbatim}
+    \point{表2}
+    \indent 表2には
+    
+    \point{概要}
+    \indent 下線には以下の3種類があります。「強調度合い」は実線>波線>点線の順で、下線に番号をつけることもできます（この場合はその下線に対応する説明を後述してください）。適宜使い分けてください。
+    \begin{verbatim}
+        ...。だみー...
+    \end{verbatim}
+    
+    \point{表3}
+    \indent 下線には以下の3種類があります。「強調度合い」は実線>波線>点線の順で、下線に番号をつけることもできます（この場合はその下線に対応する説明を後述してください）。適宜使い分けてください。
+    \begin{verbatim}
+        ...。だみー...
+    \end{verbatim}
+    
+    \point{表4}
+    \indent 下線には以下の3種類があります。「強調度合い」は実線>波線>点線の順で、下線に番号をつけることもできます（この場合はその下線に対応する説明を後述してください）。適宜使い分けてください。
+    \begin{verbatim}
+        ...。だみー...
+    \end{verbatim}
+    
+    \point{背表紙}
+    \indent 下線には以下の3種類があります。「強調度合い」は実線>波線>点線の順で、下線に番号をつけることもできます（この場合はその下線に対応する説明を後述してください）。適宜使い分けてください。
+    \begin{verbatim}
+        ...。だみー...
+    \end{verbatim}
+    \end{comment}
+    
+    
+    
+    
+    
+\end{comment}
+\end{multicols*}
