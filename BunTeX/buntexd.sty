@@ -17,23 +17,25 @@
 \renewcommand{\ttdefault}{pplx}  
 
 
-\newenvironment{bookletmaterial}{
+\newenvironment{leaflet}{
     \setlength{\columnsep}{7.2mm}
     \setlength{\columnseprule}{0.4pt}
 }{
 }
 
-\newenvironment{normalmaterial}{
+\newenvironment{normalb4sheet}{
     \setlength{\columnsep}{7.5mm}
     \setlength{\columnseprule}{0mm}
+    \renewcommand{\baselinestretch}{1.05}
     \pagestyle{normal}
     \begin{multicols*}{4}
 }{
     \end{multicols*}
 }
-\newenvironment{normalmaterialb5}{
+\newenvironment{normalb5sheet}{
     \setlength{\columnsep}{7.5mm}
     \setlength{\columnseprule}{0.3pt}
+    \renewcommand{\baselinestretch}{1.05}
     \pagestyle{normal}
     \begin{multicols*}{2}
 }{
@@ -43,6 +45,7 @@
 \newenvironment{answersheet}{
     \setlength{\columnsep}{25mm}
     \setlength{\columnseprule}{0mm}
+    \renewcommand{\baselinestretch}{1.14}
     \pagestyle{normal}
     \begin{multicols*}{2}
 }{
@@ -59,27 +62,27 @@
 % 表紙・裏表紙（冊子用）
 
 % ページスタイル（冊子用・資料用）
-\NewPageStyle{booklet}{
+\NewPageStyle{leaflet}{
     running_head_position=top-left,
-    odd_running_head={\uline[background,width=0.4pt,position=-1.5mm]{\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}\hfill{\selectsize{9pt}{9pt}\GenEiNombre{\textit{\thepage}}}}},
-    even_running_head={\uline[background,width=0.4pt,position=-1.5mm]{{\selectsize{9pt}{9pt}\GenEiNombre{\textit{\thepage}}}\hfill\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\bookletnum 　\booklettitle}}}},
+    odd_running_head={\uline[background,width=0.4pt,position=-1.5mm]{\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\leafletnum 　\leaflettitle}}\hfill{\selectsize{9pt}{9pt}\GenEiNombre{\textit{\thepage}}}}},
+    even_running_head={\uline[background,width=0.4pt,position=-1.5mm]{{\selectsize{9pt}{9pt}\GenEiNombre{\textit{\thepage}}}\hfill\HiraMaru{\HiraMaruJ{\selectsize{7pt}{7pt}\leafletnum 　\leaflettitle}}}},
     running_head_ii_position=bottom-center,
     odd_running_head_ii={\oline[background,width=0.4pt,position=5mm]{\hfill}},
     even_running_head_ii={\oline[background,width=0.4pt,position=5mm]{\hfill}},
     nombre={}
 }
-\NewPageStyle{normal}{
+\NewPageStyle{normalb4}{
     running_head_position=top-center,
     odd_running_head={\vbox to 15mm{\vskip-5mm\hbox to 334mm{\Helvetica{\uline[background,width=.75pt,position=-2mm]{\selectsize{10pt}{10pt}\textgt{\lefttitle}\hfill \textgt{\righttitle 　}{\selectsize{10pt}{10pt}\thepage}~\gothic{枚目}{\selectsize{10pt}{10pt}~/~\lastpage}~\gothic{枚中}}}}}},
     nombre={}
 }
-\NewPageStyle{normals}{
+\NewPageStyle{normalb5}{
     running_head_position=top-center,
     odd_running_head={\vbox to 15mm{\vskip-5mm\hbox to 163mm{\Helvetica{\uline[background,width=.75pt,position=-2mm]{\selectsize{10pt}{10pt}\textgt{\lefttitle}\hfill \textgt{\righttitle 　}{\selectsize{10pt}{10pt}\thepage}~\gothic{枚目}{\selectsize{10pt}{10pt}~/~\lastpage}~\gothic{枚中}}}}}},
     nombre={}
 }
-\newcommand{\booklettitle}{}
-\newcommand{\bookletnum}{}
+\newcommand{\leaflettitle}{}
+\newcommand{\leafletnum}{}
 
 \newcommand{\lefttitle}{}
 \newcommand{\righttitle}{}
@@ -234,9 +237,6 @@
 \newenvironment{enumsquarebrackets}{\begin{enumerate}\setlength{\leftskip}{1.3\zw}\renewcommand{\labelenumi}{□~\ajKakko{\arabic{enumi}}　}}{\end{enumerate}}
 \newenvironment{enumcircle}{\begin{enumerate}\setlength{\leftskip}{-0.7\zw}\renewcommand{\labelenumi}{\ajMaru{\arabic{enumi}}~}}{\end{enumerate}}
 \newenvironment{enumsquare}{\begin{enumerate}\setlength{\leftskip}{-0.7\zw}\renewcommand{\labelenumi}{\ajKaku{\arabic{enumi}}~}}{\end{enumerate}}
-\newenvironment{enumcircleans}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajMaru{\arabic{enumi}}~}}{\end{enumerate}}
-\newenvironment{enumsquareans}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajKaku{\arabic{enumi}}~}}{\end{enumerate}}
-\newenvironment{enumbracketsans}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajKakko{\arabic{enumi}}　}}{\end{enumerate}}
 
 % 枠
 \newenvironment{framebox-simple}[1]{\begin{simplesquarebox}{#1}[.75]}{\end{simplesquarebox}}
@@ -258,6 +258,13 @@
 %figure
 \renewcommand{\figurename}{}
 \newcommand{\singleimage}[2]{\begin{figure}[H]\centering\includegraphics[width=#1]{#2}\end{figure}}
+\newcommand{\wrapfig}[3]{
+    \begin{wrapfigure}{r}{#1}
+        \vspace*{-\intextsep}
+        \includegraphics[width=#1]{#2}
+        \centering{\selectsize{7.5pt}{10pt}#3}
+    \end{wrapfigure}
+}
 \newcommand{\singleimagecap}[3]{\begin{figure}[H]\centering\includegraphics[width=#1]{#2}\caption{\mcfamily\rmfamily\textmd{#3}}\end{figure}}
 \newcommand{\doubleimage}[3][30mm]{
     \begin{figure}[H]
@@ -279,6 +286,13 @@
         \includegraphics[width=30mm]{#1}
         \centering{\selectsize{7.5pt}{10pt}#2}
     \end{wrapfigure}
+}
+\newcommand{\singleqrc}[2]{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=25truemm]{#1}
+        \begin{center}{\fontsize{7truept}{7truept}\selectfont #2}\end{center}
+    \end{figure}
 }
 \newcommand{\doubleqr}[4]{
     \begin{figure}[H]
@@ -318,11 +332,54 @@
 \end{figure}
 }
 
+
+
+
+
+
+
+
+
+
+
 % Answer Sheets
+\newcommand{\answertitle}[1]{%
+\begin{center}
+    {\selectsize{15pt}{15pt}\textgt{\Helvetica{\noindent #1}}}
+    \vskip5mm
+\end{center}
+}
+
+\newcommand{\answersheetinfo}[5]{\noindent {\selectsize{8pt}{10pt}書類番号：}{\selectsize{10pt}{10pt}\uline{#1}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}提出物番号：}{\selectsize{10pt}{10pt}\uline{#2}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}提出期限：}\uline{{\selectsize{10pt}{10pt}\uline{#3~({\selectsize{9pt}{9pt}#4})}}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}提出先：}\uline{#5}\\}
+\newcommand{\groupinfo}{%
+\noindent {\selectsize{8pt}{10pt}団体名：}\uline{\hspace{70mm}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}顧問署名：}\uline{\hspace{50mm}} \\
+\noindent {\selectsize{8pt}{10pt}デコ責署名：}\uline{\hspace{55mm}}~~/~~\uline{\hspace{55mm}} \\
+}
+
+\newcommand{\groupinfonoad}{%
+\noindent {\selectsize{8pt}{10pt}団体名：}\uline{\hspace{70mm}} \\
+\noindent {\selectsize{8pt}{10pt}デコ責署名：}\uline{\hspace{55mm}}~~/~~\uline{\hspace{55mm}} \\
+}
+
+
+
+
+
+\newenvironment{enumcircleans}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajMaru{\arabic{enumi}}~}}{\end{enumerate}}
+\newenvironment{enumsquareans}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajKaku{\arabic{enumi}}~}}{\end{enumerate}}
+\newenvironment{enumbracketsans}{\begin{enumerate}\setlength{\leftskip}{0\zw}\renewcommand{\labelenumi}{\ajKakko{\arabic{enumi}}　}}{\end{enumerate}}
+
+
+
+
 \newcommand{\visible}{visible}
 \newcounter{mondai}
+\newtcbox{\writebox}[1][]{boxrule=.5pt, sharp corners, colback=white, \visible,nobeforeafter,tcbox width=forced left,box align=base,\visible,#1}
+\newtcbox{\scoringbox}{boxrule=1pt, sharp corners, colback=white, \visible,nobeforeafter,tcbox width=forced left,box align=base,\visible, width=12mm, height=8.5mm}
 %
 \newtcbox{\kasen}[1][]{boxrule=-1pt,bottomrule=.5pt,sharp corners,colback=black!0,\visible,nobeforeafter,tcbox width=forced left,box align=base,top=0.2mm, \visible, height=7.6mm,#1} %環境を定義。プリアンプルでも本文でも良い。
+\newcommand{\markegg}[3]{\hbox to #1{\egg{#2}~~#3\hfill}}
+
 
 \newenvironment{question}[1]{
 \parindent0\zw
@@ -339,5 +396,55 @@
     {\selectsize{9pt}{10pt}\uwave{ここには何も書かないこと}→　}~{\selectsize{10pt}{10pt}\arabic{mondai}}~{\selectsize{9pt}{10pt}チェック}~\scoringbox{}
 \end{flushright}
 \vspace{3mm}}
+
+\newcommand{\scoring}[1]{%
+\begin{flushright}
+    \vskip0.2mm
+    #1~\scoringbox{}
+\end{flushright}
+}
+
+
+
+
+
+\newcommand{\checkcolumn}{%
+{
+\vspace{8mm}
+\selectsize{9pt}{12pt}
+\uwave{読み直した上で}以下の項目もチェックしてから提出すること\\
+\vspace{-7.5mm}
+\begin{multicols}{2}
+□ ボールペンで記入したか\\
+\indent □ ~記入漏れがないか\\
+\indent □ ~判別可能な文字であるか\\
+\indent □ ~日本語がおかしい箇所はないか
+\end{multicols}
+}
+}
+
+\newcommand{\confirmationcolumn}{%
+\vskip3mm
+\sector{ここから先には何も書かないこと}
+\vskip2mm
+\noindent {\selectsize{8pt}{10pt}総務担当者：}\uline{\hspace{55mm}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}受理日：}\uline{\hspace{55mm}} \\
+\noindent {\selectsize{8pt}{10pt}申請可否：}　\hbox to 30mm{\egg{1}~~許可\hfill}\hbox to 30mm{\egg{2}~~不許可\hfill}\\
+\noindent {\selectsize{8pt}{10pt}備考：}\uline{\hfill} \\
+\vspace{-9.4mm}
+}
+
+\newcommand{\finalcheck}{%
+\begin{flushright}
+    \vskip0.2mm
+    最終チェック~\scoringbox{}
+\end{flushright}
+\vfill
+}
+
+
+
+
+
+
 
 \endinput

@@ -5,14 +5,14 @@
 \usepackage{buntexd}
 %%% ここまで %%%
 
-\renewcommand{\booklettitle}{<会議名>}
-\renewcommand{\bookletnum}{第~<N>~回}
+\renewcommand{\leaflettitle}{<会議名>}
+\renewcommand{\leafletnum}{第~<N>~回}
 \begin{document}
 % 表表紙 %
 \input{<表表紙のパス>}
 
 \newpage
-\begin{bookletmaterial}
+\begin{leaflet}
 % 書類比較表 %
 \input{<連絡用リーフのパス>}
 
@@ -21,7 +21,7 @@
 \input{<各書類のパス>}
 \input{<各書類のパス>}
 ...
-\end{bookletmaterial}
+\end{leaflet}
 
 % 裏表紙 %
 \input{<裏表紙のパス>}
