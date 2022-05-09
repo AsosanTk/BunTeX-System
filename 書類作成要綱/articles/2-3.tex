@@ -1,0 +1,180 @@
+\newpage
+\pagestyle{leaflet}
+\inserttitle*[running head]{第2回：資料用{\BunTeX}}[2-3 回答用紙]
+\begin{multicols*}{2}
+ここからは、デコ責会議や会合のアンケート等に使用する、回答用紙の作成方法を解説していきます。
+\section{構成}
+回答用紙は以下のような構成になっています。
+\begin{framebox-simple}{構成}
+\begin{center}
+タイトル → 書類情報 → 署名欄 → 問題 → 解答欄 → 問題 → ... → 解答欄 → (生徒確認欄) → (文実担当欄) → 最終チェック欄
+\end{center}
+※ 括弧はなくてもよい
+\end{framebox-simple}
+それぞれを出力するための命令は以下で解説していきます。
+
+\section{ページスタイル}
+テンプレート「answerb4.tex」, 「answerb5.tex」（4-2参照）にある
+コードについて少し説明します。\uwave{これらはあらかじめ書かれていますので、自分で記述する必要はありません}。
+\begin{framebox-simple}{ページスタイル}
+    \begin{reitemize}
+        \item \verb|[B]| answersheetb4：B4回答用紙用の環境で、本文全体をこれで囲う必要がある
+        \item \verb|[B]| answersheetb5：B5回答用紙用の環境、上と同様
+    \end{reitemize}
+\end{framebox-simple}
+
+\section{ヘッダー}
+回答用紙は、ヘッダーに書類を識別するためのカテゴリ名と番号を記述する必要があります。
+テンプレート（4-3参照）の5, 6行目の\verb|\lefttitle, \righttitle|には以下を指定します。
+\begin{framebox-simple}{ヘッダー}
+    \begin{reitemize}
+        \item \verb|\lefttitle|：「会議名or第\verb|~71~|回文化祭実行委員会 \(+\) （全角空白） \(+\) 〜配布」（〜には部門名が入る）
+        \item \verb|\righttitle|：「提出物番号：〜」（付番方法は2-1-10参照）
+    \end{reitemize}
+\end{framebox-simple}
+
+\section{タイトル}
+回答用紙のタイトルには以下を使用します。
+\begin{framebox-simple}{タイトル}
+    \begin{reitemize}
+        \item \verb|[A]| answertitle
+    \end{reitemize}
+\end{framebox-simple}
+
+\section{書類情報・署名欄}
+「書類情報」とは、説明資料番号・提出物番号・提出期限・提出先のことです。また、署名欄はデコ責署名や顧問署名等を一括で出力できます。
+それぞれ以下のように記述します。
+\begin{framebox-simple}{書類情報・署名欄}
+    \begin{reitemize}
+        \item \verb|[E]| \verb|answersheetinfo{<説明書類番号>}{<提出物番号>}{<締切（5/27のような形式で）>}{<締切曜日>}{<提出先>}|
+        \item \verb|[D]| groupinfo：団体名, デコ責署名2名分, 顧問署名
+        \item \verb|[D]| groupinfonoad：団体名, デコ責署名2名分のみ
+    \end{reitemize}
+\end{framebox-simple}
+
+\section{問題}
+回答用紙では各セクションごとに、問題欄と回答欄を設けます。ここでは問題欄で使用できる命令を説明します。
+
+\point{前提}
+問題欄に配置するコンテンツは、「\verb|[B]| question」で囲った上で、そのセクションのタイトルを指定する必要があります。
+\begin{framebox-ref}{問題欄と回答欄の構成例}
+\begin{verbatim}
+（タイトル, 書類情報, 署名欄）
+
+% セクション1
+\begin{question}{<セクション1のタイトル>}
+    （セクション1の問題）
+\end{question}
+\begin{answer}
+    （セクション1の回答欄）
+\end{answer}
+        
+% セクション2
+\begin{question}{<セクション2のタイトル>}
+    （セクション2の問題）
+\end{question}
+\begin{answer}
+    （セクション2の回答欄）
+\end{answer}
+        
+% セクション3
+\dots
+
+（確認欄等）
+\end{verbatim}
+\end{framebox-ref}
+
+\point{リスト}
+問題作成に使用するリストは通常のものとは異なります。以下の3種類を使用してください。
+ただし、セクションに対して問題が1つしかない場合には使用する必要はありません。
+
+リストの使用方法は2-1-5を参照してください
+\begin{framebox-simple}{リスト}
+    \begin{reitemize}
+        \item \verb|[B]| enumbracketsans：⑴⑵...
+        \item \verb|[B]| enumcircleans：①②...
+        \item \verb|[B]| enumsquareans：□囲みの数字
+    \end{reitemize}
+\end{framebox-simple}
+
+\point{問題欄が必要ない場合}
+問題欄が必要なく、回答欄のみでよい場合は以下のようにします。
+\begin{framebox-simple}{問題欄が必要ない場合}
+\begin{verbatim}
+\begin{question}{<セクションのタイトル>}
+    % 一行開ける！
+\end{question}
+\begin{answer}
+    \dots
+\end{answer}
+\end{verbatim}
+\end{framebox-simple}
+
+
+\section{回答欄}
+次に問題の項目に対する回答欄を作ります。
+短文回答、長文回答、マークシート等を指定できます。
+
+\point{前提}
+回答欄に配置するコンテンツは、「\verb|[B]| answer」で囲います。
+これを行うと、セクションの末尾に確認欄が自動的に出力されます。
+前項の例を参照してください。
+
+\point{リスト・表}
+リストは前項、表は2-1-7を参照して作成してください。表の横幅は150mm程度が良いでしょう。
+
+\point{記述式回答欄}
+短文・長文それぞれ以下のように指定します。短文回答の場合、複数下線を並べて複数行回答にすることもできます。
+\begin{framebox-simple}{短文回答}
+    \begin{reitemize}
+        \item \verb|\kasen[]{}|：右端まで下線を出力する。\verb|{}|内に文字を打つと、下線の上にあらかじめ文字を書くことができる。
+        \item \verb|\kasen[width=<長さ>]{}|：指定した長さ分の下線を出力する。
+    \end{reitemize}
+\end{framebox-simple}
+\begin{framebox-simple}{長文回答}
+    \begin{reitemize}
+        \item \verb|\writebox[height=<長さ>]{}|：書き込みボックスを出力する。\verb|{}|内に文字を打つと、ボックス内にあらかじめ文字を書くことができる。
+    \end{reitemize}
+\end{framebox-simple}
+
+\point{選択式回答欄}
+マークシートによる選択式回答欄です。表との相性が非常に良いです。
+\begin{framebox-simple}{長文回答}
+    \begin{reitemize}
+        \item \verb|{\egg{<1桁の半角数字>}}|：数字入りのマークシート
+        \item \verb|{\egg{~}}|：数字なしのマークシート
+        \item \verb|{\eggg{<1桁の半角数字>}}|：あらかじめ塗りつぶされたマークシート（数字あり）
+        \item \verb|{\eggg{~}}|：あらかじめ塗りつぶされたマークシート（数字なし）
+        \item \verb|\markegg{<長さ>}{<1桁の半角数字>}{<説明>}|：1行に複数のマークシートを掲載したい場合に、各項目の長さ・番号・説明を一度に指定できる命令
+    \end{reitemize}
+\end{framebox-simple}
+\begin{framebox-ref}{マークシートと表の組み合わせ例}
+\begin{verbatim}
+\begin{table}[H]
+\centering
+\begin{tabularx}{150mm}{|c|C|C|C|C|C|}\hline
+    日付（第1週・第2週）  & 5/23 & 5/24 & \\\hline
+    第1週 / 15:30〜 & \egg{~} & \egg{~} & \\\hline
+    第1週 / 16:00〜 & \egg{~} & \egg{~} & \\\hline
+    ...
+\end{tabularx}
+\end{table}
+\end{verbatim}
+\end{framebox-ref}
+
+
+\section{確認欄系統}
+書類の最後には確認欄を出力します。
+確認欄は4種類あります。最終チェック欄はマストで出力する必要が、checkcolumnとconfirmationcolumnは任意です。
+
+またscoringはセクションの途中で確認欄を出力したい場合に使用します（回答欄の途中に配置してください）。
+\begin{framebox-simple}{確認欄}
+    \begin{reitemize}
+        \item \verb|\scoring{<タイトル>}|：セクションの末尾以外の任意の位置に配置し、確認欄を出力
+        \item \verb|\checkcolumn|：生徒向けの提出前の確認欄。書類の抜け落ちがないか、ボールペンで記入しているか等の項目がある。
+        \item \verb|\confirmationcolumn{<部門名>}|：部門担当者用の備考欄等を出力する。
+        \item \verb|\finalcheck|：文実用の最終チェック欄
+    \end{reitemize}
+\end{framebox-simple}
+\sectiont{\HuiFont{メモ}}
+\end{multicols*}

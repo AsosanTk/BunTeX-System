@@ -1,15 +1,25 @@
 \newpage
 \pagestyle{leaflet}
-\inserttitle*[running head]{第3回：冊子用{\BunTeX}}[要綱・本]
+\inserttitle*[running head]{第3回：冊子用{\BunTeX}}[3-1 要綱・本]
 \begin{multicols*}{2}
+
 要綱や長い本を作成する際にはこの「冊子用{\BunTeX}」を使用します。以下では各機能・マクロ、さらには本作成のTipsについて説明していきます。
 この中にはみなさんが使用する必要のないマクロも含まれていることと思います。
 この章の最後によく使用するマクロを一覧にしてまとめておきましたので、必要に応じて参照してください。
 
 \section{前提}
 要綱・本作成の際に使用するスタイルファイルは、「{\BunTeXC}」と「{\BunTeXB}」です。また、コンパイルには資料用同様「Lua{\LaTeX}」
-を使用します。\footnotemark[1]
+を使用します。\footnotemark[1]\\
 \footnotetext[1]{ちなみに鉄◯会のテキストはup\LaTeX を使っているみたいです。時代遅れですね。}
+
+\begin{center}
+    {\selectsize{13pt}{13pt}5/20に追記します}
+    {\selectsize{11pt}{11pt}「3-2 複数人で執筆する際は」も同様}
+\end{center}
+\sectiont{\HuiFont{メモ}}
+
+
+\begin{comment}
 
 \section{ディレクトリ構成}
 要綱・本は内容が非常に多いため、必要に応じてファイルを分割する必要があります（というかわけないと文章が煩雑になってきます）。
@@ -102,7 +112,7 @@
     \uwave{波線}
     \udotline{点線下線}
 \end{verbatim}
-\begin{comment}
+
 \point*[running head]{圏点・ルビ}
     \point{圏点とルビ}
     \indent 以下のようにして文字の上に点を振って強調したり、ルビを振ったりすることができます。ルビを振る際は漢字ごとに|で区切って指定してください。
@@ -457,7 +467,7 @@
     \subsection{11}{表紙系}
     \hspace{1zw}表紙は最後に作りまーす！ちょっと待っててね☆
     
-    \begin{comment}
+
     
     \point{表1}
     \indent 下線には以下の3種類があります。「強調度合い」は実線>波線>点線の順で、下線に番号をつけることもできます（この場合はその下線に対応する説明を後述してください）。適宜使い分けてください。
@@ -490,7 +500,6 @@
     \begin{verbatim}
         ...。だみー...
     \end{verbatim}
-    \end{comment}
     
     
     

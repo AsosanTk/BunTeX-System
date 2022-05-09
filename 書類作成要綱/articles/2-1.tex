@@ -1,6 +1,6 @@
 \newpage
 \pagestyle{leaflet}
-\inserttitle*[running head]{第2回：資料用{\BunTeX}}[共通事項]
+\inserttitle*[running head]{第2回：資料用{\BunTeX}}[2-1 共通事項]
 \begin{multicols*}{2}
 ここからは資料用\BunTeX の使い方について解説していきます。\mline{なお全て書くのは非常に手間なので}、一部以下のように略して掲載します。
 
@@ -8,7 +8,7 @@
 \noindent\verb|[A]|：\verb|\<コマンド名>{<文字列>}|\\
 \noindent\verb|[B]|：\verb|\begin{<命令の名前>}[<オプション>]{<情報1>}...|\\\hspace{4.5\zw}\verb|<コンテンツ>|\\\hspace{2.4\zw}\verb|\end{<命令の名前>}|\\
 \noindent\verb|[C]|：\verb|\<コマンド名>*[running head]{<文字列>}|\\
-\noindent\verb|[D]|：\verb|\<コマンド名>|\\
+\noindent\verb|[D]|：\verb|{\<コマンド名>}|\\
 \noindent\verb|[E]|：\verb|\<コマンド名>{<情報1>}{<情報2>}...|
 \end{framebox-simple}
 \noindent ※ <>の部分を変えていく感じです。\\
@@ -47,7 +47,7 @@
 ※ \verb|<options>|の部分はテンプレートによって違うものが入る
 \end{framebox-simple}
 \point{改行}
-\TeX ファイル内で1行空白行を挟むと改行されます。ただし2行以上空白にしたとしても、出力されるのは改行のみで、空白行は出力されません。
+\TeX ファイル内で1行空白行を挟むと改行されます（通常の改行は出力結果に何の影響も及ぼしません）。ただし2行以上空白にしたとしても、出力されるのは改行のみで、空白行は出力されません。
 空白行を挿入する以外に文章中で強制的に改行したい場合は、その箇所に「\verb|\\|」を記述してください。
 
 \point{余白}
@@ -162,18 +162,17 @@
 これを使用すると、コンテンツ全体を枠で囲うことができるようになります。本文から分けたり、強調したり
 といった使い方ができます。
 \begin{framebox-simple}{枠囲みの種類}
-    \begin{table}[H]
-        \begin{tabularx}{64mm}{|X|c|c|}
-        \hline
-        命令の名前             & 情報1  & オプション  \\ \hline
-        framebox-simple   & タイトル &        \\ \hline
-        framebox-simpled  & タイトル & サブタイトル \\ \hline
-        framebox-key      &      &        \\ \hline
-        framebox-ref      & タイトル &        \\ \hline
-        framebox-brackets & タイトル & サブタイトル \\ \hline
-        framebox-practice & タイトル &        \\ \hline
-        \end{tabularx}
-    \end{table}
+\begin{table}[H]
+\begin{tabularx}{64mm}{|X|c|c|}\hline
+    命令の名前             & 情報1  & オプション  \\ \hline
+    framebox-simple   & タイトル &        \\ \hline
+    framebox-simpled  & タイトル & サブタイトル \\ \hline
+    framebox-key      &      &        \\ \hline
+    framebox-ref      & タイトル &        \\ \hline
+    framebox-brackets & タイトル & サブタイトル \\ \hline
+    framebox-practice & タイトル &        \\ \hline
+\end{tabularx}
+\end{table}
     \begin{reitemize}
         \item \verb|[B]| framebox-simple：単純な枠囲み
         \item \verb|[B]| framebox-simpled：上にサブタイトルを追加したもの
@@ -191,22 +190,24 @@
 \begin{framebox-simple}{1枚画像}
     \begin{itemize}
         \item \verb|[E]| \verb|singleimage{<横幅>}{<画像のパス>}|：通常
+        \item \verb|[E]| \verb|wrapfig{<横幅>}{<画像のパス>}{<説明>}|：テキスト回り込み
         \item \verb|[E]| \verb|singleimagecap{<横幅>}{<画像のパス>}{<説明>}|：キャプション付
     \end{itemize}
 \end{framebox-simple}
 \begin{framebox-simple}{2枚画像}
     \begin{itemize}
         \item \verb|[E]| \verb|doubleimage{<横幅1>}{<画像1のパス>}{<画像2のパス>}|：通常
-        \item \verb|[E]| \verb|doubleimage{<横幅1>}{<画像1のパス>}{<説明1>}{<画像2のパス>}{<説明2>}|：キャプション付
+        \item \verb|[E]| \verb|doubleimagecap{<横幅1>}{<画像1のパス>}{<説明1>}{<画像2のパス>}{<説明2>}|：キャプション付
     \end{itemize}
 \end{framebox-simple}
 \point{QRコード}
 QRコードは3枚横並びまでできます。Footnote等でリンクを貼ることを強く推奨します。
 \begin{framebox-simple}{QRコード}
     \begin{itemize}
-        \item \verb|[E]| \verb|singleqr{<画像のパス>}{<説明>}|
-        \item \verb|[E]| \verb|doubleqr{<画像1のパス>}{<説明1>}{<画像2のパス>}{<説明2>}|
-        \item \verb|[E]| \verb|tripleqr{<画像1のパス>}{<説明1>}{<画像2のパス>}{<説明2>}{<画像3のパス>}{<説明3>}|
+        \item \verb|[E]| \verb|singleqr{<画像のパス>}{<説明>}|：テキスト回り込み
+        \item \verb|[E]| \verb|singleqrc{<画像のパス>}{<説明>}|：中央配置
+        \item \verb|[E]| \verb|doubleqr{<画像1のパス>}{<説明1>}{<画像2のパス>}{<説明2>}|：2枚横並び
+        \item \verb|[E]| \verb|tripleqr{<画像1のパス>}{<説明1>}{<画像2のパス>}{<説明2>}{<画像3のパス>}{<説明3>}|：3枚横並び（B5:1段組, B4:2段組以上推奨）
     \end{itemize}
 \end{framebox-simple}
 
@@ -260,8 +261,9 @@ Fig 2.2のような表のコードが生成されたらこれをコピーして�
 }
 \end{framebox-ref}
 
-
+%\section{書き込み余白}
 \section{その他}
+注釈やURL、文責等の細々した命令集です。
 \begin{framebox-simple}{注釈}
     \begin{reitemize}
         \item \verb|\footnotemark[N]|：注釈をつけたいテキストの直後に記述する~/~Nには自然数が入る
@@ -300,8 +302,28 @@ Fig 2.2のような表のコードが生成されたらこれをコピーして�
 \end{framebox-ref}
 
 \section{付番方法}
-今年度より、生徒側の書類管理効率化のため、\uwave{対外に出す資料にのみ}付番をすることになりました。
-以下にそのルールを挙げます。
+今年度より、生徒側の書類管理効率化のため、\uwave{対外に出す資料にのみ}付番をすることになりました。以下に付番のルールを記載します。
+
+デコ責会議の資料のみ付番方法が異なりますので注意してください。
+\point{通常の付番方法}
+\begin{framebox-simple}{通常の付番}
+\begin{center}
+    {\selectsize{15pt}{15pt}Xnn-mmxxp}
+    \vspace{0.5\zw}
+\end{center}
+\begin{reitemize}
+    \item 先頭の「X」は、資料の配布先ごとに別のアルファベットを入れます。「E」は生徒部・職員会議（教員）用、「S」は生徒向け配布、「P」は掲示資料、「U」は宇田川先生に提出する資料です。
+    \item 「nn」には、各部門の識別番号が入ります。
+    \item 「mm」には、資料の配布\boldwave{月}が入ります。
+    \item 「xx」は、同配布先、同部門、同月の資料を作成順に付番していきます。
+    \item 回答用紙の場合は「p」の部分に「A」と書きます。他の場合には特に指定する必要はありません。
+\end{reitemize}
+\end{framebox-simple}
+\checking{例1：総務から教員 / デコ運営方針について / 5月の教員提出の総務資料で3番目の場合→E01-0503}\\
+\checking{例2：庶務から生徒向け / 文実通信第10号 / 10月の生徒向けの庶務資料で5番目の場合→S02-1005}\\
+\checking{例3：第5回装飾委員会会合 / 9月の委員会配布の装飾資料で2番目の場合→S12-0902}
+
+\point{デコ責会議資料に対する付番方法}
 \begin{framebox-simple}{デコ責会議資料に対する付番}
 \begin{center}
 {\selectsize{15pt}{15pt}Dnn-ttxxp}
@@ -312,7 +334,7 @@ Fig 2.2のような表のコードが生成されたらこれをコピーして�
     \item 「nn」には、第N回デコ責会議の「\(N \in \mathbb{N}\)」が2桁で入ります。
     \item 「tt」には、各部門の識別番号が入ります。
     \item 「xx」には、同じ回で同じ部門から配布された資料に対して順番につけます。基本的に若い番号から、説明用資料→提出物説明資料の順（同じ場合は重要度順）に番号を振ってください。
-    \item 解答用紙の場合は「p」の部分に「A」と書きます。他の場合には特に指定する必要はありません。
+    \item 回答用紙の場合は「p」の部分に「A」と書きます。他の場合には特に指定する必要はありません。
 \end{reitemize}
 \end{framebox-simple}
 \checking{例1：第2回デコ責会議 総務部門 / デコ責広報 / 第5回総務配布資料の中で1枚目の場合→D05-0101}\\
@@ -333,4 +355,5 @@ Fig 2.2のような表のコードが生成されたらこれをコピーして�
     \noindent ※ Discordの番号とは異なります。
 \end{framebox-ref}
 
+\sectiont{\HuiFont{メモ}}
 \end{multicols*}
