@@ -1,6 +1,6 @@
 \newpage
-\pagestyle{booklet}
-\inserttitle*[running head]{第4回：周辺知識}[各種テンプレート]
+\pagestyle{leaflet}
+\inserttitle*[running head]{第4回：周辺知識}[各種テンプレート・使用例]
 \begin{multicols*}{2}
 この章では、GitHub上の「BunTeX-System/Resources/Templates」内にある、
 各種テンプレートについて解説していきます。資料を作る際は基本的に
@@ -9,17 +9,25 @@
 なおテンプレート中のコードは基本的に変更する必要はありませんが、
 \verb|<...>|の部分は資料によって任意のテキストを設定する必要がありますので、適宜変更するようにしてください。
 
+またこれらのテンプレートを用いて作成した資料の一例を、「BunTeX-System/Resources/Examples」に掲載しています。
+2, 3章で解説した各命令を使用し、実際に配布した実例です。必要に応じて参照してください。
+
 \section{基本書類}
 基本書類は種類によって以下のように使い分けます。
 \point*[running head]{定例会資料・付属委員会資料}
 これら2種類はB4版で作成します。資料担当者が作成したメインファイルの中に、\verb|\input{<ファイルのパス>}|
 で各議題提供者が作った議題ごとの\TeX ファイルを読み込んでいきます。見出しには基本的に、番号付きのsectionを使用してください。
-\begin{framebox-simple}{定例会・付属委員会}
+\begin{framebox-simple}{定例会・付属委員会 - テンプレート}
 \begin{reitemize}
     \item メイン：\boldtext{normalb4.tex}（資料担当者が作成）
     \item 各議題：\boldtext{agenda.tex}（議題提供者が作成~/~資料担当者がinputで読み込み）
 \end{reitemize}
 \noindent ※ 見出しにはsectionを使用する
+\end{framebox-simple}
+\begin{framebox-simple}{定例会・付属委員会 - 実例}
+    \begin{reitemize}
+        \item \boldtext{第2回装飾委員会会合資料（normalb4）.tex}
+    \end{reitemize}
 \end{framebox-simple}
 
 \point*[running head]{全校掲示資料・生徒配布資料・教員提出資料}
@@ -31,10 +39,16 @@
 
 \section{解答用紙}
 解答用紙にはB4版とB5版があります。推奨サイズはB4です。
-\begin{framebox-simple}{解答用紙}
+\begin{framebox-simple}{解答用紙 - テンプレート}
     \begin{reitemize}
         \item B4：\boldtext{answerb4.tex}（基本的に推奨）
         \item B5：\boldtext{answerb5.tex}
+    \end{reitemize}
+\end{framebox-simple}
+\begin{framebox-simple}{解答用紙 - 実例}
+    \begin{reitemize}
+        \item B4：\boldtext{第2次中間報告書・教室希望調査書（answerb4）.tex}（基本的に推奨）
+        \item B5：\boldtext{面談希望調査書（answerb5）.tex}
     \end{reitemize}
 \end{framebox-simple}
 
@@ -43,7 +57,7 @@
 定例会同様、メインファイルに各資料の\TeX ファイルを読み込んでいく形式を取ります。
 
 冊子の構成等については2-4を参照してください。
-\begin{framebox-simple}{リーフレット}
+\begin{framebox-simple}{リーフレット - テンプレート}
     \begin{reitemize}
         \item メイン：\boldtext{leaflet.tex}
         \item 表表紙：\boldtext{leaflet-coverf.tex}（デフォルトではデコ責会議15回分の爪インデックスがついている）
@@ -53,7 +67,12 @@
         \item 冊子訂正：\boldtext{leaflet-correct.tex}（冊子訂正が付属する場合はこれを使用すること）
     \end{reitemize}
 \end{framebox-simple}
-
+\begin{framebox-simple}{リーフレット - 実例}
+    \begin{reitemize}
+        \item \boldtext{第1回デコ責会議資料（leaflet）.tex}
+        \item \boldtext{書類作成要綱（leaflet）.tex}
+    \end{reitemize}
+\end{framebox-simple}
 
 \section{要綱系}
 
