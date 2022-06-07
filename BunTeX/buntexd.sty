@@ -79,6 +79,15 @@
     \pagestyle{normalb5}
 }{}
 
+\newenvironment{answersheetb5}{
+    \setlength{\columnsep}{0mm}
+    \setlength{\columnseprule}{0mm}
+    \renewcommand{\baselinestretch}{1.14}
+    \pagestyle{normalb5}
+}{
+
+}
+
 
 % 冊子の側, 提出物書類, 解答用紙, 生徒部提出書類
 \jlreqsetup{
@@ -319,10 +328,11 @@
 \newcommand{\singleqrc}[2]{
     \begin{figure}[H]
         \centering
-        \includegraphics[width=25mm]{#1}
-        \begin{center}{\fontsize{7pt}{7pt}\selectfont #2}\end{center}
+        \includegraphics[width=30mm]{#1}
+        \begin{center}{\selectsize{7pt}{7pt}#2}\end{center}
     \end{figure}
-}
+} 
+
 \newcommand{\doubleqr}[4]{
     \begin{figure}[H]
         \centering
@@ -452,11 +462,11 @@
 }
 }
 
-\newcommand{\confirmationcolumn}{%
+\newcommand{\confirmationcolumn}[1]{%
 \vskip3mm
 \sector{ここから先には何も書かないこと}
 \vskip2mm
-\noindent {\selectsize{8pt}{10pt}総務担当者：}\uline{\hspace{55mm}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}受理日：}\uline{\hspace{55mm}} \\
+\noindent {\selectsize{8pt}{10pt}{#1}担当者：}\uline{\hspace{55mm}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}受理日：}\uline{\hspace{55mm}} \\
 \noindent {\selectsize{8pt}{10pt}申請可否：}　\hbox to 30mm{\egg{1}~~許可\hfill}\hbox to 30mm{\egg{2}~~不許可\hfill}\\
 \noindent {\selectsize{8pt}{10pt}備考：}\uline{\hfill} \\
 \vspace{-9.4mm}

@@ -1,28 +1,22 @@
 \documentclass[paper=b5j, fleqn, jafontsize=9pt, jafontscale=1, head_space=25.5mm, foot_space=15mm, fore-edge=9.5mm, gutter=9.5mm, hanging_punctuation, baselineskip=7mm]{jlreq}
-\usepackage{/Users/Asosan/Documents/GitHub/BunTeX-System/Resources/BunTeX/buntexc}
-\usepackage{/Users/Asosan/Documents/GitHub/BunTeX-System/Resources/BunTeX/buntexd}
+\usepackage{/Users/Asosan/Documents/GitHub/BunTeX-System/BunTeX/buntexc}
+\usepackage{/Users/Asosan/Documents/GitHub/BunTeX-System/BunTeX/buntexd}
+\pagestyle{normalb5}
 \renewcommand{\lefttitle}{第~2~回デコ責会議　総務配布}
 \renewcommand{\righttitle}{提出物番号：D02-0103A}
-\newtcbox{\writebox}[1][]{boxrule=.5pt, sharp corners, colback=white, \visible,nobeforeafter,tcbox width=forced left,box align=base,\visible,#1}
-\newtcbox{\scoringbox}{boxrule=1pt, sharp corners, colback=white, \visible,nobeforeafter,tcbox width=forced left,box align=base,\visible, width=12mm, height=8.5mm}
-\renewcommand{\baselinestretch}{1.14}
-
 
 \begin{document}
-\pagestyle{normals}
-\begin{center}
-    {\selectsize{15pt}{15pt}\textgt{\Helvetica{\noindent 面談希望調査書}}}
-    \vskip5mm
-\end{center}
-\noindent {\selectsize{8pt}{10pt}書類番号：}{\selectsize{10pt}{10pt}\uline{D02-0103}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}提出物番号：}{\selectsize{10pt}{10pt}\uline{D02-0103A}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}提出期限：}\uline{{\selectsize{10pt}{10pt}\uline{5/13~({\selectsize{9pt}{9pt}金})}}}\hspace{2.5\zw}{\selectsize{8pt}{10pt}提出先：}\uline{総務ピジョンボックス}\\
-\noindent {\selectsize{8pt}{10pt}団体名：}\uline{\hspace{70mm}}\hspace{2.5\zw} \\
-\noindent {\selectsize{8pt}{10pt}デコ責署名：}\uline{\hspace{55mm}}~~/~~\uline{\hspace{55mm}} \\
+\begin{answersheetb5}
+\answertitle{面談希望調査書}
+\answersheetinfo{D02-0103}{D02-0103A}{5/13}{金}{総務ピジョンボックス}
+\groupinfonoad
 
 
 \begin{question}{希望日時}
 \end{question}
 \begin{answer}
-\noindent 面談希望：\hbox to 35mm{\egg{1}~~HR団体（必須）\hfill}\hbox to 35mm{\egg{2}~~希望する\hfill}\hbox to 45mm{\egg{3}~~希望しない→記入はここまでで良い\hfill}\\
+
+\noindent 面談希望：\markegg{35mm}{1}{HR団体（必須）}\markegg{35mm}{2}{希望する}\markegg{45mm}{3}{希望しない→記入はここまでで良い}
 \begin{table}[H]
     \centering
         \begin{tabularx}{150mm}{|c|C|C|C|C|C|}\hline
@@ -48,13 +42,9 @@
 
 \end{answer}
 
-\vspace{8mm}
-\begin{flushright}
-    \vskip0.2mm
-    最終チェック~\scoringbox{}
-\end{flushright}
-\vfill
+\finalcheck
 
+\end{answersheetb5}
 \end{document}
 
 
