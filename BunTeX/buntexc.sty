@@ -53,6 +53,7 @@
 \usepackage{luatexja}
 \usepackage[deluxe]{luatexja-fontspec}
 \setmainfont{Palatino}
+\newfontface{\Palatino}{Palatino}
 \newfontface{\LatinModern}[
     OpticalSize = 0,
     SmallCapsFont = lmromancaps10-regular,
@@ -90,12 +91,11 @@
 \setsansjfont[
     YokoFeatures       = {JFM=jlreq},
     TateFeatures       = {JFM=jlreqv},
-    BoldFont           = HiraginoSans-W4,
-    BoldFeatures       = {FakeBold=2},
+    BoldFont           = HiraginoSans-W4, %Fakebold
     ItalicFont         = HiraginoSans-W3,
     ItalicFeatures     = {FakeSlant=0.33},
     BoldItalicFont     = HiraginoSans-W4,
-    BoldItalicFeatures = {FakeBold=2, FakeSlant=0.33}
+    BoldItalicFeatures = {FakeSlant=0.33}
 ]{HiraginoSans-W3}
 \newjfontface{\HiraMaruJ}{HiraMaruProN-W4}
 \newjfontface{\HiraKakusix}{HiraginoSans-W6}
@@ -161,13 +161,13 @@
 \newcommand{\gothic}[1]{{\gtfamily\sffamily #1}}
 \newcommand{\boldtext}[1]{\textbf{\gtfamily\sffamily #1}}
 \newcommand{\selectsize}[2]{\fontsize{#1}{#2}\selectfont}
-\newcommand{\keywordtext}[1]{\begin{center}{\fontsize{12truept}{12truept}\selectfont #1\end{center}}}
+\newcommand{\keywordtext}[1]{\begin{center}{\selectsize{12pt}{15pt}\gothic{#1}}\end{center}}
 \newcommand{\highlighter}[1]{\uline[background,color={[rgb]{1,1,0.4}},width=5pt,position=1pt]{#1}}
 
 
 %✅7. 注釈% p49 footnote
 %特に必要なし：\footnotemark[], \footnotetext[]{}で対応
-\renewcommand{\thefootnote}{*\arabic{footnote}}
+\renewcommand{\thefootnote}{*{\selectsize{9pt}{9pt}\raisebox{-.8mm}{\({}^\arabic{footnote}\)}}}
 
 %8. 空欄% p53 四角空欄
 

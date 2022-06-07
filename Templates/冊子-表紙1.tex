@@ -3,6 +3,9 @@
     \hbox to 248.6mm{\hskip-9.0mm
         \begin{tikzpicture}
             \fill[white] (7mm,0mm) rectangle (174mm,-249mm);
+            %% 背景画像
+            \node[anchor=north west, opacity=0.15] (A) at (60mm,0mm) {\vbox to 0mm{\hbox to 0mm{\includegraphics[height=248mm, keepaspectratio]{<背景画像の相対パス>}}}};
+
             \fill[black!70] (7mm,0mm) rectangle (45mm,-249mm);
             \fill[black!60] (45mm,0mm) rectangle (50mm,-249mm);
             \fill[black!50] (50mm,0mm) rectangle (55mm,-249mm);
@@ -24,7 +27,8 @@
             \fill[black!30] (0mm,-130mm) rectangle (3mm,-139mm);
             \fill[black!30] (0mm,-140mm) rectangle (3mm,-149mm);
             \fill[black!30] (0mm,-150mm) rectangle (3mm,-159mm);
-            %%テキスト部分
+
+            %% テキスト部分
             \draw[text=black!20] node (A) at (26mm,-9mm) [anchor=north] {\rotatebox[origin=cl]{270}{\Kyokasyo{\selectsize{25mm}{25mm}デコ責会議資料}}};
             \draw[text=black] node (B) at (164mm,-94mm) [anchor=east] {\Kyokasyo{{\selectsize{20pt}{20pt}第}}\hspace{4mm}\GenEiNombre{\selectsize{30mm}{30mm}\textit{<n>}}\hspace{4mm}\Kyokasyo{{\selectsize{20pt}{20pt}~回}}};
             \draw[text=black] node (C) at (164mm,-121mm) [anchor=east] {\Kyokasyo{{\selectsize{28pt}{28pt}4月21日(木)}}};

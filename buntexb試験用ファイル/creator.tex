@@ -1,0 +1,555 @@
+\documentclass[book, twoside, paper=b5j, fleqn, jafontsize=9pt, jafontscale=1, head_space=22mm, foot_space=9mm, fore-edge=16mm, gutter=25mm, hanging_punctuation]{jlreq}
+
+\usepackage{/Users/Asosan/Documents/GitHub/BunTeX-System/BunTeX/buntexc}
+% トンボの設定
+% https://github.com/abenori/jlreq/blob/master/jlreq-trimmarks-ja.md を参照のこと
+\usepackage[show={trimmarks,digital}, bleed_margin={top=3mm,bottom=3mm,gutter=3mm,fore-edge=3mm}, lualatex]{jlreq-trimmarks}
+\setlength{\topskip}{5mm}
+\setmainfont[
+    OpticalSize = 0,
+    SmallCapsFont = lmromancaps10-regular,
+    SlantedFont = lmromanslant10-regular,
+    FontFace = {sb}{n}{lmromandemi10-regular}
+]{Latin Modern Roman}
+
+%✅3. 枠囲み%  ✅key・❌指針・✅例題・✅補足・✅参考・✅注意・❌p68問題例
+% 参考
+\newenvironment{framebox-ref}[1]{\begin{ascolorbox5}[\gothic{#1}]{参~考}}{\end{ascolorbox5}}
+\newenvironment{framebox-note}[1]{\begin{ascolorbox19}[\gothic{#1}]{補足}}{\end{ascolorbox19}}
+\newenvironment{framebox-simple}[1]{\begin{simplesquarebox}{\gothic{#1}}}{\end{simplesquarebox}}
+\newenvironment{framebox-key}{\begin{simplesquarebox}{\gothic{KEY}}}{\end{simplesquarebox}}
+\newenvironment{framebox-simplen}[2]{\begin{simplesquarebox}[\gothic{#2}]{\gothic{#1}}}{\end{simplesquarebox}}
+\newenvironment{framebox-ex}[2]{\begin{ascolorbox4}[\gothic{#2}]{\gothic{#1}}}{\end{ascolorbox4}}
+\newenvironment{framebox-warning}[1]{\begin{ascolorbox13}[\gothic{#1}]{\gothic{注意}}}{\end{ascolorbox13}}
+\newenvironment{framebox-practice}[1]{\begin{practicebox}{\gothic{#1}}}{\end{practicebox}}
+\newenvironment{framebox-guideline}[1]{\begin{ascolorbox16}{\gothic{指針}}}{\end{ascolorbox16}}
+
+
+
+
+
+\newcommand{\blankbox}[1]{~\boxed{\phantom{aa}{\textgt{#1}}\phantom{aa}}~}
+
+
+
+
+
+
+%------------未検閲-------------
+
+%PageStyle
+\NewPageStyle{normal}{
+    yoko,
+    running_head_position=top-right,
+    nombre_position=top-right,
+    nombre=,
+    odd_running_head=\headerodd,
+    even_running_head=\headereven,
+}
+
+%%%% テキストをTikzで置き換え
+
+\newcommand{\headerodd}{%
+    \vbox to 17mm{\vskip-15.53mm
+        \hbox to 127mm{
+            \hfill
+            {\raise2mm\hbox{{\selectsize{10pt}{10pt}\textgt{第１回\hspace{1\zw}原子とイオン}}}
+            \hspace{5mm}
+            \begin{tikzpicture}
+                \fill[black] (0,0) rectangle (3mm,20mm);
+            \end{tikzpicture}}
+            \hspace{0mm}
+            \raise2mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{105}}}}
+            \hspace{-12.61mm}
+        }\vss}
+}
+
+\newcommand{\headereven}{%
+    \vbox to 17mm{\vskip-15.53mm
+        \hbox to 127mm{\hskip-16.08mm
+            \hbox to 11.5mm{\hfill\raise2mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{105}}}}}
+            \hspace{0.46mm}
+            \begin{tikzpicture}
+                \fill[black] (0,0) rectangle (3mm,20mm);
+            \end{tikzpicture}
+            \hspace{5mm}
+            {\raise2mm\hbox{{\fontsize{10pt}{10pt}\selectfont\textgt{第１回\hspace{1\zw}原子とイオン}}}
+            }
+        \hss}\vss}
+}
+
+
+%✅2. セクション%  ❌p96,109 chapter, ✅section, ✅subsection, ✅p63 二重▷,  ❌p103 修正, ✅p72　▶︎　環境依存文字を使用, ✅p45-46 キーポイント
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\ModifyHeading{section}{%
+format={%
+\vspace{10mm}
+\vbox to 13.5mm{\vskip-0mm
+    \hbox to 144mm{\hskip-3mm
+    \begin{tikzpicture}
+        \fill[black!70] (6.5mm,4.75mm) ellipse (6.5mm and 4.75mm);
+        \draw[white] (6.5mm,4.75mm) node {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusixE \S {\fontsize{12pt}{12pt}\selectfont \thesection}}};
+        \draw[text=black!90] node (A) at (22mm,4.75mm) [anchor=west] {\hbox{\fontsize{12pt}{12pt}\selectfont\HiraKakusix #2}};
+        \draw[line width=1pt, black!70] (19mm,8.75mm) -- (140mm,8.75mm);
+        \draw[line width=1pt, black!70] (13mm,0.75mm) -- (140mm,0.75mm);
+        \fill[black!90] (13mm,0.75mm) circle (0.5mm);
+        \fill[black!90] (19mm,8.75mm) circle (0.5mm);
+        \draw[line width=1pt, black!70] (140mm,0.75mm) arc (-90:90:4mm);
+    \end{tikzpicture}
+    \hss}\vss}
+    \vskip-10mm
+}
+}
+
+
+\ModifyHeading{subsection}{%
+format={%
+\vspace{10mm}
+\vbox to 6.6mm{\vskip-0mm
+    \hbox to 142mm{\hskip-0mm
+        \begin{tikzpicture}
+            \fill[black!90, rounded corners=1mm] (0mm,0mm) [anchor=north west] rectangle (9mm,6mm);
+            \draw[white] (4.5mm,3mm) node {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusixE \thesubsection}};
+            \draw[line width=1pt, black!90] (9mm,3mm) -- (14mm,3mm);
+            \fill[black!90] (141.25mm,3mm) circle (0.75mm);
+            \draw[text=black!90] node (A) at (14mm,3mm) [anchor=west] {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusix #2}};
+            \draw[line width=1pt, black!90] (A.east) --  (141.25mm,3mm);
+        \end{tikzpicture}
+    \hss}\vss}
+}
+}
+
+\newcommand{\keypoint}[1]{\hbox to 142mm{\hskip-0mm
+\noindent ▶︎ \uline[background, color=black!30, width=1mm, position=0pt]{\gothic{こんにちは}}
+\hss}}
+\newcommand{\subkeypoint}[1]{\hbox to 142mm{\hskip-0mm
+\noindent \(\triangleright\triangleright\)~\gothic{#1}
+\hss}}
+
+
+
+
+
+
+
+
+%✅4. 画像挿入% 図入れ　❎p4ミニページ, ✅p5全体, ❎p13, ✅p32二つ並べ, ✅p414255 wrapfig, p61キャプションなし画像, ❎p91
+\newcommand{\singleimage}[3]{%
+\begin{figure}[H]
+    \centering
+    \includegraphics[keepaspectratio, width=#1]{#2}
+    \gothic{\caption{#3}}
+\end{figure}}
+
+\newcommand{\doubleimage}[4]{%
+    \begin{figure}[H]
+        \begin{minipage}[b]{0.45\linewidth}
+          \centering
+          \includegraphics[keepaspectratio, width=\columnwidth]{#1}
+          \gothic{\caption{#2}}
+        \end{minipage}
+        \hspace{0.1\columnwidth}
+        \begin{minipage}[b]{0.45\linewidth}
+          \centering
+          \includegraphics[keepaspectratio, width=\columnwidth]{#3}
+          \gothic{\caption{#4}}
+        \end{minipage}
+      \end{figure}
+}
+
+%#1と#2の差は6mm
+\newcommand{\wrapfig}[3]{%
+    \begin{wrapfigure}{r}[0pt]{\advance#1 by 6mm}
+        \centering
+          \includegraphics[width=#1]{#2}
+        \gothic{caption{#3}}
+       \end{wrapfigure}
+}
+
+\newcommand{\singleimagenocap}[2]{%
+\begin{figure}[H]
+    \centering
+    \includegraphics[keepaspectratio, width=#1]{#2}
+\end{figure}
+}
+
+
+
+
+%5. 表% p5, p38, p86
+\usepackage{colortbl}
+\newcolumntype{I}{!{\vrule width 1pt}}
+
+
+%✅6. リスト%  ✅p19リスト ・, ✅(1), ✅p29,76①, ✅p31四角1, ✅p39・→Quoteとの合わせ一本, ❎p135 サブ(a), ❌p21 description?
+%\jlreqsetup{
+    %quote_indent=<寸法>,
+    %quote_end_indent=<寸法>,
+    %quote_beforeafter_space=<寸法>,
+    %itemization_beforeafter_space=<寸法>,
+    %itemization_itemsep=<寸法>
+%}
+\renewcommand{\labelitemi}{・~}
+\newenvironment{enumerate-brackets}{\begin{enumerate}\renewcommand{\labelenumi}{\ajKakko{\arabic{enumi}}~}}{\end{enumerate}}
+\newenvironment{enumerate-circle}{\begin{enumerate}\renewcommand{\labelenumi}{\ajMaru{\arabic{enumi}}~}}{\end{enumerate}}
+\newenvironment{enumerate-square}{\begin{enumerate}\renewcommand{\labelenumi}{\ajKaku{\arabic{enumi}}~}}{\end{enumerate}}
+\newenvironment{enumerate-alphabet}{\begin{enumerate}\renewcommand{\labelenumii}{\ajKakkoalph{\arabic{enumii}}~}}{\end{enumerate}}
+
+%8. 空欄% p53 四角空欄
+
+
+%9. 索引% ✅索引
+\usepackage{makeidx}
+\makeindex
+
+
+%✅10. その他% ✅p62 3mmまでならギリギリ配置→美文書
+
+
+%11. 表紙系統%　カリキュラム表, ✅表1,✅3,✅4, p2p3授業概要, 背表紙
+\newcommand{\covera}[5]{
+    \vbox to 151mm{\vskip-6.71mm
+        \hbox to 227mm{\hskip-10.52mm
+        \begin{tikzpicture}
+            \draw[line width=0.4pt] (0,0) rectangle (150mm,-226mm);
+            \fill[black] (150mm,-1mm) rectangle (151mm,-227mm);
+            \fill[black] (1mm,-226mm) rectangle (151mm,-227mm);
+            \draw[text=black] node (A) at (0mm,-21mm) [anchor=north west] {\hbox{\textgt{\selectsize{15pt}{15pt}\hspace{5mm}#1}}};
+            \draw[text=black] node (B) at (0mm,-33mm) [anchor=north west] {\hbox{\hspace{5mm}\textgt{\bfseries\selectsize{20pt}{20pt}#2}\hspace{5mm}}};
+            \draw[line width=1mm, black] (0mm,-30mm) -- ($(B.north east) + (0mm,3mm)$);
+            \draw[text=black] node (C) at (130mm,-211mm) [anchor=south east] {\hbox{\textgt{\selectsize{12pt}{12pt}{\bfseries #3}#4}}};
+            \draw[text=black] node (D) at (151mm,-233mm) [anchor=south east] {\hbox{\textsf{\selectsize{12pt}{12pt}#5}}};
+        \end{tikzpicture}
+        \hss}\vss}
+    \newpage
+}
+
+% 二段組（授業概要時）
+\setlength{\columnseprule}{.4pt}
+\setlength{\columnsep}{6mm}
+\newcommand{\aboutsection}[1]{\noindent\gothic{【#1】}\\}
+\newcommand{\aboutsubsection}[1]{\noindent\gothic{#1}\\}
+
+
+
+
+
+\renewcommand{\emph}[1]{\uline{\boldtext{#1}}}
+
+
+\begin{document}
+% 表紙
+\pagestyle{empty}
+\covera{高１数学　後期}{数学発展講座~\textsf{I}~／~\textsf{II}　第２部}{鉄緑会}{数学科}{21B4-1003}
+
+\pagestyle{normal}
+%1
+\ltjruby{九|去|法}{きゅう|きょ|ほう}　
+\kenten{こんにちは}　
+\boldtext{これは太字です。}　
+\uline{ただの下線}　
+\emph{強調の下線}　
+\udash{点線の下線}　
+\uwave{波線の下線}　
+\mline{打ち消し線}　
+\gothic{ただのゴシック体です}　
+\highlighter{マーカーで弾くやつ}
+\keywordtext{強酸と弱酸の塩を足すとこうなるよ}
+
+%用例
+\ltjruby{山|路}{やま|みち}を登りながら、こう考えた。
+
+智ちに働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。\kenten{こんにちは}
+
+住みにくさが高こうじると、\kenten{安い所へ}引き越したくなる。\boldtext{どこへ越しても住みにくいと悟さとった時、詩が生れて、画えが出来る。}
+
+人の世を作ったものは神でもなければ鬼でもない。やはり向う\uline{三軒両隣}にちらちらするただの人である。ただの人が作った人の世が住みにくいからとて、\emph{越す国はあるまい}。あれば人でなしの国へ行くばかりだ。人でなしの国は人の世よりもなお住みにくかろう。
+
+越す事のならぬ\udash{世が住みにくければ}、住みにくい所をどれほどか、寛容くつろげて、束つかの間まの命を、\uwave{束の間でも住みよくせねばならぬ}。ここに\mline{詩人}という天職が出来て、ここに画家という使命が降くだる。あらゆる芸術の士は人の世を長閑のどかにし、人の心を豊かにするが故ゆえに尊たっとい。
+
+\gothic{住みにくき世から、住みにくき煩わずらいを引き抜いて、}ありがたい世界をまのあたりに写すのが\highlighter{詩である、画えである}。あるは音楽と彫刻である。こまかに云いえば写さないでもよい。ただまのあたりに見れば、そこに詩も生き、歌も湧わく。着想を紙に落さぬとも※（「王＋膠のつくり」、第3水準1-88-22）鏘きゅうそうの音おんは胸裏きょうりに起おこる。丹青たんせいは画架がかに向って塗抹とまつせんでも五彩ごさいの絢爛けんらんは自おのずから心眼しんがんに映る。ただおのが住む世を、かく観かんじ得て、霊台方寸れいだいほうすんのカメラに澆季溷濁ぎょうきこんだくの俗界を清くうららかに収め得うれば足たる。この故に無声むせいの詩人には一句なく、無色むしょくの画家には尺※（「糸＋賺のつくり」、第3水準1-90-17）せっけんなきも、かく人世じんせいを観じ得るの点において、かく煩悩ぼんのうを解脱げだつするの点において、かく清浄界しょうじょうかいに出入しゅつにゅうし得るの点において、またこの不同不二ふどうふじの乾坤けんこんを建立こんりゅうし得るの点において、我利私慾がりしよくの覊絆きはんを掃蕩そうとうするの点において、――千金せんきんの子よりも、万乗ばんじょうの君よりも、あらゆる俗界の寵児ちょうじよりも幸福である。
+
+
+
+
+\newpage
+%枠囲み
+\begin{framebox-simple}{水のイオン積の定義}
+これは枠囲みです。ワクワク。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-simple}
+
+\begin{framebox-ref}{お役立ち情報}
+これは枠囲みです。ワクワク。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-ref}
+
+\begin{framebox-key}
+これは枠囲みです。ワクワク。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-key}
+
+\begin{framebox-simplen}{例題11-1}{溶解度積の定義}
+これは枠囲みです。ワクワク。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-simplen}
+
+\begin{framebox-note}{添字の意味}
+これは枠囲みです。ワクワク。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-note}
+
+\begin{framebox-ex}{強調}{女の子可愛いってさ}
+これは枠囲みです。ワクワク。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-ex}
+
+\begin{framebox-warning}{扱い方について}
+これは枠囲みです。ワクワク。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-warning}
+\extendpage
+\begin{framebox-practice}{扱い方について}
+    これは枠囲みです。ワクワク。\\
+    智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+    \end{framebox-practice}
+
+\begin{framebox-guideline}
+これは枠囲みです。ワクワク\footnotemark[6]。\\
+智に働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば窮屈きゅうくつだ。とかくに人の世は住みにくい。
+\end{framebox-guideline}
+山路やまみちを登りながら、こう考えた。
+\footnotetext[6]{これは個人的な感想です。女の子可愛い。}
+
+智ちに働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば\blankbox{1}だ。とかくに人の世は住みにくい。
+
+住みにくさが高こうじると、安い所へ引き越したくなる。どこへ越しても住みにくいと悟さとった時、詩が生れて、画えが出来る。
+
+人の世を作ったものは神でもなければ鬼でもない。やはり向う三軒両隣りょうどなりにちらちらするただの人である。ただの人が作った人の世が住みにくいからとて、越す国はあるまい。あれば人でなしの国へ行くばかりだ。人でなしの国は人の世よりもなお住みにくかろう。
+
+越す事のならぬ世が住みにくければ、住みにくい所をどれほどか、寛容くつろげて、束つかの間まの命を、束の間でも住みよくせねばならぬ。ここに詩人という天職が出来て、ここに画家という使命が降くだる。あらゆる芸術の士は人の世を長閑のどかにし、人の心を豊かにするが故ゆえに尊たっとい。
+
+住みにくき世から、住みにくき煩わずらいを引き抜いて、ありがたい世界をまのあたりに写すのが詩である、画えである。あるは音楽と彫刻である。こまかに云いえば写さないでもよい。ただまのあたりに見れば、そこに詩も生き、歌も湧わく。着想を紙に落さぬとも※(「王＋膠のつくり」、第3水準1-88-22)鏘きゅうそうの音おんは胸裏きょうりに起おこる。丹青たんせいは画架がかに向って塗抹とまつせんでも五彩ごさいの絢爛けんらんは自おのずから心眼しんがんに映る。ただおのが住む世を、かく観かんじ得て、霊台方寸れいだいほうすんのカメラに澆季溷濁ぎょうきこんだくの俗界を清くうららかに収め得うれば足たる。この故に無声むせいの詩人には一句なく、無色むしょくの画家には尺※(「糸＋賺のつくり」、第3水準1-90-17)せっけんなきも、かく人世じんせいを観じ得るの点において、かく煩悩ぼんのうを解脱げだつするの点において、かく清浄界しょうじょうかいに出入しゅつにゅうし得るの点において、またこの不同不二ふどうふじの乾坤けんこんを建立こんりゅうし得るの点において、我利私慾がりしよくの覊絆きはんを掃蕩そうとうするの点において、――千金せんきんの子よりも、万乗ばんじょうの君よりも、あらゆる俗界の寵児ちょうじよりも幸福である。
+
+
+\newpage
+\begin{framebox-key}
+    \begin{itemize}
+        \item こんにちは
+        \item おはよう
+        \item また来年
+        \item おはよう
+    \end{itemize}
+    \begin{enumerate-brackets}
+        \item こんにちは
+        \item おはよう
+        \item また来年
+        \item おはよう
+    \end{enumerate-brackets}
+\end{framebox-key}
+
+\begin{itemize}
+    \item こんにちは
+    \item おはよう
+    \item また来年
+    \item おはよう
+\end{itemize}
+
+智ちに働けば角かどが立つ。情じょうに棹さおさせば流される。意地を通とおせば\blankbox{1}だ。とかくに人の世は住みにくい。
+
+\begin{enumerate-brackets}
+    \item こんにちは
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+    \item おはよう
+    \item また来年
+    \item おはよう
+\end{enumerate-brackets}
+
+住みにくさが高こうじると、安い所へ引き越したくなる。どこへ越しても住みにくいと悟さとった時、詩が生れて、画えが出来る。
+
+\begin{enumerate-brackets}
+    \item こんにちは
+    \item おはよう
+    \item また来年
+    \item おはよう
+\end{enumerate-brackets}
+\begin{enumerate-circle}
+    \item こんにちは
+    \item おはよう
+    \item また来年
+    \item おはよう
+\end{enumerate-circle}
+\begin{enumerate-square}
+    \item こんにちは
+    \begin{enumerate-alphabet}
+        \item おはよう
+        \item こんにちは
+        \item 揚妻慶斗
+        \item 松丸幸弘
+        \item 関根大仁
+    \end{enumerate-alphabet}
+    \item おはよう
+    \item また来年
+    \item おはよう
+\end{enumerate-square}
+\begin{quote}
+\begin{itemize}
+    \item イオン結晶は須田本
+    \item あげつまはkaage
+    \item 本日はもう寝るとしよう
+\end{itemize}
+\end{quote}
+
+\newpage
+\pagestyle{normal}
+\vspace*{9mm}
+\gothic{\hspace*{-1.5\zw}【高１化学　週別カリキュラム表】\hfill 《2021年度　月曜日》}
+\vspace{2mm}
+\begin{center}
+    \begin{tabularx}{140mm}{Ic|c|c|C|cI} \noalign{\global\arrayrulewidth1pt} \hline \noalign{\global\arrayrulewidth.3pt}
+        \gothic{日付} & \gothic{曜日} & \gothic{週} & \gothic{授業内容} & \gothic{総復習テスト} \\ \noalign{\global\arrayrulewidth1pt} \hline \noalign{\global\arrayrulewidth.3pt}
+        \gothic{１月10日} & \gothic{(月)} & \gothic{第01週} & \gothic{原子とイオン} & \gothic{-} \\ \noalign{\global\arrayrulewidth.3pt} \hline 
+        \gothic{１月10日} & \gothic{(月)} & \gothic{第01週} & \gothic{原子とイオン} & \gothic{-} \\ \hline
+        \gothic{１月10日} & \gothic{(月)} & \gothic{第01週} & \gothic{原子とイオン} & \gothic{-} \\ \hline
+        \rowcolor[gray]{0.8} \gothic{１月10日} & \gothic{(月)} & \multicolumn{3}{cI}{\gothic{第４期休講期間}} \\ \noalign{\global\arrayrulewidth1pt} \hline
+    \end{tabularx}
+\end{center}
+\vspace{2mm}
+\gothic{※W1・W2とはダブル授業の１回目・２回目を指します。}
+
+
+\pagestyle{empty}
+\vfill
+\begin{center}
+    \setlength{\tabcolsep}{5truemm}
+    \renewcommand{\extrarowheight}{2mm}
+    \begin{tabular}[H]{c} \toprule
+        高１化学\\
+        {\fontsize{14pt}{14pt}\selectfont\kintou{44mm}{化学基礎講座}}\\
+        \rule[0mm]{0mm}{8mm}\\
+        \kintou{12mm}{編者}\hspace{8mm} \kintou{24mm}{鉄緑会化学科}\\
+        \kintou{12mm}{発行者}\hspace{8mm} \kintou{24mm}{鉄緑会}\\
+        2021~年~1~月~1~日　　　　初版第１刷発行\\\bottomrule
+        \multicolumn{1}{l}{非売品}\\
+        \multicolumn{1}{l}{許可なしに転載、複製、転売、譲渡することを禁じます。}\\
+        \rule[0mm]{84.5mm}{0mm}\\
+    \end{tabular}
+\end{center}
+\vspace{10mm}%??
+
+\newpage
+\vbox to 15mm{\vskip0mm
+    \hbox to 144mm{\hskip0mm
+        　\hfill　\gothic{\selectsize{15pt}{15pt}クラス~}\underline{\hspace{23mm}}\hspace{5mm}\gothic{\selectsize{15pt}{15pt}氏名~}\underline{\hspace{70truemm}}
+
+        　\hfill　\gothic{21G4-0101}
+    \hss}\vss}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+
+\newpage
+\chapter{原子とイオン}
+\section{おはよう}
+\subsection{こんにちは}
+\keypoint{キーポイント}
+\subkeypoint{サブキーポイント}
+
+\uline{テキストのアンダーライン}、\boldtext{\uline{太字の下線}}\\
+\mline{取り消し線、変なこと言うなよ}\\
+\uwave{なみなみ線たのしいね☆}
+\udotline{点線の下線みたい}
+なんとなくの\kenten{わくわく}\\
+\textgt{\ltjruby{九}{きゅう}\ltjruby{去}{きょ}\ltjruby{法}{ほう}}こんなかんじかな
+
+\begin{framebox-note}{サンプル}
+    これが補足だよ☆
+\end{framebox-note}
+\begin{framebox-ref}{参考のタイトル}
+これが参考だよ☆
+\end{framebox-ref}
+
+
+
+
+\newpage
+\section{こんにちは}
+\nosubsection
+\boldtext{自然界⑵}には、さまざまな物質が存在するが、その成分を分解してゆくと、どのような成分にたどり着くのか。
+この問題は、古代からさまざまな哲学者・科学者によって議論されてきた。
+\section{展示を行う場合}
+\subsection{調べ物とは}
+展示には色々な形態があります。調べたことを模造紙に書いてパネルに貼っていく（場合によってはパネルに直接書く）、模型を作って展示する、来場者に体験をしてもらう、といったものが挙げられるでしょう。これらの複数を組み合わせても良いでしょう。しかし、いずれの方法をとるにしても、何らかの形でものを調べる・調査するということが必要になります。
+調査をする方法にも色々あり、図書館や本屋で文献を探す、新聞や雑誌の記事を探す、インターネットから情報を集めるといった方法のほか、専門家にアポを取って直接お話をいただくという手もあります。\\これらの中でどの調査方法をとるかによって、展示のクオリティーや、そのデコが得るものが大きく違ってきます。
+本章では、調査の中でも特に重要と思われる文献調査のコツを紹介していきます。ここに書かれたことを参考にして、各デコで実りある調査・研究をし、その成果を文化祭で多くの来場者に発表していただければと思います。ただし、本章の記述には主観も多分に含まれていますので、鵜呑みにはせず、各デコの判断で活用してください。なお、本章は、小冊子「調査のための文献探索案内」（本校国語科編、2006.09）を基に書き起こされたものです。
+\subsection{文献調査の意義}
+某高校の文化祭でとある展示に足を運んだ時、展示されていた文章にふと違和感を覚え、携帯電話でWikipediaの当該ページを覗いてみました。するとどうでしょう、展示されていた文章はWikipediaのまる写しだったのです。
+これは流石に極端ですが、インターネットの内容を貼り合わせてきただけのものを展示するだけでは、来場者の関心を惹きつけるどころかその目をごまかすことすらままなりませんし、デコが得るものも少ないことでしょう。
+また、よく言われることですが、ウェブサイトの内容は必ずしも正しくありません。インターネットの場合は誰が書いているかも分からず、従って書き手は自分の書いたものに対して無責任であると言って良いでしょう（例えば、一般の人が専門家を騙り、デタラメなことを書くことも可能なのです）。
+一方、文献の場合は著者が明示されており、書き手はその文献の内容に対する責任を認識しているはずです。確かに文献にも誤りはあるかもしれませんが、その数はインターネットよりも大幅に少ないは
+\subsection{調べ物とは}
+展示にはいろいろな形態がありますね～！
+
+\section{原子}
+\subsection{物質の構成成分をめぐる歴史}
+全ての原子の中で最も簡単なのは水素原子であり、１個の用紙からなる原子核と１個の原子
+から構成されている。また、ヘリウム原子は、２個
+
+
+さてさてこんなことしてる場合じゃないんですよ先生。明日はそうふくですよ？まだ勉強してないんだけど。困ったね全く。
+
+
+
+
+{\HiraKakusix\selectsize{15pt}{15pt}\noindent 高１化学　授業概要（{\HiraKakusixE 2021}年度）}
+
+\begin{multicols*}{2}
+    \aboutsection{学習目標}
+    \indent 化学基礎講座においては、高１の４月から高２の３月にかけての15ヶ月間で、高校化学を一通り一周します。\\
+    \vspace{5mm}
+    \aboutsubsection{⑴化学基礎講座}
+\end{multicols*}
+
+
+上演の許可が下りた場合、次は改変の許可を取ってください。\\
+文化祭で上演する場合、長い脚本を短くしたり、台詞を言いやすいように変えたり、ということが行われると思いますが、それが著作者人格権の侵害になる可能性があります。
+演じやすいように自由に変えてかまわない、といわれた場合には問題はありませんが、改変をするなと言われることもあります。その場合、上演時間が長くなる等の問題が起こりますので、こちらもデコの中で意見統一をしておきましょう。
+上演、改変の許可が取れたら書面で正式に申請してください。テンプレートは最後に載せてあります。
+\\
+(5)改変終了後に許可を取る\\
+改変の許可において最も多いのは「見せてもらわないと分からない」という返答でしょう。\\
+その場合、脚本を上演用に書き直し、著作者に見せる必要があります。本番までに時間がありますから暫定的なものになるでしょうが、それを郵送する形になると思います。郵送を7月の終わりまでに行えればあとの流れがスムーズです。
+脚本の書き換えが終わったら、著作者に電話を入れてこれから郵送する旨を伝えてください。電話の際、以降本番までに細かい変更が多くありそうだ、ということも伝えておきましょう。
+また「文化祭に向けて、非常に短い期間で制作を行う」ということを説明するとよいでしょう。プロの世界は余裕のあるスケジュールで動いていることも多く、誤解を防ぐためにも事情をよく知っておいてもらう必要があります。
+具体的な案が先方から出ない場合、8・9月末に\footnotemark[1] 変更箇所の一覧を送るという提案をして話し合ってください。そして看過できない変更のあった場合には連絡をお願いします、といってください。
+言うまでも無いことですが、文化祭本番の日付も伝え忘れないように。
+\footnotetext[1]{tomはギリシャ語で「切る」を意味し、それを接頭辞a-で否定することで、atomで「着ることができない」という意味になる。tomが「着る」を意味している英単語としては、anatomy（解剖学）などがある。}
+作者も忙しいのであまり頻繁に連絡をして邪魔をしないようにしましょう。\\
+10月中旬には上演用の脚本が確定すると思います。その際は確定版であることを伝えて著作者に送り、本番に臨みましょう。
+\\
+(6)お礼をする\\
+文化祭が終了したら著作者・著作権者にお礼の挨拶をしましょう。お礼の仕方には手紙を送るほかビデオに撮って郵送するなど様々な方法があると思いますが、最善の方法は各デコで判断してください。何より大切なのは相手方との信頼関係を築くことで
+
+\newpage
+
+\newpage
+\end{document}
+\end{comment}
