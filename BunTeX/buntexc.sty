@@ -1,12 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{buntexc}[2022/04/17]
+\ProvidesPackage{buntexc}[2022/06/26]
 % LuaLaTeX, jlreqの新規格で行う
 % B5, 書籍, フォントサイズ, ページレイアウト設定
 % https://github.com/abenori/jlreq/blob/master/README-ja.md を参照のこと
 
 % 0. Common: usepackage
 \usepackage{graphicx, xcolor, tikz} % グラフィック関係
-\usepackage[math-style=TeX, bold-style=ISO]{unicode-math} % 数式関係（ほぼ関係ない）
+%\usepackage[math-style=TeX, bold-style=ISO]{unicode-math} % 数式関係（ほぼ関係ない）
 \usepackage{tcolorbox}
 \usepackage{makeidx} % 索引用
 \usepackage{ascmac} % 表紙のボックスとか
@@ -36,6 +36,8 @@
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage[edges]{forest}
+\usepackage{bookmark}
+\usepackage{multirow}
 
 \usetikzlibrary{intersections, calc, trees}
 \tcbuselibrary{breakable} % tcolorbox改ページ設定
@@ -52,7 +54,6 @@
 \usepackage{fontspec}
 \usepackage{luatexja}
 \usepackage[deluxe]{luatexja-fontspec}
-\setmainfont{Palatino}
 \newfontface{\Palatino}{Palatino}
 \newfontface{\LatinModern}[
     OpticalSize = 0,
@@ -163,6 +164,7 @@
 \newcommand{\selectsize}[2]{\fontsize{#1}{#2}\selectfont}
 \newcommand{\keywordtext}[1]{\begin{center}{\selectsize{12pt}{15pt}\gothic{#1}}\end{center}}
 \newcommand{\highlighter}[1]{\uline[background,color={[rgb]{1,1,0.4}},width=5pt,position=1pt]{#1}}
+\renewcommand{\emph}[1]{\uline{\boldtext{#1}}}
 
 
 %✅7. 注釈% p49 footnote
@@ -180,5 +182,6 @@
 \newcommand{\BunTeXD}{B\kern-.12em\lower.2ex\hbox{u}\kern-.14em\raise.3ex\hbox{n}\kern-.16em\TeX D}
 \newcommand{\BunTeXJ}{文\kern-.05em\TeX}
 
+\newcommand{\blankbox}[1]{~\boxed{\phantom{aa}{\textgt{#1}}\phantom{aa}}~}
 
 \endinput
