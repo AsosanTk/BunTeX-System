@@ -55,13 +55,9 @@
     \end{multicols*}
 }
 \newenvironment{onesideb5}{
-    \setlength{\columnsep}{7.5mm}
-    \setlength{\columnseprule}{0.3pt}
     \renewcommand{\baselinestretch}{1.05}
     \pagestyle{normalb5}
-    \begin{multicols*}{2}
 }{
-    \end{multicols*}
 }
 
 
@@ -556,19 +552,6 @@
 
 
 
-\newcommand{\mokujiitem}[3]{\hbox to 55mm{　#1　#2\hfill}\hbox to 65mm{\cdotsfill}\hbox to 10mm{\hfill\pageref{#3}}}
-
-\newenvironment{mokuji}{%
-\pagestyle{empty}
-\begin{center}
-\keywordtext{目　　　次}
-\vspace*{10mm}
-\begin{minipage}{130mm}
-\selectsize{10pt}{20pt}
-}{%
-\end{minipage}
-\end{center}
-}
 
 
 

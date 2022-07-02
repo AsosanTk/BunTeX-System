@@ -69,6 +69,7 @@
 ]{Helvetica Neue}
 \newfontface{\Hiramin}{HiraMinProN-W3}
 \newfontface{\HiraMaru}{HiraMaruProN-W4}
+\newfontface{\HiraKakutwoE}{HiraginoSans-W2}
 \setmonofont{Palatino}
 \setsansfont[FontFace = {l}{n}{HiraginoSans-W3}]{HiraginoSans}
 \newfontface{\HiraKakusixE}{HiraginoSans-W6}
@@ -100,6 +101,7 @@
 ]{HiraginoSans-W3}
 \newjfontface{\HiraMaruJ}{HiraMaruProN-W4}
 \newjfontface{\HiraKakusix}{HiraginoSans-W6}
+\newjfontface{\HiraKakutwo}{HiraginoSans-W2}
 \newjfontface{\HuiFont}{HuiFont}
 \newjfontface{\Kyokasyo}{YuKyo-Medium}
 
@@ -144,6 +146,10 @@
 \ltjsetparameter{kanjiskip=0pt plus 1fill minus 1fill}%
 \ltjsetparameter{xkanjiskip=\ltjgetparameter{kanjiskip}}%
 #2}}
+\makeatletter
+\newcommand{\cdotsfill}[1][.25\zw]{\leavevmode\cleaders\hb@xt@#1{\hss$\cdot\m@th$\hss}\hfill\kern\z@\ignorespaces}
+\makeatother
+
 
 
 %tabularx
@@ -183,5 +189,20 @@
 \newcommand{\BunTeXJ}{文\kern-.05em\TeX}
 
 \newcommand{\blankbox}[1]{~\boxed{\phantom{aa}{\textgt{#1}}\phantom{aa}}~}
+
+
+\newcommand{\mokujiitem}[3]{\hbox to 55mm{#1　#2\hfill}\hbox to 65mm{\cdotsfill}\hbox to 10mm{\hfill\pageref{#3}}}
+
+\newenvironment{mokuji}[1]{%
+\pagestyle{empty}
+\begin{center}
+\keywordtext{#1}
+\vspace*{10mm}
+\begin{minipage}{130mm}
+\selectsize{10pt}{20pt}
+}{%
+\end{minipage}
+\end{center}
+}
 
 \endinput
