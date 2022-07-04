@@ -2,10 +2,11 @@
 \ProvidesPackage{buntexb}[2022/06/26]
 % トンボの設定
 % https://github.com/abenori/jlreq/blob/master/jlreq-trimmarks-ja.md を参照のこと
-\usepackage[show={trimmarks,digital}, bleed_margin={top=3mm,bottom=3mm,gutter=3mm,fore-edge=3mm}, lualatex]{jlreq-trimmarks}
+%\usepackage[show={trimmarks,digital}, bleed_margin={top=3mm,bottom=3mm,gutter=3mm,fore-edge=3mm}, lualatex]{jlreq-trimmarks}
 \setlength{\topskip}{5mm}
 \setmainfont[
     OpticalSize = 0,
+    Scale = 1.1,
     SmallCapsFont = lmromancaps10-regular,
     SlantedFont = lmromanslant10-regular,
     FontFace = {sb}{n}{lmromandemi10-regular}
@@ -79,61 +80,140 @@
     yoko,
     running_head_position=top-right,
     nombre_position=top-right,
-    nombre=,
-    odd_running_head=\headerodd,
-    even_running_head=\headereven,
+    nombre=\hspace{-11.5mm}\raise17.2mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{~~\textit{\thepage}~}}}\hspace{-11.5mm},
+    odd_running_head={_chapter},
+    even_running_head={_chapter},
+    mark_format={odd=\headerodd{#1}, even=\headereven{#1}}
+}
+\NewPageStyle{chapterhead}{
+    yoko,
+    running_head_position=top-right,
+    nombre_position=top-right,
+    nombre=\hspace{-9.5mm}\raise34.5mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{\thepage}}}}\hspace{-9.5mm},
+}
+\NewPageStyle{appendix}{
+    yoko,
+    running_head_position=top-right,
+    nombre_position=top-right,
+    nombre=\hspace{-5mm}\raise26.9mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{\thepage}}}}\hspace{-8.1mm},
+    odd_running_head={\headeroddno{\appendixtitle}},
+    even_running_head={\headerevenno{\appendixtitle}},
 }
 
+\newcommand{\appendixtitle}{}
 %%%% テキストをTikzで置き換え
 
-\newcommand{\headerodd}{%
-    \vbox to 17mm{\vskip-15.53mm
+\newcommand{\headerodd}[1]{%
+    \vbox to 17mm{\vskip-17.83mm
         \hbox to 127mm{
             \hfill
-            {\raise2mm\hbox{{\selectsize{10pt}{10pt}\gothic{第~{\thechapter}~回\hspace{1\zw}_chapter}}}}
+            {\raise1.7mm\hbox{\selectsize{10pt}{10pt}\gothic{第~{\thechapter}~章\hspace{1\zw}#1}}
             \hspace{5mm}
             \begin{tikzpicture}
                 \fill[black] (0,0) rectangle (3mm,20mm);
             \end{tikzpicture}}
             \hspace{0mm}
-            \raise2mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{\thepage}}}}
-            \hspace{-12.61mm}
+            \raise1.7mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{~~~}}}}
+            \hspace{2.4mm}
         }\vss}
 }
 
-\newcommand{\headereven}{%
-    \vbox to 17mm{\vskip-15.53mm
-        \hbox to 127mm{\hskip-16.08mm
-            \hbox to 11.5mm{\hfill\raise2mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{\thepage}}}}}
+\newcommand{\headereven}[1]{%
+    \vbox to 17mm{\vskip-18.53mm
+        \hbox to 127mm{\hskip-3.28mm
+            \hbox to 11.5mm{\hfill\raise1.7mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{~~~}}}}}
             \hspace{0.46mm}
             \begin{tikzpicture}
                 \fill[black] (0,0) rectangle (3mm,20mm);
             \end{tikzpicture}
             \hspace{5mm}
-            {\raise2mm\hbox{{\fontsize{10pt}{10pt}\selectfont\gothic{第~{\thechapter}~回\hspace{1\zw}_chapter}}}}
+            {\raise1.7mm\hbox{\fontsize{10pt}{10pt}\selectfont\gothic{第~{\thechapter}~章\hspace{1\zw}#1}}}
         \hss}\vss}
 }
 
 
+\newcommand{\headeroddno}[1]{%
+    \vbox to 17mm{\vskip-28.33mm
+        \hbox to 127mm{
+            \hfill
+            {\raise1.7mm\hbox{\selectsize{10pt}{10pt}\gothic{#1}}
+            \hspace{5mm}
+            \begin{tikzpicture}
+                \fill[black] (0,0) rectangle (3mm,20mm);
+            \end{tikzpicture}}
+            \hspace{0mm}
+            \raise1.7mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{~~~}}}}
+            \hspace{-6.81mm}
+        }\vss}
+}
+
+
+\newcommand{\headerevenno}[1]{%
+    \vbox to 17mm{\vskip-27.53mm
+        \hbox to 127mm{\hskip-20.28mm
+            \hspace{9mm}
+            \hbox to 11.5mm{\hfill\raise1.7mm\hbox{{\selectsize{12pt}{12pt}\GenEiNombre{\textit{~~~}}}}}
+            \hspace{0.46mm}
+            \begin{tikzpicture}
+                \fill[black] (0,0) rectangle (3mm,20mm);
+            \end{tikzpicture}
+            \hspace{5mm}
+            {\raise1.7mm\hbox{\fontsize{10pt}{10pt}\selectfont\gothic{#1}}}
+        \hss}\vss}
+}
+
 %✅2. セクション%  ❌p96,109 chapter, ✅section, ✅subsection, ✅p63 二重▷,  ❌p103 修正, ✅p72　▶︎　環境依存文字を使用, ✅p45-46 キーポイント
 \renewcommand{\thesection}{\arabic{section}}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\ModifyHeading{chapter}{%
+format={%
+\vbox to 27mm{\vskip-11.6mm
+    \hbox to 150mm{\hskip-7mm
+    \begin{tikzpicture}
+        \fill[black!30] (13.5mm,-13.5mm) circle [x radius=15mm, y radius=7.5mm, rotate=45];
+        \fill[black!90] (0mm,0mm) -- (9mm,0mm) -- (27mm,-18mm) -- (27mm,-27mm) -- (18mm,-27mm) -- (0mm,-9mm) -- cycle;
+        \draw[line width=2pt, black!60] (36mm,-7mm) -- (143.5mm,-7mm);
+        \draw[line width=2pt, black!60] (30mm,-20mm) -- (143.5mm,-20mm);
+        \draw[line width=2pt, black!60] (143.5mm,-20mm) arc (-90:90:6.5mm);
+        \fill[white] (20mm,-2mm) circle (1.5mm);
+        \fill[black!80] (20mm,-2mm) circle (1mm);
+        \fill[white] (7mm,-25mm) circle (1.5mm);
+        \fill[black!80] (7mm,-25mm) circle (1mm);
+        \fill[black!90] (36mm,-7mm) circle (1mm);
+        \fill[black!90] (30mm,-20mm) circle (1mm);
+        \draw[white] (6mm,-6mm) node {\hbox{\selectsize{15pt}{15pt}\HiraKakusix{第}}};
+        \draw[white] (13.5mm,-13.5mm) node {\hbox{\selectsize{20pt}{20pt}\HiraKakusixE{\HiraKakusix{\thechapter}}}};
+        \draw[white] (21mm,-21mm) node {\hbox{\selectsize{15pt}{15pt}\HiraKakusix{章}}};
+        \draw[text=black!90] node (A) at (45mm,-13.5mm) [anchor=west] {\hbox{\selectsize{20pt}{20pt}\HiraKakusixE{\HiraKakusix{#2}}}};
+    \end{tikzpicture}
+    \hss}\vss}
+},
+before_space=0mm,
+after_lines=2,
+align=left,
+pagebreak=clearpage,
+}
+
 \ModifyHeading{section}{%
 format={%
 \vbox to 13.5mm{\vskip-0mm
     \hbox to 144mm{\hskip-3mm
     \begin{tikzpicture}
-        \fill[black!70] (6.5mm,4.75mm) ellipse (6.5mm and 4.75mm);
-        \draw[white] (6.5mm,4.75mm) node {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusixE \S {\fontsize{12pt}{12pt}\selectfont \thesection}}};
+        \fill[black!60] (6.5mm,4.75mm) ellipse (6.5mm and 4.75mm);
+        \draw[white] (6.5mm,4.75mm) node {\hbox{\fontsize{10.8pt}{10.8pt}\selectfont\HiraKakusixE \raise.7mm\hbox{{\S}}\kern.6mm{\fontsize{13pt}{13pt}\selectfont\thesection}}};
         \draw[text=black!90] node (A) at (22mm,4.75mm) [anchor=west] {\hbox{\fontsize{12pt}{12pt}\selectfont\HiraKakusix #2}};
-        \draw[line width=1pt, black!70] (19mm,8.75mm) -- (140mm,8.75mm);
-        \draw[line width=1pt, black!70] (13mm,0.75mm) -- (140mm,0.75mm);
+        \draw[line width=1pt, black!60] (19mm,8.75mm) -- (140mm,8.75mm);
+        \draw[line width=1pt, black!60] (13mm,0.75mm) -- (140mm,0.75mm);
         \fill[black!90] (13mm,0.75mm) circle (0.5mm);
         \fill[black!90] (19mm,8.75mm) circle (0.5mm);
-        \draw[line width=1pt, black!70] (140mm,0.75mm) arc (-90:90:4mm);
+        \draw[line width=1pt, black!60] (140mm,0.75mm) arc (-90:90:4mm);
     \end{tikzpicture}
     \hss}\vss}
-}
+},
+before_lines=2,
+after_space=1mm,
+align=left,
+pagestyle=normal,
 }
 
 
@@ -142,31 +222,82 @@ format={%
 \vbox to 6.6mm{\vskip-0mm
     \hbox to 142mm{\hskip-0mm
         \begin{tikzpicture}
-            \fill[black!90, rounded corners=1mm] (0mm,0mm) [anchor=north west] rectangle (9mm,6mm);
-            \draw[white] (4.5mm,3mm) node {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusixE\thesubsection}};
-            \draw[line width=1pt, black!90] (9mm,3mm) -- (14mm,3mm);
+            \fill[black!90, rounded corners=1mm] (0mm,0mm) [anchor=north west] rectangle (9mm,6mm);;
+            \draw[white] node (A) at (4.5mm,3mm) {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusixE{{\thesubsection}}}};
+            \draw[line width=1pt, black!90] (A.east) -- ($(A.east) + (5mm,0mm)$);
             \fill[black!90] (141.25mm,3mm) circle (0.75mm);
-            \draw[text=black!90] node (A) at (14mm,3mm) [anchor=west] {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusix #2}};
-            \draw[line width=1pt, black!90] (A.east) --  (141.25mm,3mm);
+            \draw[text=black!90] node (B) at ($(A.east) + (5mm,0mm)$) [anchor=west] {\hbox{\fontsize{10pt}{10pt}\selectfont\HiraKakusix #2}};
+            \draw[line width=1pt, black!90] (B.east) --  (141.25mm,3mm);
         \end{tikzpicture}
     \hss}\vss}
+},
+before_lines=1.5,
+after_space=2.5mm,
+align=left
 }
+\SetBlockHeadingSpaces{
+{_chapter,-3.6mm,_section,1mm}
+{_chapter,-3.6mm,_section,0mm,_subsection,2.5mm}
+{_chapter,-3.6mm,_section,0mm,_subsection,2.5mm,_keypoint,2mm}
+{_chapter,-3.6mm,_section,0mm,_subsection,2.5mm,_keypoint,2.5mm,_subkeypoint,2mm}
+{_section{before_lines=2},0mm,_subsection,2.5mm}
+{_section{before_lines=2},0mm,_subsection,2.5mm,_keypoint,2mm}
+{_section{before_lines=2},0mm,_subsection,2.5mm,_keypoint,2.5mm,_subkeypoint,2mm}
+{_subsection{before_lines=1.5},2.5mm,_keypoint,2mm}
+{_subsection{before_lines=1.5},2.5mm,_keypoint,2.5mm,_subkeypoint,2mm}
+{_keypoint{before_lines=1},2.5mm,_subkeypoint,2mm}
+%
+{_aboutsection{before_lines=1, after_space=1.5mm}, _aboutsubsection,1.5mm}
 }
 
 \NewBlockHeading{keypoint}{3}{%
 format={%
 \hbox to 142mm{\hskip-0mm
-\noindent ▶︎ \uline[background, color=black!30, width=1mm, position=0pt]{\gothic{#2}}
+\noindent ▶︎ \uline[background, color=black!20, width=0.7mm, position=-0.6mm]{\gothic{#2}}
 \hss}
-}
+},
+before_lines=1,
+after_space=2mm,
+align=left
 }
 
 \NewBlockHeading{subkeypoint}{4}{%
 format={%
 \hbox to 142mm{\hskip-0mm
-\noindent \(\triangleright\triangleright\)~\gothic{#1}
+\noindent \(\triangleright\triangleright\)~\gothic{#2}
 \hss}
+},
+before_lines=1,
+after_space=2mm,
+align=left
 }
+
+
+\NewBlockHeading{aboutchapter}{1}{%
+format={%
+{\HiraKakusix{\HiraKakusixE{\selectsize{15pt}{15pt}\noindent #2}}}
+},
+before_space=0mm,
+after_space=1mm,
+align=left
+}
+
+\NewBlockHeading{aboutsection}{2}{%
+format={%
+\noindent\gothic{【#2】}
+},
+before_lines=1,
+after_space=1.5mm,
+align=left
+}
+
+\NewBlockHeading{aboutsubsection}{3}{%
+format={%
+\noindent\gothic{#2}
+},
+before_lines=1,
+after_space=1.5mm,
+align=left
 }
 
 
@@ -180,32 +311,33 @@ format={%
 \begin{figure}[H]
     \centering
     \includegraphics[keepaspectratio, width=#1]{#2}
-    \gothic{\caption{#3}}
-\end{figure}}
+    \caption{\HiraKakutwoE{\HiraKakutwo{#3}}}
+\end{figure}
+}
 
 \newcommand{\doubleimage}[4]{%
     \begin{figure}[H]
         \begin{minipage}[b]{0.45\linewidth}
           \centering
           \includegraphics[keepaspectratio, width=\columnwidth]{#1}
-          \gothic{\caption{#2}}
+          \caption{\HiraKakutwoE{\HiraKakutwo{#2}}}
         \end{minipage}
         \hspace{0.1\columnwidth}
         \begin{minipage}[b]{0.45\linewidth}
           \centering
           \includegraphics[keepaspectratio, width=\columnwidth]{#3}
-          \gothic{\caption{#4}}
+          \caption{\HiraKakutwoE{\HiraKakutwo{#4}}}
         \end{minipage}
       \end{figure}
 }
 
 %#1と#2の差は6mm
 \newcommand{\wrapfig}[3]{%
-    \begin{wrapfigure}{r}[0pt]{\advance#1 by 6mm}
+    \begin{wrapfigure}{r}[0pt]{#1}
         \centering
-          \includegraphics[width=#1]{#2}
-        \gothic{caption{#3}}
-       \end{wrapfigure}
+        \includegraphics[width=#1]{#2}
+        \caption{\HiraKakutwoE{\HiraKakutwo{#3}}}
+    \end{wrapfigure}
 }
 
 \newcommand{\singleimagenocap}[2]{%
@@ -214,6 +346,8 @@ format={%
     \includegraphics[keepaspectratio, width=#1]{#2}
 \end{figure}
 }
+
+\renewcommand{\thefigure}{\HiraKakutwoE{\HiraKakutwo{図\arabic{section}.\arabic{figure}}}}
 
 
 
@@ -229,11 +363,11 @@ format={%
             \draw[line width=0.4pt] (0,0) rectangle (150mm,-226mm);
             \fill[black] (150mm,-1mm) rectangle (151mm,-227mm);
             \fill[black] (1mm,-226mm) rectangle (151mm,-227mm);
-            \draw[text=black] node (A) at (0mm,-21mm) [anchor=north west] {\hbox{\gothic{\selectsize{15pt}{15pt}\hspace{5mm}#1}}};
-            \draw[text=black] node (B) at (0mm,-33mm) [anchor=north west] {\hbox{\hspace{5mm}\gothic{\bfseries\selectsize{20pt}{20pt}#2}\hspace{5mm}}};
+            \draw[text=black] node (A) at (0mm,-19.7mm) [anchor=north west] {\hbox{\gothic{\selectsize{14pt}{14pt}\hspace{5mm}#1}}};
+            \draw[text=black] node (B) at (0mm,-32mm) [anchor=north west] {\hbox{\hspace{5mm}\HiraKakusix{\selectsize{22pt}{22pt}#2}\hspace{5mm}}};
             \draw[line width=1mm, black] (0mm,-30mm) -- ($(B.north east) + (0mm,3mm)$);
-            \draw[text=black] node (C) at (130mm,-211mm) [anchor=south east] {\hbox{\gothic{\selectsize{12pt}{12pt}{\HiraKakusixE{#3}}#4}}};
-            \draw[text=black] node (D) at (153mm,-233mm) [anchor=south east] {\hbox{\textsf{\selectsize{12pt}{12pt}#5}}};
+            \draw[text=black] node (C) at (130mm,-211.5mm) [anchor=south east] {\hbox{\gothic{\selectsize{16pt}{16pt}{\HiraKakusix{#3}}#4}}};
+            \draw[text=black] node (D) at (152mm,-234.5mm) [anchor=south east] {\hbox{\gothic{\selectsize{11.5pt}{11.5pt}#5}}};
         \end{tikzpicture}
         \hss}\vss}
     \newpage
@@ -242,8 +376,6 @@ format={%
 % 二段組（授業概要時）
 \setlength{\columnseprule}{.4pt}
 \setlength{\columnsep}{6mm}
-\newcommand{\aboutsection}[1]{\noindent\gothic{【#1】}\\}
-\newcommand{\aboutsubsection}[1]{\noindent\gothic{#1}\\}
 
 
 
